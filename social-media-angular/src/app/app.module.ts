@@ -16,7 +16,7 @@ import { UserCardComponent } from './components/user-card/user-card.component';
 import { UserInitialsPipe } from './pipes/user-initials.pipe';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
-import { PostsComponent } from './posts/posts.component';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ import { PostsComponent } from './posts/posts.component';
     NavbarComponent,
     UserInitialsPipe,
     SearchBarComponent,
-    PostsComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -39,6 +39,7 @@ import { PostsComponent } from './posts/posts.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

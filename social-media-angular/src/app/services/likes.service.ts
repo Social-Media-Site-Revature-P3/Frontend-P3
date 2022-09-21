@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, retry, throwError } from 'rxjs';
-import { Likes } from './Likes'
+import { Likes } from '../models/likes'
+import { Post } from '../models/Posts';
 
 @Injectable({
   providedIn: 'root'
@@ -29,8 +30,8 @@ export class LikesService {
   }
 
   //Get by Post ID, show all likes related to a specific post
-  GetByPostId(id : string) : Observable<Posts> { 
-    return this.http.get<Likes>(this.baseurl + 'post/' + id)
+  GetByPostId(id : number) : Observable<Likes[]> { 
+    return this.http.get<Likes[]>(this.baseurl + 'post/' + id)
     .pipe(
       retry(1),
       catchError(this.errorHandl)
