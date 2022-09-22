@@ -18,6 +18,7 @@ export class PostFeedPageComponent implements OnInit {
     imageUrl: new FormControl('')
   })
 
+
   posts: Post[] = [];
   createPost:boolean = false;
 
