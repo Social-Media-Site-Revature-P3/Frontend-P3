@@ -33,7 +33,7 @@ export class AuthService {
   }
 
   register(register: Register): Observable<User> {
-    return this.http.post<any>(`${this.authUrl}/register`, JSON.stringify, {headers: environment.headers}).pipe(
+    return this.http.post<any>(`${this.authUrl}/register`, JSON.stringify(register), {headers: environment.headers}).pipe(
       retry(1),
       catchError(this.errorHandl)
     );
