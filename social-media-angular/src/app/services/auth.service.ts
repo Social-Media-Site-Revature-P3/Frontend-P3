@@ -10,7 +10,7 @@ import User from '../models/User';
 export class AuthService {
 
   authUrl: string = `${environment.baseUrl}/auth`;
-  currentUser: User
+  currentUser: User;
 
   constructor(private http: HttpClient) { }
 
@@ -29,6 +29,6 @@ export class AuthService {
 
   register(firstName: string, lastName: string, email: string, password: string): Observable<any> {
     const payload = {firstName: firstName, lastName: lastName, email: email, password: password};
-    return this.http.post<any>(`${this.authUrl}/register`, payload, {headers: environment.headers});
+    return this.http.post<User>(`${this.authUrl}/register`, payload, {headers: environment.headers});
   }
 }

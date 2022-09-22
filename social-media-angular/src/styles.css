@@ -109,9 +109,9 @@ body {
   width:10em;
   height: 10em;
   border-radius: 7em;
-      
+
   border: 1px solid #888080;
-     
+
   margin-bottom: 1em;
 
   background-image: url('./assets/images/favicon.png');
@@ -169,4 +169,8 @@ body {
 
 .spacer {
   flex: 1 1 auto;
+}
+
+.error{
+  color: #f44336;
 }
