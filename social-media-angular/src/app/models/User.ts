@@ -1,13 +1,19 @@
-export default class User {
-    id: number
-    email: string
-    firstName: string
-    lastName: string
+import { Likes } from "./likes";
+import { Post } from "./Posts"
 
-    constructor (id: number, email: string, firstName: string, lastName: string) {
-        this.id = id
-        this.email = email
-        this.firstName = firstName
-        this.lastName = lastName
-    }
+export interface User {
+    email : string;
+    nickname : string;
+    password : string;
+    firstName : string;
+    lastName : string;
+    posts? : Post[];
+    securityQuestions? : SecurityQuestions[]; 
+    likes? : Likes[];
+    following? : Following[];
+    followed? : Followed[];
+    bookmarks? : Bookmarks[];
 }
+
+//need to import all of the ones that are underlined, Matthew and I 
+//working on the likes and search for now. (9/21)
