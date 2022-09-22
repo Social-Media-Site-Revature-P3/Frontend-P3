@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable , throwError} from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import User from '../models/User';
+import {User} from '../interfaces/user';
+import { Register } from '../interfaces/register';
+import { Login } from '../interfaces/login';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +17,14 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(email: string, password: string): Observable<any> {
-    const payload = {email:email, password:password};
-    const res = this.http.post<any>(`${this.authUrl}/login`, payload, {headers: environment.headers, withCredentials: environment.withCredentials});
+  login(login: Login): Observable<any> {
+    const res = this.http.post<any>(`${this.authUrl}/login`,JSON.stringify(login), {headers: environment.headers, withCredentials: environment.withCredentials}).pipe(
+      retry(1),
+      catchError(this.errorHandl)
+    );
     res.subscribe((data) => {
       this.currentUser = data
-    })
+    }) 
     return res;
   }
 
@@ -27,8 +32,25 @@ export class AuthService {
     this.http.post(`${this.authUrl}/logout`, null).subscribe();
   }
 
-  register(firstName: string, lastName: string, email: string, password: string): Observable<any> {
-    const payload = {firstName: firstName, lastName: lastName, email: email, password: password};
-    return this.http.post<any>(`${this.authUrl}/register`, payload, {headers: environment.headers});
+  register(register: Register): Observable<User> {
+    return this.http.post<any>(`${this.authUrl}/register`, JSON.stringify, {headers: environment.headers}).pipe(
+      retry(1),
+      catchError(this.errorHandl)
+    );
   }
+
+   // Error handling
+   errorHandl(error: any) {
+    let errorMessage = '';
+    if(error.error instanceof ErrorEvent) {
+      // Get client-side error
+      errorMessage = error.error.message;
+    } else {
+      // Get server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(errorMessage);
+  }
+ 
 }
