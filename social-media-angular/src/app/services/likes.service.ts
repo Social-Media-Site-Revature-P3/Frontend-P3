@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, retry, throwError } from 'rxjs';
-import { Likes } from '../models/likes'
-import { Post } from '../models/Posts';
+import { Like } from '../interfaces/like'
+import { Post } from '../interfaces/post';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +21,8 @@ export class LikesService {
   }
 
   //Create like
-  CreateLike(data : Likes) : Observable<Likes> {
-    return this.http.post<Likes>(this.baseurl , JSON.stringify(data) , this.httpOptions)
+  CreateLike(data : Like) : Observable<Like> {
+    return this.http.post<Like>(this.baseurl , JSON.stringify(data) , this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.errorHandl)
@@ -30,8 +30,8 @@ export class LikesService {
   }
 
   //Get by Post ID, show all likes related to a specific post
-  GetByPostId(id : number) : Observable<Likes[]> { 
-    return this.http.get<Likes[]>(this.baseurl + 'post/' + id)
+  GetByPostId(id : number) : Observable<Like[]> { 
+    return this.http.get<Like[]>(this.baseurl + 'post/' + id)
     .pipe(
       retry(1),
       catchError(this.errorHandl)
@@ -40,7 +40,7 @@ export class LikesService {
 
   //Delete a like, unliking something that has been liked before
   DeleteLike(id : number) { 
-    return this.http.delete<Likes>(this.baseurl + id , this.httpOptions)
+    return this.http.delete<Like>(this.baseurl + id , this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.errorHandl)
@@ -48,8 +48,8 @@ export class LikesService {
   }
 
   //updating whether a post is liked
-  UpdateLike(likes: Likes): Observable<Likes> {
-    return this.http.put<Likes>(this.baseurl, JSON.stringify(likes), this.httpOptions)
+  UpdateLike(likes: Like): Observable<Like> {
+    return this.http.put<Like>(this.baseurl, JSON.stringify(likes), this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.errorHandl)
