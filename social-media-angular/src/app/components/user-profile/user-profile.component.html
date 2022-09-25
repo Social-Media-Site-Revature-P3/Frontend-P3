@@ -1,1 +1,45 @@
-<p>user-profile works!</p>
+<app-navbar></app-navbar>
+<div class="user-profile-container">
+    <div class="sidebyside">
+        <mat-card class="user-profile-card">
+            <div class="user-circle"></div>
+            <mat-divider></mat-divider>
+            <p style="padding-top: 1em; font-weight: bold;">
+                <!-- {{user.firstName}} {{user.lastName}} -->
+                Kyle Plummer
+            </p>
+            <p>
+                <!-- {{user.email}} -->
+                @kplummer
+            </p> 
+        </mat-card>
+    </div>
+
+    <div [ngClass]="['sidebyside', 'user-info-container']">
+        <div class="user-info-text">Kyle Plummer</div>
+        <br>
+        <div class="user-bio">Bio (About Me) TODAY I DON'T FEEL LIKE DOING ANYTHING.
+            I just want to play on my bed. Maximum characters so far is 181
+        </div>
+    </div>
+
+    <div [ngClass]="['sidebyside', 'user-stats']">
+        <p>1 post</p>
+    </div>
+    <div [ngClass]="['sidebyside', 'user-stats']">
+        <p>2 followers</p>
+    </div>
+    <div [ngClass]="['sidebyside', 'user-stats']">
+        <p>3 following</p>
+    </div>
+    <div [ngClass]="['sidebyside', 'follow-button']">
+        <button mat-raised-button color="button-color" (click)="followUser()">Follow</button>
+    </div>
+
+    <div class="follow-button">
+        <!-- <button mat-raised-button color="button-color" (click)="editUserProfile()">Edit Profile</button> -->
+        <button mat-raised-button color="button-color" [routerLink]="['/edit-profile']">Edit Profile</button>
+    </div>
+
+</div>
+
