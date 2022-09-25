@@ -38,4 +38,12 @@ export class PostComponent implements OnInit {
         }
       )
   }
+
+  bookmarkPosts(postId: number): void
+  {
+    // this will you the service to add a bookmark to the table 
+    // need the current user 
+    
+
+  }
 }
