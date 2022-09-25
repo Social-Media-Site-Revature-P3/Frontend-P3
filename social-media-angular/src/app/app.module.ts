@@ -15,6 +15,7 @@ import { CommentComponent } from './components/comment/comment.component';
 import { UserCardComponent } from './components/user-card/user-card.component';
 import { UserInitialsPipe } from './pipes/user-initials.pipe';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { BookmarkComponent } from './components/bookmark/bookmark.component';
 import { BookmarkPageComponent } from './components/bookmark-page/bookmark-page.component';
 
@@ -29,6 +30,7 @@ import { BookmarkPageComponent } from './components/bookmark-page/bookmark-page.
     UserCardComponent,
     NavbarComponent,
     UserInitialsPipe,
+    SearchBarComponent,
     BookmarkComponent,
     BookmarkPageComponent,
   ],
@@ -39,6 +41,7 @@ import { BookmarkPageComponent } from './components/bookmark-page/bookmark-page.
     ReactiveFormsModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { Login } from 'src/app/interfaces/login';
 
 @Component({
   selector: 'app-login',
@@ -21,9 +22,15 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
   
+login: Login={
+  password:this.loginForm.value.password || "",
+  email: this.loginForm.value.email || ""
+}
   onSubmit(e: any): void {
     e.preventDefault()
-    this.authService.login(this.loginForm.value.email || "", this.loginForm.value.password || "")
+    this.login.email =  this.loginForm.value.email || ""
+    this.login.password = this.loginForm.value.password || ""
+    this.authService.login(this.login)
       .subscribe(
         (response) => {
           this.authService.currentUser = response
