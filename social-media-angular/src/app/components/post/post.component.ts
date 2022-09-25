@@ -5,6 +5,8 @@ import { User } from 'src/app/interfaces/user';
 import { Comment } from 'src/app/interfaces/comment';
 import { AuthService } from 'src/app/services/auth.service';
 import { PostService } from 'src/app/services/post.service';
+import { Bookmark } from 'src/app/interfaces/bookmark';
+import { BookmarkService } from 'src/app/services/bookmark.service';
 
 @Component({
   selector: 'app-post',
@@ -20,7 +22,7 @@ export class PostComponent implements OnInit {
   @Input('post') post: Post
   replyToPost: boolean = false
 
-  constructor(private postService: PostService, private authService: AuthService) { }
+  constructor(private postService: PostService, private authService: AuthService, private bookMarkService: BookmarkService) { }
 
   ngOnInit(): void {
   this.getComments()
@@ -78,11 +80,30 @@ commentConnect: Comment ={
       )
   }
 
-  bookmarkPosts(postId: number): void
+  bookmarkPosts(bookmarkPostId: number ): void
   {
     // this will you the service to add a bookmark to the table 
     // need the current user 
-    
+    let newBookMark: Bookmark = 
+    {
+      post: 
+      {
+        postId: bookmarkPostId ,
+      },
+      user: 
+      {
+        userId: this.authService.currentUser.userId||0
+      }
+
+    };
+
+    this.bookMarkService.SaveBookmark(newBookMark)
+    .subscribe(
+      ()=> {console.log("Created a bookmark for postId: ",newBookMark)
+    });
+
+
+
 
   }
 }
