@@ -26,6 +26,8 @@ export class PostFeedPageComponent implements OnInit {
   ngOnInit(): void {
     this.postService.getAllPosts().subscribe(
       (response) => {
+
+        this.postService.getByComments
         this.posts = response
       }
     )
