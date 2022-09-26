@@ -41,6 +41,7 @@ import { EditUserProfileComponent } from './edit-user-profile/edit-user-profile.
     ReactiveFormsModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
