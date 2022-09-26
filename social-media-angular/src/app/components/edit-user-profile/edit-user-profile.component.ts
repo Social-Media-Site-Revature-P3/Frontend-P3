@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {User} from 'src/app/interfaces/user';
+import User from 'src/app/models/User';
 
 @Component({
   selector: 'app-edit-user-profile',
@@ -24,20 +24,18 @@ export class EditUserProfileComponent implements OnInit {
   _info: boolean = false;
 
   _nonUpdatedUser: User = {
-    userId: this.data.id,
+    id: this.data.id,
     firstName: this.data.firstName,
     lastName: this.data.lastName,
     email: this.data.email,
-    password: this.data.password
   }
   
 
   _updateUser: User = {
-    userId: 0,
+    id: 0,
     firstName: "",
     lastName: "",
-    email: "",
-    password: ""
+    email: ""
   }
 
   cancelUpdate() {

@@ -1,6 +1,10 @@
+<mat-card-content>
 <p>
     {{inputComment.text}}
 </p>
+<img mat-card-image *ngIf="inputComment.imageUrl" src="{{ inputComment.imageUrl }}" alt="Post Image">
+
+</mat-card-content>
 <div class="comment-reply" align="right">
     <div class="comment-reply-text" (click)="toggleReplyToComment()">
         reply
@@ -16,7 +20,7 @@
         </div>
     </form>
 </div>
-<div *ngFor="let comment of inputComment.comments" class="comment-container">
+<div *ngFor="let comment of comments" class="comment-container">
     <mat-divider></mat-divider>
-    <app-comment [comment]="comment"></app-comment>
+    <app-comment *ngIf="comment.postId != 0" [comment]="comment"></app-comment>
 </div>

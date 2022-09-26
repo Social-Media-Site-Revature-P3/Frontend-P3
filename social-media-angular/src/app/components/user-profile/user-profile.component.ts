@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { EditUserProfileComponent } from '../../edit-user-profile/edit-user-profile.component';
-import User from 'src/app/models/User';
+import {User} from 'src/app/interfaces/user';
 
 @Component({
   selector: 'app-user-profile',
@@ -18,23 +18,18 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // currUser: User = {
-  //   id: 0,
-  //   email: "",
-  //   nickname: "",
-  //   password: "",
-  //   firstName: "",
-  //   lastName: "",
-  //   aboutMe: "",
-  //   profilePicutre: ""
-  // }
-
   currUser: User = {
-    id: 0,
+    userId: 0,
     email: "",
+    nickname: "",
+    password: "",
     firstName: "",
-    lastName: ""
+    lastName: "",
+    aboutMe: "",
+    profilePicutre: ""
   }
+
+
 
   editUserProfile() {
     const dialogConfig = new MatDialogConfig();
@@ -54,7 +49,7 @@ export class UserProfileComponent implements OnInit {
     // }
 
     dialogConfig.data = {
-      id: this.currUser.id,
+      id: this.currUser.userId,
       email: this.currUser.email,
       firstName: this.currUser.firstName,
       lastName: this.currUser.lastName
