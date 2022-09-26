@@ -45,6 +45,10 @@ export class PostComponent implements OnInit {
     this.replyToPost = !this.replyToPost
   }
 
+  deleteComment = (comment: Post) => {
+    this.comments = this.comments.filter(x => x.postId !== comment.postId);
+  }
+
   submitReply = (e: any) => {
     e.preventDefault()
     if (this.commentForm.valid) {
@@ -60,6 +64,7 @@ export class PostComponent implements OnInit {
       this.postService.createPost(post)
         .subscribe(
           (data) => {
+            this.commentForm.get("text")?.patchValue('');
             let newComment: Comment = {
               commentId: data.postId ? data.postId : 0,
               postId: this.post.postId | 0

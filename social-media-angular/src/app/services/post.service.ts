@@ -16,9 +16,10 @@ export class PostService {
 
   constructor(private http: HttpClient) { }
 
-  getbyPostId(postId: number): Observable<Post> {
-    return this.http.get<Post>(`${this.postUrl}` + postId, {headers: environment.headers, withCredentials: environment.withCredentials})
+  getbyPostId(postId: number): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.postUrl}` + postId, {headers: environment.headers, withCredentials: environment.withCredentials})
     .pipe(
+      retry(1),
       retry(1),
       catchError(this.errorHandl)
     )
