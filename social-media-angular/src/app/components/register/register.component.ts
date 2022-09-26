@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validator, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import {Register} from "../../interfaces/register";
 
 @Component({
   selector: 'app-register',
@@ -24,9 +25,15 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(e: any): void {
-    e.preventDefault()
+    e.preventDefault();
     if(this.registerForm.valid){
-      this.authService.register(this.registerForm.value.firstName || "", this.registerForm.value.lastName || "", this.registerForm.value.email || "", this.registerForm.value.password || "")
+      let register: Register = {
+        email: this.registerForm.value.email || "",
+        password: this.registerForm.value.password || "",
+        firstName: this.registerForm.value.firstName || "",
+        lastName: this.registerForm.value.lastName || ""
+      }
+      this.authService.register(register)
         .subscribe(
           (response) => {
             this.router.navigate(['login'])

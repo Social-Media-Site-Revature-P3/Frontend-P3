@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import Post from 'src/app/models/Posts';
+import { Post } from 'src/app/interfaces/post';
 import { AuthService } from 'src/app/services/auth.service';
 import { PostService } from 'src/app/services/post.service';
+import { Comment} from "../../interfaces/comment";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-post',
@@ -15,12 +17,28 @@ export class PostComponent implements OnInit {
     text: new FormControl(''),
   })
 
-  @Input('post') post: Post
-  replyToPost: boolean = false
+  @Input('post') post: Post | any;
+  replyToPost: boolean = false;
+  comments: Post[] = [];
 
-  constructor(private postService: PostService, private authService: AuthService) { }
+  constructor(private postService: PostService,
+              private authService: AuthService,
+              private userService: UserService) {
+
+  }
 
   ngOnInit(): void {
+
+    this.userService.GetUser(this.post.user.userId).subscribe({
+      next: user => {
+        this.post.user = user;
+      }
+    })
+
+    this.postService.getByComments(this.post.postId).subscribe({
+      next: data => this.comments = data
+    })
+
   }
 
   toggleReplyToPost = () => {
@@ -29,13 +47,37 @@ export class PostComponent implements OnInit {
 
   submitReply = (e: any) => {
     e.preventDefault()
-    let newComment = new Post(0, this.commentForm.value.text || "", "", this.authService.currentUser, [])
-    this.postService.upsertPost({...this.post, comments: [...this.post.comments, newComment]})
-      .subscribe(
-        (response) => {
-          this.post = response
-          this.toggleReplyToPost()
+    if (this.commentForm.valid) {
+      const post:Post = {
+        imageUrl: '',
+        text: this.commentForm.get("text")?.value || '',
+        title: '',
+        user: {
+          userId: this.authService.currentUser.userId || 0
         }
-      )
+      }
+
+      this.postService.createPost(post)
+        .subscribe(
+          (data) => {
+            let newComment: Comment = {
+              commentId: data.postId ? data.postId : 0,
+              postId: this.post.postId | 0
+            }
+
+            let comment = data;
+            this.postService.postComment(newComment)
+              .subscribe(
+                (response) => {
+                  this.comments.push(comment);
+                  this.toggleReplyToPost()
+                }
+              )
+          }
+        )
+    }else {
+      this.commentForm.markAllAsTouched();
+    }
+
   }
 }
