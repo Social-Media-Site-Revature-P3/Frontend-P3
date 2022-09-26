@@ -16,9 +16,10 @@ export class PostService {
 
   constructor(private http: HttpClient) { }
 
-  getbyPostId(postId: number): Observable<Post> {
-    return this.http.get<Post>(`${this.postUrl}` + postId, {headers: environment.headers, withCredentials: environment.withCredentials})
+  getbyPostId(postId: number): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.postUrl}` + postId, {headers: environment.headers, withCredentials: environment.withCredentials})
     .pipe(
+      retry(1),
       retry(1),
       catchError(this.errorHandl)
     )
@@ -39,6 +40,7 @@ export class PostService {
       catchError(this.errorHandl)
     )
   }
+
 
   //get all comments for a post
   getByComments(postId: number): Observable<Post[]> {
@@ -71,6 +73,14 @@ export class PostService {
       retry(1),
       catchError(this.errorHandl)
     )
+  }
+
+  createPost(post: Post): Observable<Post> {
+    return this.http.post<Post>(`${this.postUrl}`, JSON.stringify(post), {headers: environment.headers, withCredentials: environment.withCredentials})
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl)
+      )
   }
 
   updatePost(post: Post, postId: number): Observable<Post> {
