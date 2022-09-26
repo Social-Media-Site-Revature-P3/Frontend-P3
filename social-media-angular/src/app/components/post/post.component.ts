@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Follow } from 'src/app/interfaces/follow';
 import Post from 'src/app/models/Posts';
 import { AuthService } from 'src/app/services/auth.service';
+import { FollowServiceService } from 'src/app/services/follow-service.service';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
@@ -18,7 +20,7 @@ export class PostComponent implements OnInit {
   @Input('post') post: Post
   replyToPost: boolean = false
 
-  constructor(private postService: PostService, private authService: AuthService) { }
+  constructor(private postService: PostService, private authService: AuthService, private followService:FollowServiceService) { }
 
   ngOnInit(): void {
   }
@@ -38,4 +40,26 @@ export class PostComponent implements OnInit {
         }
       )
   }
+
+  followUser(postAuthorId: number): void
+{
+  let newFollow: Follow = 
+  {
+    followedUser: {
+        userId: postAuthorId
+    },
+    followerUser: {
+        userId: this.authService.currentUser.userId||0
+    }
+  }
+
+  // add following 
+  this.followService.IWillFollow(newFollow)
+  .subscribe(()=> {
+    console.log("new follow: ", newFollow);
+  })
 }
+
+}
+
+

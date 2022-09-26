@@ -9,3 +9,8 @@
     </p>
     
 </mat-card>
+
+<mat-card-actions >
+    <button mat-raised-button color="primary" [routerLink]="['/follow-page', user.userId, 1]"> Followers</button>
+    <button mat-raised-button color="primary" [routerLink]="['/follow-page',user.userId, 2 ]"> Following</button>
+</mat-card-actions>
