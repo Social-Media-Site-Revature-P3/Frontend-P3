@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
-import { EditUserProfileComponent } from '../../edit-user-profile/edit-user-profile.component';
+import { EditUserProfileComponent } from '../../components/edit-user-profile/edit-user-profile.component';
 import {User} from 'src/app/interfaces/user';
 
 @Component({

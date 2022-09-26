@@ -13,6 +13,7 @@ import { Comment } from '../interfaces/comment';
 export class PostService {
 
   postUrl: string = `${environment.baseUrl}/post/`
+  currentPost: Post;
 
   constructor(private http: HttpClient) { }
 

@@ -17,21 +17,26 @@ export class RegisterComponent implements OnInit {
     email: new FormControl(''),
     password: new FormControl('')
   })
-  
+
   register: Register= {
-    email: this.registerForm.value.email || "",
-    password: this.registerForm.value.password || "",
-    firstName: this.registerForm.value.firstName || "",
-    lastName:  this.registerForm.value.lastName || ""
+    email:"",
+    password:"",
+    firstName: "",
+    lastName: ""
   }
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }
-  
+
   onSubmit(e: any): void {
     e.preventDefault()
+    this.register.email = this.registerForm.value.email!
+    this.register.password = this.registerForm.value.password!
+    this.register.firstName = this.registerForm.value.firstName!
+    this.register.lastName = this.registerForm.value.lastName!
+
     this.authService.register(this.register)
       .subscribe(
         (response) => {
