@@ -32,6 +32,14 @@ export class PostService {
     )
   }
 
+  getByOriginalPost(userId: number): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.postUrl}` + "post/" + userId, {headers: environment.headers, withCredentials: environment.withCredentials})
+    .pipe(
+      retry(1),
+      catchError(this.errorHandl)
+    )
+  }
+
   getByFollowed(followedIds: FollowedId[]): Observable<Post[]> {
     return this.http.post<Post[]>(`${this.postUrl}` + "follow", JSON.stringify(followedIds), {headers: environment.headers, withCredentials: environment.withCredentials})
     .pipe(
