@@ -2,6 +2,7 @@
 <p>
     {{inputComment.text}}
 </p>
+<img mat-card-image *ngIf="inputComment.imageUrl" src="{{ inputComment.imageUrl }}" alt="Post Image">
 
 </mat-card-content>
 <div class="comment-reply" align="right">
