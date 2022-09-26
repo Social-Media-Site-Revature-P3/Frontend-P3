@@ -13,6 +13,7 @@ import { Comment } from '../interfaces/comment';
 export class PostService {
 
   postUrl: string = `${environment.baseUrl}/post/`
+  currentPost: Post;
 
   constructor(private http: HttpClient) { }
 
@@ -27,6 +28,14 @@ export class PostService {
 
   getByUserId(userId: number): Observable<Post[]> {
     return this.http.get<Post[]>(`${this.postUrl}` + "user/" + userId, {headers: environment.headers, withCredentials: environment.withCredentials})
+    .pipe(
+      retry(1),
+      catchError(this.errorHandl)
+    )
+  }
+
+  getByOriginalPost(userId: number): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.postUrl}` + "post/" + userId, {headers: environment.headers, withCredentials: environment.withCredentials})
     .pipe(
       retry(1),
       catchError(this.errorHandl)

@@ -19,10 +19,10 @@ export class RegisterComponent implements OnInit {
   })
 
   register: Register= {
-    email: this.registerForm.value.email || "",
-    password: this.registerForm.value.password || "",
-    firstName: this.registerForm.value.firstName || "",
-    lastName:  this.registerForm.value.lastName || ""
+    email:"",
+    password:"",
+    firstName: "",
+    lastName: ""
   }
 
   constructor(private authService: AuthService, private router: Router) { }
@@ -56,7 +56,6 @@ export class RegisterComponent implements OnInit {
 //          this.router.navigate(['login'])
 //        }
 //      )
-
   }
 
 }

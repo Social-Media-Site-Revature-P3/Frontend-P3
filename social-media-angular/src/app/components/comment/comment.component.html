@@ -34,6 +34,7 @@
     <div class="comment-reply-text" (click)="toggleReplyToComment()">
         Reply
     </div>
+
     <form class="form" *ngIf="replyToComment" [formGroup]="commentForm" (ngSubmit)="submitReply($event)">
         <mat-form-field class="full-width" appearance="fill">
           <mat-label>Make a Comment</mat-label>
@@ -53,4 +54,3 @@
     <mat-divider></mat-divider>
     <app-comment *ngIf="comment.postId != 0" [comment]="comment"></app-comment>
 </div>
-
