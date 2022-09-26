@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import Post from 'src/app/models/Posts';
-import User from 'src/app/models/User';
+import {Post} from 'src/app/interfaces/post';
+import {User} from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { PostService } from 'src/app/services/post.service';
 
@@ -34,10 +34,21 @@ export class PostFeedPageComponent implements OnInit {
   toggleCreatePost = () => {
     this.createPost = !this.createPost
   }
-
+post: Post={
+  text:  this.postForm.value.text || "",
+  title: "",
+  imageUrl: this.postForm.value.imageUrl || "",
+  user: {
+      userId: this.authService.currentUser.userId||0
+}
+}
+  
   submitPost = (e: any) => {
     e.preventDefault();
-    this.postService.upsertPost(new Post(0, this.postForm.value.text || "", this.postForm.value.imageUrl || "", this.authService.currentUser, []))
+    this.post.text =this.postForm.value.text || ""
+    this.post.imageUrl =  this.postForm.value.imageUrl || ""
+    this.post.user.userId =  this.authService.currentUser.userId||0
+    this.postService.postPost(this.post)
       .subscribe(
         (response) => {
           this.posts = [response, ...this.posts]

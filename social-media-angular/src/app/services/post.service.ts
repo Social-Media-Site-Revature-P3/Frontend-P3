@@ -5,6 +5,7 @@ import { catchError, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { FollowedId } from '../interfaces/followed-id';
 import { Post } from '../interfaces/post';
+import { Comment } from '../interfaces/comment';
 
 @Injectable({
   providedIn: 'root'
@@ -39,8 +40,9 @@ export class PostService {
     )
   }
 
-  getByComments(postId: number): Observable<Post> {
-    return this.http.get<Post>(`${this.postUrl}` + "comments/" + postId, {headers: environment.headers, withCredentials: environment.withCredentials})
+  //get all comments for a post
+  getByComments(postId: number): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.postUrl}` + "comments/" + postId, {headers: environment.headers, withCredentials: environment.withCredentials})
     .pipe(
       retry(1),
       catchError(this.errorHandl)
@@ -49,6 +51,14 @@ export class PostService {
 
   getAllPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(`${this.postUrl}`, {headers: environment.headers, withCredentials: environment.withCredentials})
+    .pipe(
+      retry(1),
+      catchError(this.errorHandl)
+    )
+  }
+
+  postPost(post: Post): Observable<Post> {
+    return this.http.post<Post>(`${this.postUrl}`, JSON.stringify(post), {headers: environment.headers, withCredentials: environment.withCredentials})
     .pipe(
       retry(1),
       catchError(this.errorHandl)
