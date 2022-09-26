@@ -19,7 +19,8 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { BookmarkPageComponent } from './components/bookmark-page/bookmark-page.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import { EditUserProfileComponent } from './edit-user-profile/edit-user-profile.component';
+import { EditUserProfileComponent } from './components/edit-user-profile/edit-user-profile.component';
+import { LikesComponent } from './components/likes/likes.component';
 
 @NgModule({
   declarations: [
@@ -33,11 +34,11 @@ import { EditUserProfileComponent } from './edit-user-profile/edit-user-profile.
     NavbarComponent,
     UserInitialsPipe,
     SearchBarComponent,
-
     BookmarkPageComponent,
     EditProfileComponent,
     UserProfileComponent,
     EditUserProfileComponent,
+    LikesComponent,
   ],
   imports: [
     BrowserModule,
