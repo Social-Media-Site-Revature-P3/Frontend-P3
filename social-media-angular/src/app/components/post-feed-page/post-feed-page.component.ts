@@ -27,7 +27,7 @@ export class PostFeedPageComponent implements OnInit {
     this.postService.getAllPosts().subscribe(
       (response) => {
 
-        this.postService.getByComments
+        // this.postService.getByComments
         this.posts = response
       }
     )
