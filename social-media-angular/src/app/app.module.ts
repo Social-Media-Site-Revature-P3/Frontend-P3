@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -15,7 +14,9 @@ import { CommentComponent } from './components/comment/comment.component';
 import { UserCardComponent } from './components/user-card/user-card.component';
 import { UserInitialsPipe } from './pipes/user-initials.pipe';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { EditUserProfileComponent } from './edit-user-profile/edit-user-profile.component';
 
 
 @NgModule({
@@ -29,8 +30,9 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     UserCardComponent,
     NavbarComponent,
     UserInitialsPipe,
-    SearchBarComponent,
-
+    EditProfileComponent,
+    UserProfileComponent,
+    EditUserProfileComponent,
   ],
   imports: [
     BrowserModule,
