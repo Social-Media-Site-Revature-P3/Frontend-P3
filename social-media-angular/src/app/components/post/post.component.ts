@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Follow } from 'src/app/interfaces/follow';
-import Post from 'src/app/models/Posts';
+import {Pos}
 import { AuthService } from 'src/app/services/auth.service';
 import { FollowServiceService } from 'src/app/services/follow-service.service';
 import { PostService } from 'src/app/services/post.service';

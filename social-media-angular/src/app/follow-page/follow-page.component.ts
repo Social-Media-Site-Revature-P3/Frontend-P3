@@ -15,12 +15,14 @@ export class FollowPageComponent implements OnInit {
 
   router:ActivatedRoute;
   followListUsers: User[] = [];
+  followHeader: string = "";
 
   constructor(router: ActivatedRoute, private authService: AuthService, private followService: FollowServiceService, private userService: UserService) { 
     this.router = router;
   }
 
   ngOnInit(): void {
+    this.displayFollow();
   }
 
   displayFollow():void{
@@ -30,6 +32,7 @@ export class FollowPageComponent implements OnInit {
     // 1 my followers
     if(action === 1)
     {
+      this.followHeader = "My Followers";
       this.followService.followThemAll(userId)
       .subscribe(
         (data : Follow[])=> 
@@ -52,6 +55,7 @@ export class FollowPageComponent implements OnInit {
     // 2 who i am following 
     else
     {
+      this.followHeader = "Following";
       this.followService.TheyAreFollowing(userId)
       .subscribe(
         (data : Follow[])=> 
