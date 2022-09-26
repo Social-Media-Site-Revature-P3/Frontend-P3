@@ -63,7 +63,7 @@ post: Post={
 //        }
 //      }
 
-//      this.postService.createPost(post)
+    //this.postService.createPost(post)
     this.post.text =this.postForm.value.text || ""
     this.post.imageUrl =  this.postForm.value.imageUrl || ""
     this.post.user.userId =  this.authService.currentUser.userId||0
@@ -74,10 +74,11 @@ post: Post={
           this.toggleCreatePost()
         }
       )
-    }else {
-      this.postForm.markAllAsTouched();
-    }
+   // }else {
+   //   this.postForm.markAllAsTouched();
+   // }
 
 
   }
+
 }

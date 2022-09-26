@@ -20,6 +20,7 @@ export class CommentComponent implements OnInit {
   user: User =this.authService.currentUser
 
   @Input('comment') inputComment: Post | any;
+  replyToComment: boolean = false;
   editToComment: boolean = false;
   creatorUser: boolean = false;
   @Output() delete: EventEmitter<Post> = new EventEmitter();
@@ -40,9 +41,12 @@ export class CommentComponent implements OnInit {
         this.inputComment.user = user;
       }
     })
+
+    this.getComments()
   }
 
   toggleEditToComment = () => {
+    this.commentForm.value.text = this.inputComment.text
     this.editToComment = !this.editToComment
   }
 
@@ -82,6 +86,7 @@ commentConnect: Comment ={
 }
 
   toggleReplyToComment = () => {
+    this.commentForm.value.text = ""
     this.replyToComment = !this.replyToComment
   }
 
@@ -101,7 +106,7 @@ commentConnect: Comment ={
  //     user: this.inputComment.user
  //   }
     //let newComment = new Post(0, this.commentForm.value.text || "", "", this.authService.currentUser, [])
-    this.postService.updatePost(newComment, this.inputComment.postId )
+   // this.postService.updatePost(newComment, this.inputComment.postId )
  //     .subscribe({
 //         next: (response) => {
 //          this.inputComment = newComment;
@@ -126,5 +131,31 @@ commentConnect: Comment ={
         }
       )
 
+  }
+  editReply=(e:any)=>{
+    e.preventDefault();
+      // let newComment: Post = {
+      //   postId: this.inputComment.postId,
+      //   imageUrl: "",
+      //   text: `${this.commentForm.value.text}`,
+      //   title: "",
+      //   user: this.inputComment.user
+      // }
+      this.newPost.postId = this.inputComment.postId
+      this.newPost.text = this.commentForm.value.text || this.inputComment.text
+      this.newPost.title = " "
+      this.newPost.imageUrl= ".../assets/images/favicon.png"
+      this.newPost.user.userId =this.authService.currentUser.userId||0
+      this.postService.postPost(this.newPost).subscribe( (response) => {
+       // this.inputComment = newComment;
+        this.toggleEditToComment()})
+       this.postService.updatePost(this.newPost, this.inputComment.postId )
+        .subscribe({
+           next: (response) => {
+            this.inputComment = response;
+            this.toggleEditToComment();
+          },
+          error: err => console.log(err)
+        })
   }
 }
