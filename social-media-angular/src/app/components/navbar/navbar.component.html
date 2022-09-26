@@ -1,7 +1,9 @@
 <p>
     <mat-toolbar>
-        <span [routerLink]="['/post-feed']">Revature Social Media</span>
+        <span [routerLink]="['/post-feed']">Revvi</span>
         <span class="spacer"></span>
+        <button mat-icon-button [routerLink]="['/profile']" ><mat-icon>account_circle</mat-icon></button>
+        <button mat-icon-button><mat-icon>bookmark</mat-icon></button>
         <button mat-button (click)="logout();">Logout</button>
     </mat-toolbar>
 </p>

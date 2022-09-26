@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -17,6 +16,10 @@ import { UserInitialsPipe } from './pipes/user-initials.pipe';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
+import { BookmarkPageComponent } from './components/bookmark-page/bookmark-page.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { EditUserProfileComponent } from './edit-user-profile/edit-user-profile.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,10 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     UserInitialsPipe,
     SearchBarComponent,
 
+    BookmarkPageComponent,
+    EditProfileComponent,
+    UserProfileComponent,
+    EditUserProfileComponent,
   ],
   imports: [
     BrowserModule,

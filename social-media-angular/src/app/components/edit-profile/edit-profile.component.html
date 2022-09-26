@@ -1,0 +1,59 @@
+<app-navbar></app-navbar>
+<h2 style="text-align:center">Edit Profile</h2>
+<div class="user-circle-profile"></div>
+<!-- <button class="upload-picture-button" mat-raised-button color="button-color">Upload Profile Picture</button> -->
+<!-- <div>
+    <button class="upload-picture-button" align="center" mat-raised-button color="button-color">Upload Profile Picture</button>
+</div> -->
+
+<mat-grid-list cols="1" rowHeight="500px">
+    <mat-grid-tile>
+        <div class="example-container">
+          <mat-form-field appearance="fill" class="width-50">
+            <mat-label>First Name</mat-label>
+            <!-- <input matInput [(ngModel)]="registerUser.firstName"> -->
+            <input matInput>
+          </mat-form-field>
+      
+          <mat-form-field appearance="fill" class="width-50 ml-2">
+            <mat-label>Last Name</mat-label>
+            <!-- <input matInput [(ngModel)]="registerUser.lastName"> -->
+            <input matInput>
+          </mat-form-field>
+          <br>
+
+          <mat-form-field appearance="fill" class="width-100">
+            <mat-label>Username</mat-label>
+            <input matInput>
+          </mat-form-field>
+          <br>
+
+          <mat-form-field appearance="fill" class="width-100">
+            <mat-label>Email address</mat-label>
+            <input matInput>
+          </mat-form-field>
+          <br>
+
+          <mat-form-field appearance="fill" class="width-100">
+            <mat-label>Enter password</mat-label>
+            <input matInput>
+          </mat-form-field>
+          <br>
+
+          <mat-form-field hintLabel="Max 181 characters" appearance="fill" class="width-100">
+            <mat-label>About Me</mat-label>
+            <textarea matInput #input maxlength="181" placeholder="Ex. I'm saucy" ></textarea>
+            <mat-hint align="end">{{input.value?.length || 0}}/181</mat-hint>
+          </mat-form-field>
+          <br>
+
+          <div class="example-button-row">
+            <button class="button-space" mat-raised-button color="button-color">Upload Profile Picture</button>
+            <button class="button-space" mat-raised-button color="primary">Confirm</button>
+            <button class="button-space" mat-stroked-button>Cancel</button>
+          </div>
+          
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>
+

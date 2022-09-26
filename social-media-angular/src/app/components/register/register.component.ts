@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validator, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import {Register} from "../../interfaces/register";
+import { Register } from 'src/app/interfaces/register';
 
 @Component({
   selector: 'app-register',
@@ -18,6 +18,12 @@ export class RegisterComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.minLength(6)])
   })
 
+  register: Register= {
+    email: this.registerForm.value.email || "",
+    password: this.registerForm.value.password || "",
+    firstName: this.registerForm.value.firstName || "",
+    lastName:  this.registerForm.value.lastName || ""
+  }
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -42,6 +48,14 @@ export class RegisterComponent implements OnInit {
     }else {
       this.registerForm.markAllAsTouched();
     }
+
+//    e.preventDefault()
+//    this.authService.register(this.register)
+//      .subscribe(
+//        (response) => {
+//          this.router.navigate(['login'])
+//        }
+//      )
 
   }
 

@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Post } from 'src/app/interfaces/post';
+import {Post} from 'src/app/interfaces/post';
+import { User } from 'src/app/interfaces/user';
+import { Comment } from 'src/app/interfaces/comment';
 import { AuthService } from 'src/app/services/auth.service';
 import { PostService } from 'src/app/services/post.service';
 import { Comment} from "../../interfaces/comment";
@@ -29,35 +31,83 @@ export class PostComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.userService.GetUser(this.post.user.userId).subscribe({
-      next: user => {
-        this.post.user = user;
-      }
-    })
 
-    this.postService.getByComments(this.post.postId).subscribe({
-      next: data => this.comments = data
-    })
+//    this.userService.GetUser(this.post.user.userId).subscribe({
+//      next: user => {
+//        this.post.user = user;
+//      }
+//    })
 
+//    this.postService.getByComments(this.post.postId).subscribe({
+//      next: data => this.comments = data
+//    })
+
+
+  this.getComments()
   }
+
+  newPost: Post = {
+    text:  "",
+    title: "",
+    imageUrl: "string",
+    user: {
+        userId:  0
+    }
+}
+
+comments: Post[] = [{
+  text: this.commentForm.value.text || "",
+  title: "",
+  imageUrl: "string",
+  user: {
+      userId:  this.authService.currentUser.userId||0
+  }
+}]
+
+commentConnect: Comment ={
+  commentId: 0,
+  postId: 0
+}
+  user: User =this.authService.currentUser
 
   toggleReplyToPost = () => {
     this.replyToPost = !this.replyToPost
   }
 
+
   deleteComment = (comment: Post) => {
     this.comments = this.comments.filter(x => x.postId !== comment.postId);
+
+  getComments=()=>{
+    this.postService.getByComments(this.post.postId||1).subscribe((post)=> {
+      this.comments = post
+    })
+
   }
 
   submitReply = (e: any) => {
     e.preventDefault()
-    if (this.commentForm.valid) {
-      const post:Post = {
-        imageUrl: '',
-        text: this.commentForm.get("text")?.value || '',
-        title: '',
-        user: {
-          userId: this.authService.currentUser.userId || 0
+
+//    if (this.commentForm.valid) {
+//      const post:Post = {
+ //       imageUrl: '',
+ //       text: this.commentForm.get("text")?.value || '',
+//        title: '',
+//        user: {
+//          userId: this.authService.currentUser.userId || 0
+
+    this.newPost.text = this.commentForm.value.text || ""
+    this.newPost.title = "hallo"
+    this.newPost.imageUrl= ".../assets/images/favicon.png"
+    this.newPost.user.userId =this.authService.currentUser.userId||0
+    this.postService.postPost(this.newPost)
+      .subscribe(
+        (response) => {
+          this.newPost = response
+          this.commentConnect.commentId = this.newPost.postId||0
+          this.commentConnect.postId = this.post.postId||0
+          this.postService.postComment(this.commentConnect).subscribe( (response) => {this.getComments()})
+          this.toggleReplyToPost()
         }
       }
 
@@ -83,6 +133,14 @@ export class PostComponent implements OnInit {
     }else {
       this.commentForm.markAllAsTouched();
     }
+
+  }
+
+  bookmarkPosts(postId: number): void
+  {
+    // this will you the service to add a bookmark to the table 
+    // need the current user 
+    
 
   }
 }
