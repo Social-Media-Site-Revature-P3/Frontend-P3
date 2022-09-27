@@ -58,15 +58,15 @@ export class LikesComponent implements OnInit {
   }
 
   getLikes=()=>{
-    this.likesService.GetByPostId(this.postService.currentPost.postId || 0).subscribe((likes: Array<Like[]>)=>{
-      for(let like of likes){
-        if(like.at(0).liked == true){
-          this.likes = like.at(0)!
+    this.likesService.GetByPostId(this.postService.currentPost.postId || 0).subscribe((likes: Like[])=>{
+      // for(let like of likes){
+      //   if(like.liked == true){
+      //     this.likes = like
 
-        }else{
-          this.dislikes = like
-        }
-      }
+      //   }else{
+      //     this.dislikes = like
+      //   }
+      // }
       })
   }
 

@@ -55,6 +55,7 @@ export class CommentComponent implements OnInit {
           this.delete.emit(this.inputComment);
           this.toggleEditToComment();
           this.getComments();
+          this.commentForm.get('text')?.patchValue('')
         },
         error: err => console.log(err)
     })
@@ -91,7 +92,10 @@ commentConnect: Comment ={
 }
 
   toggleReplyToComment = () => {
-    this.commentForm.value.text = ""
+    if(this.replyToComment == false){
+       this.commentForm.get('text')?.patchValue('')}else{
+        this.commentForm.get('text')?.patchValue(this.inputComment.text)
+       }
     this.replyToComment = !this.replyToComment
   }
 
