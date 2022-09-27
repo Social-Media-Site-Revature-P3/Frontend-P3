@@ -66,6 +66,7 @@ export class CommentComponent implements OnInit {
     text:  "",
     title: "",
     imageUrl: "string",
+    comment: true,
     user: {
         userId:  0
     }
@@ -76,6 +77,7 @@ comments: Post[] = [{
   text: this.commentForm.value.text || "",
   title: "",
   imageUrl: "string",
+  comment: true,
   user: {
       userId:  this.authService.currentUser.userId||0
   }
