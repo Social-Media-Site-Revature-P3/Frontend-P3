@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { LikesComponent } from './components/likes/likes.component';
 import { LoginComponent } from './components/login/login.component';
 import { PostFeedPageComponent } from './components/post-feed-page/post-feed-page.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: "register", component: RegisterComponent },
   { path: "post-feed", component: PostFeedPageComponent},
   { path: "profile", component: UserProfileComponent},
-  { path: "edit-profile", component: EditProfileComponent}
+  { path: "edit-profile", component: EditProfileComponent},
+  { path: "likes", component: LikesComponent}
 ];
 
 @NgModule({

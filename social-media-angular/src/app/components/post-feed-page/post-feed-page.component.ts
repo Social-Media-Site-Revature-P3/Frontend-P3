@@ -46,6 +46,7 @@ post: Post={
   text:  this.postForm.value.text || "",
   title: "",
   imageUrl: this.postForm.value.imageUrl || "",
+  comment: true,
   user: {
       userId: this.authService.currentUser.userId||0
 }
