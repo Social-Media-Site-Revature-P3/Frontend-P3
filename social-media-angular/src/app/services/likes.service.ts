@@ -30,8 +30,8 @@ export class LikesService {
   }
 
   //Get by Post ID, show all likes related to a specific post
-  GetByPostId(id : number) : Observable<Like[]> { 
-    return this.http.get<Like[]>(this.baseurl + 'post/' + id)
+  GetByPostId(id : number) : Observable<Array<Like[]>> {
+    return this.http.get<Array<Like[]>>(this.baseurl + 'post/' + id)
     .pipe(
       retry(1),
       catchError(this.errorHandl)
@@ -39,7 +39,7 @@ export class LikesService {
   }
 
   //Delete a like, unliking something that has been liked before
-  DeleteLike(id : number) { 
+  DeleteLike(id : number) {
     return this.http.delete<Like>(this.baseurl + id , this.httpOptions)
     .pipe(
       retry(1),
@@ -55,8 +55,6 @@ export class LikesService {
       catchError(this.errorHandl)
     )
   }
-  //what is the difference between deleting a like and updating a like?
-  //we have it set as a boolean right now, need to talk about it with someone else
 
   errorHandl(error : any) {
     let errorMessage = '';

@@ -6,7 +6,6 @@ import { PostService } from 'src/app/services/post.service';
 import {UserService} from "../../services/user.service";
 import { Comment } from 'src/app/interfaces/comment';
 import { User } from 'src/app/interfaces/user';
-
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
@@ -82,6 +81,8 @@ comments: Post[] = [{
   }
 }]
 
+
+
 commentConnect: Comment ={
   commentId: 0,
   postId: 0
@@ -92,17 +93,19 @@ commentConnect: Comment ={
     this.replyToComment = !this.replyToComment
   }
 
+
   getComments=()=>{
     this.postService.getByComments(this.inputComment.postId||1).subscribe((post)=> {
       this.comments = post
     })
   }
 
+
   submitReply = (e: any) => {
     e.preventDefault()
     this.newPost.text = this.commentForm.value.text || ""
     this.newPost.title = "hallo"
-    this.newPost.imageUrl= ".../assets/images/favicon.png"
+    this.newPost.imageUrl= "assets/images/favicon.png"
     this.newPost.user.userId =this.authService.currentUser.userId||0
     this.postService.postPost(this.newPost)
       .subscribe(
