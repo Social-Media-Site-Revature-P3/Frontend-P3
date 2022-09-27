@@ -2,14 +2,10 @@
 <mat-card>
   <mat-card-header>
     <div mat-card-avatar class="header-image"></div>
-    <mat-card-title>{{inputComment.user.firstName}} {{inputComment.user.lastName}}</mat-card-title>
-    <mat-card-subtitle>{{inputComment.user.email}}</mat-card-subtitle>
+    <mat-card-title>{{user.firstName}} {{user.lastName}}</mat-card-title>
+    <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-<!-- <p>
-    {{inputComment.text}}
-</p>
-<img mat-card-image *ngIf="inputComment.imageUrl" src="{{ inputComment.imageUrl }}" alt="Post Image"> -->
 
 </mat-card-content>
   <mat-card-content>
@@ -41,7 +37,6 @@
         </mat-form-field>
         <div align="end">
           <button mat-raised-button color="warn" (click)="toggleReplyToComment()">Cancel</button>
-          <button mat-raised-button color="warn" (click)="deleteComment()">Delete</button>
           <button mat-raised-button color="primary" type="submit">Submit</button>
         </div>
       </form>
