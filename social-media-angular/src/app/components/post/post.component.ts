@@ -54,7 +54,6 @@ export class PostComponent implements OnInit {
     }
 }
 
-
 commentConnect: Comment ={
   commentId: 0,
   postId: 0
@@ -78,56 +77,17 @@ commentConnect: Comment ={
 
   submitReply = (e: any) => {
     e.preventDefault()
-
-  //  if (this.commentForm.valid) {
-  //    const post:Post = {
-  //      imageUrl: '',
-  //      text: this.commentForm.get("text")?.value || '',
-  //      title: '',
-  //      user: {
-  //        userId: this.authService.currentUser.userId || 0}}}
-
     this.newPost.text = this.commentForm.value.text || ""
     this.newPost.title = "hallo"
     this.newPost.imageUrl= ".../assets/images/favicon.png"
     this.newPost.user.userId =this.authService.currentUser.userId||0
     this.postService.postPost(this.newPost).subscribe((response) => {
-          this.newPost = response
-          this.commentConnect.commentId = this.newPost.postId||0
-          this.commentConnect.postId = this.post.postId||0
-          this.postService.postComment(this.commentConnect).subscribe( (response) => {this.getComments()})
-          this.toggleReplyToPost()
-        } )}
-        
-      
+      this.newPost = response
+      this.commentConnect.commentId = this.newPost.postId||0
+      this.commentConnect.postId = this.post.postId||0
+      this.postService.postComment(this.commentConnect).subscribe( (response) => {this.getComments()})
+      this.toggleReplyToPost()
+    })
+  }   
 
-    //   this.postService.createPost(post)
-    //     .subscribe(
-    //       (data) => {
-    //         this.commentForm.get("text")?.patchValue('');
-    //         let newComment: Comment = {
-    //           commentId: data.postId ? data.postId : 0,
-    //           postId: this.post.postId | 0
-    //         }
-
-    //         let comment = data;
-    //         this.postService.postComment(newComment)
-    //           .subscribe(
-    //             (response) => {
-    //               this.comments.push(comment);
-    //               this.toggleReplyToPost()
-    //             }
-    //           )
-    //       }
-    //     )
-    // }else {
-    //   this.commentForm.markAllAsTouched();
-   
-
-  bookmarkPosts=(postId: number) =>void{
-    // this will you the service to add a bookmark to the table 
-    // need the current user 
-    
-
-  
-}}
+}
