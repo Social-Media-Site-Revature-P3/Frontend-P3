@@ -1,10 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Follow } from 'src/app/interfaces/follow';
 import {Post} from 'src/app/interfaces/post';
 import { User } from 'src/app/interfaces/user';
 import { Comment } from 'src/app/interfaces/comment';
 import { AuthService } from 'src/app/services/auth.service';
+import { FollowServiceService } from 'src/app/services/follow-service.service';
 import { PostService } from 'src/app/services/post.service';
+import { Bookmark } from 'src/app/interfaces/bookmark';
+import { BookmarkService } from 'src/app/services/bookmark.service';
 import {UserService} from "../../services/user.service";
 
 @Component({
@@ -24,9 +28,9 @@ export class PostComponent implements OnInit {
   user: User 
   constructor(private postService: PostService,
               private authService: AuthService,
-              private userService: UserService) {
-
-  }
+              private userService: UserService,
+              private followService:FollowServiceService,
+               private bookMarkService: BookmarkService) {}
 
   ngOnInit(): void {
     this.user =this.authService.currentUser
@@ -54,7 +58,6 @@ export class PostComponent implements OnInit {
     }
 }
 
-
 commentConnect: Comment ={
   commentId: 0,
   postId: 0
@@ -79,27 +82,59 @@ commentConnect: Comment ={
 
   submitReply = (e: any) => {
     e.preventDefault()
-
-
     this.newPost.text = this.commentForm.value.text || ""
     this.newPost.title = "hallo"
     this.newPost.imageUrl= ".../assets/images/favicon.png"
     this.newPost.user.userId =this.authService.currentUser.userId||0
     this.newPost.comment = true
     this.postService.postPost(this.newPost).subscribe((response) => {
-          this.newPost = response
-          this.commentConnect.commentId = this.newPost.postId||0
-          this.commentConnect.postId = this.post.postId||0
-          this.postService.postComment(this.commentConnect).subscribe( (response) => {this.getComments()})
-          this.toggleReplyToPost()
-        } )}
-        
-   
+      this.newPost = response
+      this.commentConnect.commentId = this.newPost.postId||0
+      this.commentConnect.postId = this.post.postId||0
+      this.postService.postComment(this.commentConnect).subscribe( (response) => {this.getComments()})
+      this.toggleReplyToPost()
+    })
+  }   
 
-  bookmarkPosts=(postId: number) =>void{
-    // this will you the service to add a bookmark to the table 
-    // need the current user 
-    
+  bookmarkPosts(bookmarkPostId: number): void
+    {
+      // this will you the service to add a bookmark to the table 
+      // need the current user 
+      let newBookMark: Bookmark = 
+      {
+        post: 
+        {
+          postId: bookmarkPostId ,
+        },
+        user: 
+        {
+          userId: this.authService.currentUser.userId||0
+        }
 
-  
-}}
+      };
+
+      this.bookMarkService.SaveBookmark(newBookMark)
+      .subscribe(
+        ()=> {console.log("Created a bookmark for postId: ",newBookMark)
+      });
+    }
+
+  followUser(postAuthorId: number): void
+{
+  let newFollow: Follow = 
+  {
+    followedUser: {
+        userId: postAuthorId
+    },
+    followerUser: {
+        userId: this.authService.currentUser.userId||0
+    }
+  }
+
+  // add following 
+  this.followService.IWillFollow(newFollow)
+  .subscribe(()=> {
+    console.log("new follow: ", newFollow);
+  })
+}
+}

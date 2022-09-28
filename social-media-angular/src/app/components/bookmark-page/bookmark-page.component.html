@@ -4,3 +4,6 @@
 
 <!-- needs an ngFor -->
 
+<div id="post-feed" *ngFor="let post of usersBookmarkPosts">
+    <app-post [post]="post"></app-post>
+</div>
