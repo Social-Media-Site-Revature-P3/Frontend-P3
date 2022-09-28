@@ -109,15 +109,26 @@ body {
   width:10em;
   height: 10em;
   border-radius: 7em;
-      
+
   border: 1px solid #888080;
-     
+
   margin-bottom: 1em;
 
   background-image: url('./assets/images/favicon.png');
   background-size: cover;
 }
 
+.user-circle-profile{
+  width:10em;
+  height: 10em;
+  border-radius: 7em;
+  border: 1px solid #888080;
+  margin-bottom: 1em;
+  background-image: url('./assets/images/favicon.png');
+  background-size: cover;
+  align-content: center;
+  margin: auto;
+}
 .user-card {
   width: 10em;
   text-align: center;
@@ -170,3 +181,58 @@ body {
 .spacer {
   flex: 1 1 auto;
 }
+
+
+.error{
+  color: #f44336;
+}
+
+.user-profile-container {
+  max-width: 100%;
+  max-height: 412px;
+  /* position: absolute; */
+  /* overflow: hidden; */
+  /* background-color: #474c; */
+  background-color: #474c55;
+  vertical-align: top;
+  color: white
+}
+
+.user-profile-card {
+  width: 10em;
+  text-align: center;
+  margin: 1em;
+}
+
+.user-info-container {
+  margin-top: 1em;
+  max-width: 60%;
+}
+
+.user-stats {
+  padding: 1em;
+  margin-left: 1em;
+  position: relative;
+}
+
+.user-info-text {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.user-bio {
+  max-width: fit-content;
+}
+
+.follow-button {
+  padding: 1em;
+  float: right;
+  position: relative;
+}
+
+.mat-button-color {
+  background-color: #F26925;
+  color: white;
+}
+
+

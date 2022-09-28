@@ -1,22 +1,51 @@
-<p>
-    {{inputComment.text}}
-</p>
+
+<mat-card>
+  <mat-card-header>
+    <div mat-card-avatar class="header-image"></div>
+    <mat-card-title>{{user.firstName}} {{user.lastName}}</mat-card-title>
+    <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+
+</mat-card-content>
+  <mat-card-content>
+    <p *ngIf="!editToComment">{{inputComment.text}}</p>
+    <div class="comment-reply" align="right" *ngIf="creatorUser">
+      <div class="comment-reply-text" (click)="toggleEditToComment()">
+        Edit
+      </div>
+      <form class="form" *ngIf="editToComment" [formGroup]="commentForm" (ngSubmit)="editReply($event)">
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Edit your Comment</mat-label>
+            <textarea matInput autofocus formControlName="text"></textarea>
+          </mat-form-field>
+          <div align="end">
+            <button mat-raised-button color="warn" (click)="toggleEditToComment()">Cancel</button>
+            <button mat-raised-button color="warn" (click)="deleteComment()">Delete</button>
+            <button mat-raised-button color="primary" type="submit">Edit</button>
+          </div></form></div>
+
+
 <div class="comment-reply" align="right">
     <div class="comment-reply-text" (click)="toggleReplyToComment()">
-        reply
+        Reply
     </div>
+
     <form class="form" *ngIf="replyToComment" [formGroup]="commentForm" (ngSubmit)="submitReply($event)">
         <mat-form-field class="full-width" appearance="fill">
-            <mat-label>Make a Post</mat-label>
-            <textarea matInput autofocus formControlName="text"></textarea>
+          <mat-label>Make a Comment</mat-label>
+          <textarea matInput autofocus formControlName="text"></textarea>
         </mat-form-field>
         <div align="end">
-            <button mat-raised-button color="warn" (click)="toggleReplyToComment()">Cancel</button>
-            <button mat-raised-button color="primary" type="submit">Post</button>
+          <button mat-raised-button color="warn" (click)="toggleReplyToComment()">Cancel</button>
+          <button mat-raised-button color="primary" type="submit">Submit</button>
         </div>
-    </form>
-</div>
-<div *ngFor="let comment of inputComment.comments" class="comment-container">
+      </form>
+    </div></mat-card-content></mat-card>
+  
+
+
+<div *ngFor="let comment of comments" class="comment-container">
     <mat-divider></mat-divider>
-    <app-comment [comment]="comment"></app-comment>
+    <app-comment *ngIf="comment.postId != 0" [comment]="comment"></app-comment>
 </div>
