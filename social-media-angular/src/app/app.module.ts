@@ -19,7 +19,6 @@ import { FollowPageComponent } from './follow-page/follow-page.component';
 import { BookmarkPageComponent } from './components/bookmark-page/bookmark-page.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
-
 import { LikesComponent } from './components/likes/likes.component';
 
 @NgModule({

@@ -2,7 +2,8 @@
     <mat-card>
         <mat-card-header>
             <div mat-card-avatar class="header-image"></div>
-
+            <mat-card-title>{{this.user.firstName}} {{this.user.lastName}}</mat-card-title>
+            <mat-card-subtitle>{{this.user.email}}</mat-card-subtitle>
             <mat-card-title>{{post.user.firstName}} {{post.user.lastName}}</mat-card-title>
             <mat-card-subtitle>{{post.user.email}}</mat-card-subtitle>
         </mat-card-header>
@@ -17,6 +18,7 @@
             </div>
         </mat-card-content>
         <mat-card-actions align="end">
+            <button mat-raised-button color="primary" (click)="bookmarkPosts(post.postId || 0)"> bookmark</button>
             <button mat-raised-button color="primary" (click)="toggleReplyToPost()">Reply</button>
         </mat-card-actions>
         <form class="form" *ngIf="replyToPost" [formGroup]="commentForm" (ngSubmit)="submitReply($event)">
