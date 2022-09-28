@@ -32,7 +32,7 @@ export class BookmarkPageComponent implements OnInit {
         // using bookmarks to get posts and then will display them 
         for(var bookmark of data )
         {
-          this.postService.getbyPostId(bookmark.bookmarkId || 0)
+          this.postService.getbyPostId(bookmark.post.postId || 0)
           .subscribe(
             (post: Post)=> 
             {
