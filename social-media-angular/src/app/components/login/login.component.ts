@@ -32,8 +32,7 @@ export class LoginComponent implements OnInit {
         password: this.loginForm.value.password || ""
       }
       this.authService.login(login)
-        .subscribe( {
-            next: (response) => {
+        .subscribe( {next: (response) => {
               this.emailPasswordError = false;
               this.authService.currentUser = response
               this.router.navigate(['post-feed'])

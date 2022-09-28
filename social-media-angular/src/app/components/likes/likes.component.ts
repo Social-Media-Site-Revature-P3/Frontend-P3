@@ -58,18 +58,18 @@ export class LikesComponent implements OnInit {
   }
 
   getLikes=()=>{
-    this.likesService.GetByPostId(this.postService.currentPost.postId || 0).subscribe((likes: Like[])=>{
-      // for(let like of likes){
-      //   if(like.liked == true){
-      //     this.likes = like
-
-      //   }else{
-      //     this.dislikes = like
-      //   }
-      // }
-      })
+    this.likesService.GetByPostId(8).subscribe((allLikesAndDislikes: Array<Like[]>)=>{
+      let allLikes = allLikesAndDislikes.slice(0, 1);
+      let allDislikes = allLikesAndDislikes.slice(1);
+      for(let likes of allLikes) {
+        this.likes = likes;
+      }
+      for(let dislikes of allDislikes){
+        this.dislikes = dislikes;
+      }
+    })
   }
-
+//this.postService.currentPost.postId || 0
   submitLike =(e:any) => {
     this.newLike.liked = true;
     this.newLike.post.postId = this.postService.currentPost.postId || 0

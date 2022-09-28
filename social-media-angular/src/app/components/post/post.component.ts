@@ -48,7 +48,7 @@ export class PostComponent implements OnInit {
     text:  "",
     title: "",
     imageUrl: "string",
-    comment: false,
+    comment: true,
     user: {
         userId:  0
     }
