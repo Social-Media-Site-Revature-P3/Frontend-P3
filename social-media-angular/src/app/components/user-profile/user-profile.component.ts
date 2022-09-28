@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
-import { EditUserProfileComponent } from '../../components/edit-user-profile/edit-user-profile.component';
 import {User} from 'src/app/interfaces/user';
 
 @Component({
@@ -55,12 +54,7 @@ export class UserProfileComponent implements OnInit {
       lastName: this.currUser.lastName
     }
 
-    // Open EditUserProfile component which displays the dialog box
-    let dialogRef = this.dialog.open(EditUserProfileComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe(updatedUser => {
-      this.currUser = updatedUser;
-    })
+   
   }
 
   followUser() {

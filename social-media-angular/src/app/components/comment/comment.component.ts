@@ -22,6 +22,7 @@ export class CommentComponent implements OnInit {
   replyToComment: boolean = false;
   editToComment: boolean = false;
   creatorUser: boolean = false;
+
   @Output() delete: EventEmitter<Post> = new EventEmitter();
 
   constructor(private postService: PostService,
@@ -37,7 +38,7 @@ export class CommentComponent implements OnInit {
 
     this.userService.GetUser(this.inputComment.user.userId).subscribe({
       next: user => {
-        this.inputComment.user = user;
+        this.user= user;
       }
     })
 
@@ -45,7 +46,6 @@ export class CommentComponent implements OnInit {
   }
 
   toggleEditToComment = () => {
-    this.commentForm.value.text = this.inputComment.text
     this.editToComment = !this.editToComment
   }
 
@@ -53,6 +53,9 @@ export class CommentComponent implements OnInit {
     this.postService.deletePost(this.inputComment.postId).subscribe({
         next: data => {
           this.delete.emit(this.inputComment);
+          this.toggleEditToComment();
+          this.getComments();
+          this.commentForm.get('text')?.patchValue('')
         },
         error: err => console.log(err)
     })
@@ -89,7 +92,10 @@ commentConnect: Comment ={
 }
 
   toggleReplyToComment = () => {
-    this.commentForm.value.text = ""
+    if(this.replyToComment == false){
+       this.commentForm.get('text')?.patchValue('')}else{
+        this.commentForm.get('text')?.patchValue(this.inputComment.text)
+       }
     this.replyToComment = !this.replyToComment
   }
 
@@ -102,24 +108,6 @@ commentConnect: Comment ={
 
 
   submitReply = (e: any) => {
-  //  e.preventDefault();
- //   let newComment: Post = {
- //     postId: this.inputComment.postId,
- //     imageUrl: "",
- //     text: `${this.commentForm.value.text}`,
- //     title: "",
- //     user: this.inputComment.user
- //   }
-    //let newComment = new Post(0, this.commentForm.value.text || "", "", this.authService.currentUser, [])
-   // this.postService.updatePost(newComment, this.inputComment.postId )
- //     .subscribe({
-//         next: (response) => {
-//          this.inputComment = newComment;
-//          this.toggleEditToComment();
-//        },
-//        error: err => console.log(err)
- //     })
-
     e.preventDefault()
     this.newPost.text = this.commentForm.value.text || ""
     this.newPost.title = "hallo"
@@ -139,28 +127,16 @@ commentConnect: Comment ={
   }
   editReply=(e:any)=>{
     e.preventDefault();
-      // let newComment: Post = {
-      //   postId: this.inputComment.postId,
-      //   imageUrl: "",
-      //   text: `${this.commentForm.value.text}`,
-      //   title: "",
-      //   user: this.inputComment.user
-      // }
       this.newPost.postId = this.inputComment.postId
-      this.newPost.text = this.commentForm.value.text || this.inputComment.text
-      this.newPost.title = " "
+      this.newPost.text = this.commentForm.value.text || ""
+      this.newPost.title = " " 
+      this.inputComment.text = this.newPost.text
       this.newPost.imageUrl= ".../assets/images/favicon.png"
       this.newPost.user.userId =this.authService.currentUser.userId||0
-      this.postService.postPost(this.newPost).subscribe( (response) => {
-       // this.inputComment = newComment;
-        this.toggleEditToComment()})
        this.postService.updatePost(this.newPost, this.inputComment.postId )
-        .subscribe({
-           next: (response) => {
-            this.inputComment = response;
-            this.toggleEditToComment();
-          },
-          error: err => console.log(err)
-        })
+        .subscribe((response)=>{
+               console.log(this.editReply)
+          this.toggleEditToComment()
+          console.log(this.editReply)})
   }
 }

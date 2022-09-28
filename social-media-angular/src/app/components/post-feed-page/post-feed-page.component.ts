@@ -28,7 +28,7 @@ export class PostFeedPageComponent implements OnInit {
               private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.postService.getAllPosts().subscribe(
+    this.postService.getByOriginalPost(this.authService.currentUser.userId||0).subscribe(
       (response) => {
         this.posts = response
       }
@@ -54,19 +54,9 @@ post: Post={
   
   submitPost = (e: any) => {
     e.preventDefault();
-//    if (this.postForm.valid) {
-//      const post:Post = {
-//        imageUrl: this.postForm.get("imageUrl")?.value || '',
-//        text: this.postForm.get("text")?.value || '',
-//        title: this.postForm.get("title")?.value || '',
-//        user: {
-//          userId: this.authService.currentUser.userId || 0
-//        }
-//      }
-
-    //this.postService.createPost(post)
     this.post.text =this.postForm.value.text || ""
     this.post.imageUrl =  this.postForm.value.imageUrl || ""
+    this.post.comment = false
     this.post.user.userId =  this.authService.currentUser.userId||0
     this.postService.postPost(this.post)
       .subscribe(
@@ -75,9 +65,7 @@ post: Post={
           this.toggleCreatePost()
         }
       )
-   // }else {
-   //   this.postForm.markAllAsTouched();
-   // }
+  
 
 
   }

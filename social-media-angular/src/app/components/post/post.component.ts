@@ -1,10 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Follow } from 'src/app/interfaces/follow';
 import {Post} from 'src/app/interfaces/post';
 import { User } from 'src/app/interfaces/user';
 import { Comment } from 'src/app/interfaces/comment';
 import { AuthService } from 'src/app/services/auth.service';
+import { FollowServiceService } from 'src/app/services/follow-service.service';
 import { PostService } from 'src/app/services/post.service';
+import { Bookmark } from 'src/app/interfaces/bookmark';
+import { BookmarkService } from 'src/app/services/bookmark.service';
 import {UserService} from "../../services/user.service";
 
 @Component({
@@ -21,15 +25,15 @@ export class PostComponent implements OnInit {
   @Input('post') post: Post | any;
   replyToPost: boolean = false;
   comments: Post[] = [];
-
+  user: User 
   constructor(private postService: PostService,
               private authService: AuthService,
-              private userService: UserService) {
-
-  }
+              private userService: UserService,
+              private followService:FollowServiceService,
+               private bookMarkService: BookmarkService) {}
 
   ngOnInit(): void {
-
+    this.user =this.authService.currentUser
 
    this.userService.GetUser(this.post.user.userId).subscribe({
      next: user => {
@@ -58,9 +62,10 @@ commentConnect: Comment ={
   commentId: 0,
   postId: 0
 }
-  user: User =this.authService.currentUser
+  
 
   toggleReplyToPost = () => {
+    this.commentForm.get('text')?.patchValue('')
     this.replyToPost = !this.replyToPost
   }
 
@@ -81,6 +86,7 @@ commentConnect: Comment ={
     this.newPost.title = "hallo"
     this.newPost.imageUrl= ".../assets/images/favicon.png"
     this.newPost.user.userId =this.authService.currentUser.userId||0
+    this.newPost.comment = true
     this.postService.postPost(this.newPost).subscribe((response) => {
       this.newPost = response
       this.commentConnect.commentId = this.newPost.postId||0
@@ -90,4 +96,45 @@ commentConnect: Comment ={
     })
   }   
 
+  bookmarkPosts(bookmarkPostId: number): void
+    {
+      // this will you the service to add a bookmark to the table 
+      // need the current user 
+      let newBookMark: Bookmark = 
+      {
+        post: 
+        {
+          postId: bookmarkPostId ,
+        },
+        user: 
+        {
+          userId: this.authService.currentUser.userId||0
+        }
+
+      };
+
+      this.bookMarkService.SaveBookmark(newBookMark)
+      .subscribe(
+        ()=> {console.log("Created a bookmark for postId: ",newBookMark)
+      });
+    }
+
+  followUser(postAuthorId: number): void
+{
+  let newFollow: Follow = 
+  {
+    followedUser: {
+        userId: postAuthorId
+    },
+    followerUser: {
+        userId: this.authService.currentUser.userId||0
+    }
+  }
+
+  // add following 
+  this.followService.IWillFollow(newFollow)
+  .subscribe(()=> {
+    console.log("new follow: ", newFollow);
+  })
+}
 }
