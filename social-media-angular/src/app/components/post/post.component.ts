@@ -62,6 +62,7 @@ commentConnect: Comment ={
   user: User =this.authService.currentUser
 
   toggleReplyToPost = () => {
+    this.commentForm.get('text')?.patchValue('')
     this.replyToPost = !this.replyToPost
   }
 

@@ -30,8 +30,8 @@ export class LikesService {
   }
 
   //Get by Post ID, show all likes related to a specific post
-  GetByPostId(id : number) : Observable<Array<Like[]>> {
-    return this.http.get<Array<Like[]>>(this.baseurl + 'post/' + id)
+  GetByPostId(id : number) : Observable<Like[]> {
+    return this.http.get<Like[]>(this.baseurl + 'post/' + id)
     .pipe(
       retry(1),
       catchError(this.errorHandl)
