@@ -21,7 +21,7 @@ export class PostComponent implements OnInit {
   @Input('post') post: Post | any;
   replyToPost: boolean = false;
   comments: Post[] = [];
-
+  user: User 
   constructor(private postService: PostService,
               private authService: AuthService,
               private userService: UserService) {
@@ -29,7 +29,7 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.user =this.authService.currentUser
 
    this.userService.GetUser(this.post.user.userId).subscribe({
      next: user => {
@@ -59,7 +59,7 @@ commentConnect: Comment ={
   commentId: 0,
   postId: 0
 }
-  user: User =this.authService.currentUser
+  
 
   toggleReplyToPost = () => {
     this.commentForm.get('text')?.patchValue('')
@@ -80,18 +80,12 @@ commentConnect: Comment ={
   submitReply = (e: any) => {
     e.preventDefault()
 
-  //  if (this.commentForm.valid) {
-  //    const post:Post = {
-  //      imageUrl: '',
-  //      text: this.commentForm.get("text")?.value || '',
-  //      title: '',
-  //      user: {
-  //        userId: this.authService.currentUser.userId || 0}}}
 
     this.newPost.text = this.commentForm.value.text || ""
     this.newPost.title = "hallo"
     this.newPost.imageUrl= ".../assets/images/favicon.png"
     this.newPost.user.userId =this.authService.currentUser.userId||0
+    this.newPost.comment = true
     this.postService.postPost(this.newPost).subscribe((response) => {
           this.newPost = response
           this.commentConnect.commentId = this.newPost.postId||0
@@ -100,29 +94,6 @@ commentConnect: Comment ={
           this.toggleReplyToPost()
         } )}
         
-      
-
-    //   this.postService.createPost(post)
-    //     .subscribe(
-    //       (data) => {
-    //         this.commentForm.get("text")?.patchValue('');
-    //         let newComment: Comment = {
-    //           commentId: data.postId ? data.postId : 0,
-    //           postId: this.post.postId | 0
-    //         }
-
-    //         let comment = data;
-    //         this.postService.postComment(newComment)
-    //           .subscribe(
-    //             (response) => {
-    //               this.comments.push(comment);
-    //               this.toggleReplyToPost()
-    //             }
-    //           )
-    //       }
-    //     )
-    // }else {
-    //   this.commentForm.markAllAsTouched();
    
 
   bookmarkPosts=(postId: number) =>void{
