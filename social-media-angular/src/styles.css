@@ -17,7 +17,7 @@ body.darkMode {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   min-height: 100vh;
-  background: #191919;
+  background: #282125;
 }
 
 .app-header {
@@ -82,7 +82,7 @@ body.darkMode {
   float: left;
   padding: 60px 50px 40px 50px;
   width: 100%;
-  background: #2d426391;
+  background: #a5a4ac;
   border-radius: 10px;
   transform: scale(1);
   -webkit-transform: scale(1);
@@ -123,7 +123,7 @@ body.darkMode {
   border-radius: 10px;
   position: absolute;
   top: -10px;
-  background: #2d426391;
+  background: #a5a4acb7;
   left: 0;
   transform: scale(.95);
   -webkit-transform: scale(.95);
@@ -176,7 +176,7 @@ body.darkMode {
 .darkMode .login-wrapper .mat-stroked-button {
   border: 1px solid currentColor;
   line-height: 54px;
-  background: #C84B31;
+  background: #F26925;
 }
 
 .login-wrapper .mat-form-field-appearance-legacy .mat-form-field-infix {
@@ -198,9 +198,9 @@ body.darkMode {
   width:10em;
   height: 10em;
   border-radius: 7em;
-      
+
   border: 1px solid #888080;
-     
+
   margin-bottom: 1em;
 
   background-image: url('./assets/images/favicon.png');
@@ -215,13 +215,10 @@ body.darkMode {
   border-radius: 7em;
       
   border: 1px solid #bd1313;
-     
   margin-bottom: 1em;
-
   background-image: url('./assets/images/favicon.png');
   background-size: cover;
 }
-
 
 .user-card {
   width: 10em;
@@ -259,7 +256,6 @@ body.darkMode {
   border: 1px solid #c90606;
 }
 
-
 #post-feed {
   width: 60%;
   align-content: center;
@@ -288,17 +284,21 @@ body.darkMode {
 
 /* nav-bar dark mode */
 .darkMode .mat-toolbar {
-  background: #C84B31;
+  background: #F26925;
 }
 
 /* post dark mode */
 /* all inputs are the same color */
 .darkMode .mat-form-field-flex {
-  background: #2d426391;
+  background: #a5a4ac;
 }
 
 
 /* need to ask what the user card is and how to change the background */
 .darkMode .user-card {
-  background-color: #ECDBBA;
+  background-color: #a5a4ac;
+}
+
+.error{
+  color: #f44336;
 }
