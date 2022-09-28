@@ -11,3 +11,9 @@
     <button [routerLink]="['/bookmark-page']"> {{user.firstName}}'s bookmarks </button>
     
 </mat-card>
+
+<mat-card-actions >
+    <!-- can put in the numbers of followers and following  -->
+    <button mat-raised-button color="primary" [routerLink]="['/follow-page', user.userId, 1]"> Followers</button>
+    <button mat-raised-button color="primary" [routerLink]="['/follow-page',user.userId, 2 ]"> Following</button>
+</mat-card-actions>
