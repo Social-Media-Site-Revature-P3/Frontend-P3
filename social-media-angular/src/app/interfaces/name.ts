@@ -1,4 +1,4 @@
 export interface Name {
-    firstName: string
+    firstName: string;
     lastName?: string
 }

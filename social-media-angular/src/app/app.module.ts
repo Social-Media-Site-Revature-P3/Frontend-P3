@@ -17,6 +17,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { EditProfileComponent, UploadProfilePictureDialog } from './components/edit-profile/edit-profile.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { BookmarkPageComponent } from './components/bookmark-page/bookmark-page.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     UserCardComponent,
     NavbarComponent,
     UserInitialsPipe,
+    SearchBarComponent,
+    BookmarkPageComponent,
     EditProfileComponent,
     UserProfileComponent,
     UploadProfilePictureDialog,
