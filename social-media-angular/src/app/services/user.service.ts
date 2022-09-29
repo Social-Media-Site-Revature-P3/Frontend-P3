@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { User } from '../interfaces/user';
 import { Name } from '../interfaces/name';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,9 @@ export class UserService {
   
   constructor(private http: HttpClient) { }
 
-  baseurl = '${environment.baseUrl}/users';
+  baseurl = `${environment.baseUrl}/users`;
+
+  userResult: any;
 
    // Http Headers
    httpOptions = {
@@ -60,6 +63,11 @@ export class UserService {
         catchError(this.errorHandl)
       );
     }
+
+    UploadImage(file: any){
+      return 
+    }
+
 
   //Delete User by userId
   DeleteUser(userId: number): Observable<User> {

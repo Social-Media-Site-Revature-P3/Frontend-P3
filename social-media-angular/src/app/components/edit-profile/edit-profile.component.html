@@ -48,7 +48,15 @@
           <br>
 
           <div class="example-button-row">
-            <button class="button-space" mat-raised-button color="button-color">Upload Profile Picture</button>
+            <button class="button-space" mat-raised-button color="button-color" (click)="fileUpload.click()">Upload Profile Picture</button>
+            <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+            
+            
+            
+            
+            
+            
+            
             <button class="button-space" mat-raised-button color="primary">Confirm</button>
             <button class="button-space" mat-stroked-button>Cancel</button>
           </div>
