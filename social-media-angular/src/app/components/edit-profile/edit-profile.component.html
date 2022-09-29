@@ -11,46 +11,44 @@
         <div class="example-container">
           <mat-form-field appearance="fill" class="width-50">
             <mat-label>First Name</mat-label>
-            <!-- <input matInput [(ngModel)]="registerUser.firstName"> -->
-            <input matInput>
+            <input matInput placeholder={{updateUser.firstName}} [(ngModel)]="updateUser.firstName">
           </mat-form-field>
       
           <mat-form-field appearance="fill" class="width-50 ml-2">
             <mat-label>Last Name</mat-label>
-            <!-- <input matInput [(ngModel)]="registerUser.lastName"> -->
-            <input matInput>
+            <input matInput placeholder={{updateUser.lastName}} [(ngModel)]="updateUser.lastName">
           </mat-form-field>
           <br>
 
           <mat-form-field appearance="fill" class="width-100">
             <mat-label>Username</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="updateUser.nickname">
           </mat-form-field>
           <br>
 
           <mat-form-field appearance="fill" class="width-100">
             <mat-label>Email address</mat-label>
-            <input matInput>
+            <input matInput placeholder={{updateUser.email}} [(ngModel)]="updateUser.email">
           </mat-form-field>
           <br>
 
           <mat-form-field appearance="fill" class="width-100">
-            <mat-label>Enter password</mat-label>
-            <input matInput>
+            <mat-label>Enter new password</mat-label>
+            <input matInput [(ngModel)]="updateUser.password">
           </mat-form-field>
           <br>
 
           <mat-form-field hintLabel="Max 181 characters" appearance="fill" class="width-100">
             <mat-label>About Me</mat-label>
-            <textarea matInput #input maxlength="181" placeholder="Ex. I'm saucy" ></textarea>
+            <textarea matInput #input maxlength="181" placeholder="Ex. I'm saucy" [(ngModel)]="updateUser.aboutMe"></textarea>
             <mat-hint align="end">{{input.value?.length || 0}}/181</mat-hint>
           </mat-form-field>
           <br>
 
           <div class="example-button-row">
-            <button class="button-space" mat-raised-button color="button-color">Upload Profile Picture</button>
-            <button class="button-space" mat-raised-button color="primary">Confirm</button>
-            <button class="button-space" mat-stroked-button>Cancel</button>
+            <button class="button-space" mat-raised-button color="button-color" (click)="profilePictureDialog()">Upload Profile Picture</button>
+            <button class="button-space" mat-raised-button color="primary" (click)="UpdateUser()">Confirm</button>
+            <button class="button-space" mat-stroked-button [routerLink]="['/profile']">Cancel</button>
           </div>
           
         </div>

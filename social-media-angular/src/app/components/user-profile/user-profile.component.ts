@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
-import { EditUserProfileComponent } from '../../edit-user-profile/edit-user-profile.component';
-import User from 'src/app/models/User';
+import { EditUserProfileComponent } from '../edit-user-profile/edit-user-profile.component';
+import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-user-profile',
@@ -30,10 +30,11 @@ export class UserProfileComponent implements OnInit {
   // }
 
   currUser: User = {
-    id: 0,
+    userId: 0,
     email: "",
     firstName: "",
-    lastName: ""
+    lastName: "",
+    password: ""
   }
 
   editUserProfile() {
@@ -53,12 +54,12 @@ export class UserProfileComponent implements OnInit {
     //   profilePicutre: this.currUser.profilePicutre
     // }
 
-    dialogConfig.data = {
-      id: this.currUser.id,
-      email: this.currUser.email,
-      firstName: this.currUser.firstName,
-      lastName: this.currUser.lastName
-    }
+    // dialogConfig.data = {
+    //   id: this.currUser.id,
+    //   email: this.currUser.email,
+    //   firstName: this.currUser.firstName,
+    //   lastName: this.currUser.lastName
+    // }
 
     // Open EditUserProfile component which displays the dialog box
     let dialogRef = this.dialog.open(EditUserProfileComponent, dialogConfig);
