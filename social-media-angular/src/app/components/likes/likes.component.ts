@@ -69,6 +69,7 @@ export class LikesComponent implements OnInit {
       }
     })
   }
+  
 //this.postService.currentPost.postId || 0
   submitLike =(e:any) => {
     this.newLike.liked = true;
