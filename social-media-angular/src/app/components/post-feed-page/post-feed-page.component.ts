@@ -55,7 +55,7 @@ post: Post={
   submitPost = (e: any) => {
     e.preventDefault();
     this.post.text =this.postForm.value.text || ""
-    this.post.imageUrl =  this.postForm.value.imageUrl || ""
+    this.post.imageUrl =  this.postForm.value.imageUrl || "Na"
     this.post.comment = false
     this.post.user.userId =  this.authService.currentUser.userId||0
     this.postService.postPost(this.post)

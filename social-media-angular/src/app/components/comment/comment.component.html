@@ -10,6 +10,8 @@
 </mat-card-content>
   <mat-card-content>
     <p *ngIf="!editToComment">{{inputComment.text}}</p>
+  
+    <img mat-card-image *ngIf="inputComment.imageUrl!='Na'" src="{{ inputComment.imageUrl }}" alt="Post Image">
     <div class="comment-reply" align="right" *ngIf="creatorUser">
       <div class="comment-reply-text" (click)="toggleEditToComment()">
         Edit
@@ -35,6 +37,10 @@
         <mat-form-field class="full-width" appearance="fill">
           <mat-label>Make a Comment</mat-label>
           <textarea matInput autofocus formControlName="text"></textarea>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Add an Image?</mat-label>
+            <input matInput formControlName="imageUrl">
         </mat-form-field>
         <div align="end">
           <button mat-raised-button color="warn" (click)="toggleReplyToComment()">Cancel</button>
