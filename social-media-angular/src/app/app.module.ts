@@ -16,7 +16,6 @@ import { UserInitialsPipe } from './pipes/user-initials.pipe';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { EditProfileComponent, UploadProfilePictureDialog } from './components/edit-profile/edit-profile.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import { EditUserProfileComponent } from './components/edit-user-profile/edit-user-profile.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
@@ -32,7 +31,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     UserInitialsPipe,
     EditProfileComponent,
     UserProfileComponent,
-    EditUserProfileComponent,
     UploadProfilePictureDialog,
   ],
   imports: [
