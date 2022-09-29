@@ -117,7 +117,7 @@ commentConnect: Comment ={
     e.preventDefault()
     this.newPost.text = this.commentForm.value.text || ""
     this.newPost.title = "hallo"
-    this.newPost.imageUrl= this.commentForm.value.imageUrl||"Na"
+    this.newPost.imageUrl= this.commentForm.value.imageUrl||""
     this.newPost.user.userId =this.authService.currentUser.userId||0
     this.postService.postPost(this.newPost)
       .subscribe(
@@ -137,7 +137,7 @@ commentConnect: Comment ={
       this.newPost.text = this.commentForm.value.text || ""
       this.newPost.title = " " 
       this.inputComment.text = this.newPost.text
-      this.newPost.imageUrl= ".../assets/images/favicon.png"
+      this.newPost.imageUrl= ""
       this.newPost.user.userId =this.authService.currentUser.userId||0
        this.postService.updatePost(this.newPost, this.inputComment.postId )
         .subscribe((response)=>{
