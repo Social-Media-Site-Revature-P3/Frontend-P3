@@ -20,6 +20,7 @@ export class PostComponent implements OnInit {
 
   commentForm = new FormGroup({
     text: new FormControl(''),
+    imageUrl: new FormControl(''),
   })
 
   @Input('post') post: Post | any;
@@ -84,7 +85,7 @@ commentConnect: Comment ={
     e.preventDefault()
     this.newPost.text = this.commentForm.value.text || ""
     this.newPost.title = "hallo"
-    this.newPost.imageUrl= ".../assets/images/favicon.png"
+    this.newPost.imageUrl= this.commentForm.value.imageUrl||""
     this.newPost.user.userId =this.authService.currentUser.userId||0
     this.newPost.comment = true
     this.postService.postPost(this.newPost).subscribe((response) => {

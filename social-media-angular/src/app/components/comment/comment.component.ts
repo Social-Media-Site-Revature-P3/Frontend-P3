@@ -15,6 +15,7 @@ export class CommentComponent implements OnInit {
 
   commentForm = new FormGroup({
     text: new FormControl(''),
+    imageUrl: new FormControl(''),
   })
   user: User =this.authService.currentUser
 
@@ -33,7 +34,6 @@ export class CommentComponent implements OnInit {
     if (this.inputComment.user.userId === this.authService.currentUser.userId) {
       this.creatorUser = true;
     }
-
     this.commentForm.get('text')?.patchValue(this.inputComment.text);
 
     this.userService.GetUser(this.inputComment.user.userId).subscribe({
@@ -46,6 +46,9 @@ export class CommentComponent implements OnInit {
   }
 
   toggleEditToComment = () => {
+    if(this.replyToComment == true){
+    this.replyToComment = !this.replyToComment
+    }
     this.editToComment = !this.editToComment
   }
 
@@ -96,6 +99,9 @@ commentConnect: Comment ={
        this.commentForm.get('text')?.patchValue('')}else{
         this.commentForm.get('text')?.patchValue(this.inputComment.text)
        }
+       if(this.editToComment == true){
+        this.editToComment = !this.editToComment
+       }
     this.replyToComment = !this.replyToComment
   }
 
@@ -111,7 +117,7 @@ commentConnect: Comment ={
     e.preventDefault()
     this.newPost.text = this.commentForm.value.text || ""
     this.newPost.title = "hallo"
-    this.newPost.imageUrl= "assets/images/favicon.png"
+    this.newPost.imageUrl= this.commentForm.value.imageUrl||""
     this.newPost.user.userId =this.authService.currentUser.userId||0
     this.postService.postPost(this.newPost)
       .subscribe(
@@ -131,7 +137,7 @@ commentConnect: Comment ={
       this.newPost.text = this.commentForm.value.text || ""
       this.newPost.title = " " 
       this.inputComment.text = this.newPost.text
-      this.newPost.imageUrl= ".../assets/images/favicon.png"
+      this.newPost.imageUrl= ""
       this.newPost.user.userId =this.authService.currentUser.userId||0
        this.postService.updatePost(this.newPost, this.inputComment.postId )
         .subscribe((response)=>{
