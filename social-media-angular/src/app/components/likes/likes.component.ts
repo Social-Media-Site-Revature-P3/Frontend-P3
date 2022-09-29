@@ -33,7 +33,7 @@ export class LikesComponent implements OnInit {
     }
   }
 
-  likes: Like[] = [{
+  like: Like[] = [{
     liked: true,
     post:{
       postId: 0
@@ -57,7 +57,15 @@ export class LikesComponent implements OnInit {
     this.likePost = true
   }
 
-  getLikes=()=>{
+  //getLikes=()=>{
+    //this.likesService.GetByPostId(this.postService.currentPost.postId || 0).subscribe((likes: Array<Like[]>)=>{
+      //for(let newLike of likes){
+        //if(this.newLike.liked){
+          //this.like = newLike
+        //}else{
+          //this.dislikes = newLike
+        //}
+
     this.likesService.GetByPostId(8).subscribe((allLikesAndDislikes: Array<Like[]>)=>{
       let allLikes = allLikesAndDislikes.slice(0, 1);
       let allDislikes = allLikesAndDislikes.slice(1);
@@ -69,6 +77,7 @@ export class LikesComponent implements OnInit {
       }
     })
   }
+  
 //this.postService.currentPost.postId || 0
   submitLike =(e:any) => {
     this.newLike.liked = true;
