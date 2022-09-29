@@ -10,7 +10,7 @@ import { Post } from '../interfaces/post';
 export class LikesService {
 
   //Base url
-  baseurl = 'http://localhost:8080/likes/'
+  baseurl = `http://localhost:8080/likes/`;
   constructor(private http: HttpClient) { }
 
   //Http Headers

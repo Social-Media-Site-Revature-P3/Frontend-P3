@@ -2,26 +2,26 @@
     <mat-card>
         <mat-card-header>
             <div mat-card-avatar class="header-image"></div>
-            <mat-card-title>{{this.user.firstName}} {{this.user.lastName}}</mat-card-title>
-            <mat-card-subtitle>{{this.user.email}}</mat-card-subtitle>
-            <button (click)="bookmarkPosts(post.postId||0)"> bookmark</button>
+            <mat-card-title>{{post.user.firstName}} {{post.user.lastName}}</mat-card-title>
+            <mat-card-subtitle>{{post.user.email}}</mat-card-subtitle>
         </mat-card-header>
         <img mat-card-image *ngIf="post.imageUrl" src="{{ post.imageUrl }}" alt="Post Image">
+        <button class="btn-follow" (click)="followUser(post.user.userId)"> follow</button>
         <mat-card-content>
-            <p>
-                {{post.text}}
-            </p>
+            <h3>{{post.title}}</h3>
+            <p>{{post.text}}</p>
             <div *ngFor="let comment of comments" class="comment-container">
                 <mat-divider></mat-divider>
-                <app-comment [comment]="comment"></app-comment>
+                <app-comment [comment]="comment" (delete)="deleteComment($event)"></app-comment>
             </div>
         </mat-card-content>
         <mat-card-actions align="end">
+            <button mat-raised-button color="primary" (click)="bookmarkPosts(post.postId || 0)"> bookmark</button>
             <button mat-raised-button color="primary" (click)="toggleReplyToPost()">Reply</button>
         </mat-card-actions>
         <form class="form" *ngIf="replyToPost" [formGroup]="commentForm" (ngSubmit)="submitReply($event)">
             <mat-form-field class="full-width" appearance="fill">
-                <mat-label>Make a Post</mat-label>
+                <mat-label>Make a Comment</mat-label>
                 <textarea matInput autofocus formControlName="text"></textarea>
             </mat-form-field>
             <div align="end">
