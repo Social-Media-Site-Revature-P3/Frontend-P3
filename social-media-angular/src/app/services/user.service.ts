@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
 import { User } from '../interfaces/user';
-import { Name } from '../interfaces/name';
 import { environment } from 'src/environments/environment';
+import { catchError, retry } from 'rxjs/operators';
+import { Name} from "../interfaces/name";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  
+
   constructor(private http: HttpClient) { }
 
   //baseurl = 'http://localhost:8080/users';

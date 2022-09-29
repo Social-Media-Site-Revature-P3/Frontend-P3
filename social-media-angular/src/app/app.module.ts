@@ -18,7 +18,11 @@ import { EditProfileComponent, UploadProfilePictureDialog } from './components/e
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { FollowPageComponent } from './follow-page/follow-page.component';
 import { BookmarkPageComponent } from './components/bookmark-page/bookmark-page.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { LikesComponent } from './components/likes/likes.component';
 
 @NgModule({
   declarations: [
@@ -32,10 +36,12 @@ import { BookmarkPageComponent } from './components/bookmark-page/bookmark-page.
     NavbarComponent,
     UserInitialsPipe,
     SearchBarComponent,
+    UploadProfilePictureDialog,
+    FollowPageComponent,
     BookmarkPageComponent,
     EditProfileComponent,
     UserProfileComponent,
-    UploadProfilePictureDialog,
+    LikesComponent,
   ],
   imports: [
     BrowserModule,

@@ -8,15 +8,37 @@
         <mat-form-field class="full-width">
           <input matInput placeholder="Email" formControlName="email">
         </mat-form-field>
+        <strong class="error" *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.hasError('required'); else emailError">
+          This field is required
+        </strong>
+        <ng-template #emailError>
+          <strong class="error" *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.hasError('email')">
+            This email is not valid
+          </strong>
+        </ng-template>
         <mat-form-field class="full-width">
           <input matInput placeholder="Password" type="password" formControlName="password">
         </mat-form-field>
+        <strong class="error" *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.hasError('required'); else passwordError">
+          This field is required
+        </strong>
+        <ng-template #passwordError>
+          <strong class="error" *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.hasError('minLength')">
+            This password is not valid
+          </strong>
+        </ng-template>
         <mat-form-field class="full-width">
           <input matInput placeholder="First Name" formControlName="firstName">
         </mat-form-field>
+        <strong class="error" *ngIf="registerForm.get('firstName')?.touched && registerForm.get('firstName')?.hasError('required')">
+          This field is required
+        </strong>
         <mat-form-field class="full-width">
           <input matInput placeholder="Last Name" formControlName="lastName">
         </mat-form-field>
+        <strong class="error" *ngIf="registerForm.get('lastName')?.touched && registerForm.get('lastName')?.hasError('required')">
+          This field is required
+        </strong>
       </mat-card-content>
       <button mat-stroked-button color="accent" class="btn-block" type="submit">Register</button>
     </form>

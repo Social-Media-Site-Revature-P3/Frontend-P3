@@ -68,7 +68,6 @@ export class UserProfileComponent implements OnInit {
   dialog: MatDialog;
 
   ngOnInit(): void {
-
     //How are we storing userId? If storing the userId in local storage:
     //this.currentUserId = Number(localStorage.getItem("currentUserId"));
     let userId = this._authService.currentUser.userId;
