@@ -1,5 +1,6 @@
+
 import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {Post} from 'src/app/interfaces/post';
 import {User} from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -14,23 +15,28 @@ import { PostService } from 'src/app/services/post.service';
 export class PostFeedPageComponent implements OnInit {
 
   postForm = new FormGroup({
-    text: new FormControl(''),
-    imageUrl: new FormControl('')
+    title: new FormControl('', [Validators.required]),
+    text: new FormControl('', [Validators.required]),
+    imageUrl: new FormControl('', [Validators.required])
   })
 
   posts: Post[] = [];
+  selectedFile: any = null;
   createPost:boolean = false;
 
-  constructor(private postService: PostService, private authService: AuthService) { }
+  constructor(private postService: PostService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.postService.getAllPosts().subscribe(
+    this.postService.getByOriginalPost(this.authService.currentUser.userId||0).subscribe(
       (response) => {
-
-        // this.postService.getByComments
         this.posts = response
       }
     )
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = <File>event.target.files[0];
   }
 
   toggleCreatePost = () => {
@@ -40,6 +46,7 @@ post: Post={
   text:  this.postForm.value.text || "",
   title: "",
   imageUrl: this.postForm.value.imageUrl || "",
+  comment: true,
   user: {
       userId: this.authService.currentUser.userId||0
 }
@@ -49,6 +56,7 @@ post: Post={
     e.preventDefault();
     this.post.text =this.postForm.value.text || ""
     this.post.imageUrl =  this.postForm.value.imageUrl || ""
+    this.post.comment = false
     this.post.user.userId =  this.authService.currentUser.userId||0
     this.postService.postPost(this.post)
       .subscribe(
@@ -57,5 +65,9 @@ post: Post={
           this.toggleCreatePost()
         }
       )
+  
+
+
   }
+
 }

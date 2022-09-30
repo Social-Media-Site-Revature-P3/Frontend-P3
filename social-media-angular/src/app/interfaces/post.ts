@@ -3,6 +3,7 @@ export interface Post {
     text: string;
     title: string;
     imageUrl: string;
+    comment?: boolean;
     createDateTime?: string;
     updateDateTime?: string;
     user: {

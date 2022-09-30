@@ -12,7 +12,7 @@ export class FollowServiceService {
 
   constructor(private http: HttpClient) { }
 
-  baseurl = `${environment.baseUrl}/follows`;
+  baseurl = `${environment.baseUrl}/follows/`;
 
    // Http Headers
    httpOptions = {
@@ -21,9 +21,9 @@ export class FollowServiceService {
     })
   }
 
-//Get a particular follow relation
+  //Get a particular follow relation
   followThem(followId: number): Observable<Follow> {
-    return this.http.get<Follow>(`${this.baseurl}/`+followId,  this.httpOptions).pipe(
+    return this.http.get<Follow>(`${this.baseurl}` + followId, this.httpOptions).pipe(
       retry(1),
       catchError(this.errorHandl)
     );
@@ -31,7 +31,7 @@ export class FollowServiceService {
 
   //Get a list of users that are following a person
   followThemAll(followedId: number): Observable<Follow[]> {
-    return this.http.get<Follow[]>(`${this.baseurl}/followed/`+followedId,  {headers: environment.headers, withCredentials: environment.withCredentials}).pipe(
+    return this.http.get<Follow[]>(`${this.baseurl}` + 'followed/' + followedId, {headers: environment.headers, withCredentials: environment.withCredentials}).pipe(
       retry(1),
       catchError(this.errorHandl)
     );
@@ -39,7 +39,7 @@ export class FollowServiceService {
 
   //Gets a list of users that are being followed by a specific user
   TheyAreFollowing(followerId: number): Observable<Follow[]> {
-    return this.http.get<Follow[]>(`${this.baseurl}/follower/`+followerId, {headers: environment.headers, withCredentials: environment.withCredentials}).pipe(
+    return this.http.get<Follow[]>(`${this.baseurl}` + 'follower/' + followerId, {headers: environment.headers, withCredentials: environment.withCredentials}).pipe(
       retry(1),
       catchError(this.errorHandl)
     );
@@ -47,7 +47,7 @@ export class FollowServiceService {
 
    //Gets everything from follow table
    WhoFollowsWho(): Observable<Follow[]> {
-    return this.http.get<Follow[]>(`${this.baseurl}`,  this.httpOptions).pipe(
+    return this.http.get<Follow[]>(`${this.baseurl}`, this.httpOptions).pipe(
       retry(1),
       catchError(this.errorHandl)
     );
@@ -62,7 +62,7 @@ export class FollowServiceService {
   }
   //lets a user start following someone
   StopFollowingMe(followId: number): Observable<Follow> {
-    return this.http.delete<Follow>(`${this.baseurl}/`+followId,this.httpOptions).pipe(
+    return this.http.delete<Follow>(`${this.baseurl}` + followId, this.httpOptions).pipe(
       retry(1),
       catchError(this.errorHandl)
     );

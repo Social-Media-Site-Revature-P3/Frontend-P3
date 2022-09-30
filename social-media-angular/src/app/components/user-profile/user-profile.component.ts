@@ -1,8 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
-import { EditUserProfileComponent } from '../../edit-user-profile/edit-user-profile.component';
-import {User} from 'src/app/interfaces/user';
+import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -40,6 +39,17 @@ export class UserProfileComponent implements OnInit {
 
   
   user: User = {
+    userId: 0,
+    email: "",
+    nickname: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    aboutMe: "",
+    profilePicture: ""
+  }
+
+  currUser: User = {
     userId: 0,
     email: "",
     nickname: "",
@@ -88,61 +98,6 @@ export class UserProfileComponent implements OnInit {
     console.log("followThemAll method working")
     })
 
-
-
-  }
-
-
-
-
-
-
-
-
-
-
-  currUser: User = {
-    userId: 0,
-    email: "",
-    nickname: "",
-    password: "",
-    firstName: "",
-    lastName: "",
-    aboutMe: "",
-    profilePicture: ""
-  }
-
-
-  editUserProfile() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.height= "80%";
-    dialogConfig.width = "60%";
-    // dialogConfig.data = {
-    //   userId: this.currUser.userId,
-    //   email: this.currUser.email,
-    //   nickname: this.currUser.nickname,
-    //   password: this.currUser.password,
-    //   firstName: this.currUser.firstName,
-    //   lastName: this.currUser.lastName,
-    //   aboutMe: this.currUser.aboutMe,
-    //   profilePicutre: this.currUser.profilePicutre
-    // }
-
-    dialogConfig.data = {
-      id: this.currUser.userId,
-      email: this.currUser.email,
-      firstName: this.currUser.firstName,
-      lastName: this.currUser.lastName
-    }
-
-    // Open EditUserProfile component which displays the dialog box
-    let dialogRef = this.dialog.open(EditUserProfileComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe(updatedUser => {
-      this.currUser = updatedUser;
-    })
   }
 
   followUser() {
