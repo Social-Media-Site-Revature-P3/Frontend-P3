@@ -427,3 +427,7 @@ body.darkMode {
   transition: var(--transition-delay);
 }
 
+/* hides file input in post feed page since the button cannot be styled properly */
+.file-input {
+  display: none;
+}
