@@ -71,7 +71,6 @@ export class UserProfileComponent implements OnInit {
     //How are we storing userId? If storing the userId in local storage:
     //this.currentUserId = Number(localStorage.getItem("currentUserId"));
     let userId: number = +this.cookieService.get('userId')
-
     this.service.GetUser(userId).subscribe(data => {
       this.user = data;
       console.log("Get Request working for user with user ID of:" + data.userId)
