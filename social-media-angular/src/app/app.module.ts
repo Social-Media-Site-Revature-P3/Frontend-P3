@@ -18,9 +18,10 @@ import { EditProfileComponent, UploadProfilePictureDialog } from './components/e
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
-import { FollowPageComponent } from './follow-page/follow-page.component';
+import { FollowPageComponent } from './components/follow-page/follow-page.component';
 import { BookmarkPageComponent } from './components/bookmark-page/bookmark-page.component';
 import { LikesComponent } from './components/likes/likes.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -37,9 +38,9 @@ import { LikesComponent } from './components/likes/likes.component';
     UploadProfilePictureDialog,
     FollowPageComponent,
     BookmarkPageComponent,
-    EditProfileComponent,
     UserProfileComponent,
-    LikesComponent,
+    EditProfileComponent,
+    LikesComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +53,7 @@ import { LikesComponent } from './components/likes/likes.component';
     ReactiveFormsModule,
     MatFormFieldModule,
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
