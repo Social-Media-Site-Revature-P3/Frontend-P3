@@ -42,20 +42,20 @@ export class UserService {
   }
 
   //Find user by User full name
-  GetUserByFullName(name: Name): Observable<User> {
-    return this.http.post<User>(`${this.baseurl}/full-name`, JSON.stringify(name), this.httpOptions).pipe(
+  GetUsersByFullName(name: Name): Observable<User[]> {
+    return this.http.post<User[]>(`${this.baseurl}/full-name`, JSON.stringify(name), this.httpOptions).pipe(
       retry(1),
       catchError(this.errorHandl)
     );
   }
 
-    //Find user by first or last name
-    GetUserByName(name: Name): Observable<User> {
-      return this.http.post<User>(`${this.baseurl}/name`, JSON.stringify(name), this.httpOptions).pipe(
-        retry(1),
-        catchError(this.errorHandl)
-      );
-    }
+  //Find user by first or last name
+  GetUsersByName(name: Name): Observable<User[]> {
+    return this.http.post<User[]>(`${this.baseurl}/name`, JSON.stringify(name), this.httpOptions).pipe(
+      retry(1),
+      catchError(this.errorHandl)
+    );
+  }
 
     //Update user
   UpdateUser(user: User): Observable<User> {
