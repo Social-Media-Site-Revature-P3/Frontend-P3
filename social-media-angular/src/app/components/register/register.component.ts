@@ -3,6 +3,8 @@ import {FormControl, FormGroup, Validator, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { Register } from 'src/app/interfaces/register';
+import { SecurityQuestion } from 'src/app/interfaces/security-question';
+import { SecurityServiceService } from 'src/app/services/security-service.service';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +17,9 @@ export class RegisterComponent implements OnInit {
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)])
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    securityQuestion: new FormControl('', [Validators.required]),
+    securityAnswer: new FormControl('', [Validators.required])
   })
 
   register: Register= {
@@ -25,7 +29,18 @@ export class RegisterComponent implements OnInit {
     lastName: ""
   }
 
-  constructor(private authService: AuthService, private router: Router) { }
+  securityQuestion: SecurityQuestion = {
+    questionId : undefined,
+    question : "",
+    answer : "",
+    user : {
+      userId: 0
+    }
+  }
+  constructor(
+    private authService: AuthService,
+    private sequrityService: SecurityServiceService,
+    private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -39,15 +54,28 @@ export class RegisterComponent implements OnInit {
         firstName: this.registerForm.value.firstName || "",
         lastName: this.registerForm.value.lastName || ""
       }
+     
       this.authService.register(register)
         .subscribe(
           (response) => {
-            this.router.navigate(['login'])
+            let security: SecurityQuestion = {
+              question : this.registerForm.value.securityQuestion || "",
+              answer : this.registerForm.value.securityAnswer || "",
+              user : {
+                userId: response.userId || 0
+              }
+            }
+            this.sequrityService.createSecurityQuestion(security).subscribe({
+              next: data => { 
+                this.router.navigate(['login'])
+              }
+            })
           }
         )
     }else {
       this.registerForm.markAllAsTouched();
     }
+
 
 //    e.preventDefault()
 //    this.authService.register(this.register)

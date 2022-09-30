@@ -39,6 +39,23 @@
         <strong class="error" *ngIf="registerForm.get('lastName')?.touched && registerForm.get('lastName')?.hasError('required')">
           This field is required
         </strong>
+        <mat-form-field appearance="fill" style="width: 100%">
+          <mat-label>Security Questions</mat-label>
+          <mat-select formControlName="securityQuestion">
+              <mat-option value="What is your mother's maiden name?">What is your mother's maiden name?</mat-option>
+              <mat-option value="What is the name of your first pet?">What is the name of your first pet?</mat-option>
+              <mat-option value="What was your first car?">What was your first car?</mat-option>
+              <mat-option value="What elementary school did you attend?">What elementary school did you attend?</mat-option>
+              <mat-option value="What is your social security number?">What is your social security number?</mat-option>
+              <mat-option value="What was your favorite subject in high school?">What was your favorite subject in high school?</mat-option>
+          </mat-select>
+          </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Security Answer" formControlName="securityAnswer">
+        </mat-form-field>
+        <strong class="error" *ngIf="registerForm.get('securityAnswer')?.touched && registerForm.get('securityAnswer')?.hasError('required')">
+          This field is required
+        </strong>
       </mat-card-content>
       <button mat-stroked-button color="accent" class="btn-block" type="submit">Register</button>
     </form>

@@ -20,6 +20,7 @@ import { BookmarkPageComponent } from './components/bookmark-page/bookmark-page.
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { LikesComponent } from './components/likes/likes.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { LikesComponent } from './components/likes/likes.component';
     EditProfileComponent,
     UserProfileComponent,
     LikesComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,
