@@ -1,4 +1,4 @@
- {
+{
   "name": "social-media-angular",
   "version": "0.0.0",
   "scripts": {
@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
     "angular-material": "^1.1.24",
+    "ngx-cookie-service": "^14.0.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
