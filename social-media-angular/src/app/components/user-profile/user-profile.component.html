@@ -44,10 +44,13 @@
         <div style="width: 800px; margin: 0 auto;" img class="postTextBox">
         <div class="background"><span><h2> {{user.firstName}} {{user.lastName}}</h2></span>
         <textarea name="postTextBox" cols="106" rows="10" [formControl]="postInput">What's on your mind...</textarea>
-        <div class="submitButton"><button mat-raised-button color="button-color" (click)="postPost()">Submit Your Post</button></div>
+        <div class="submitButton"><button mat-raised-button color="button-color" (click)="submitPost()">Submit Your Post</button></div>
     </div>
     </div>
 
+    <div id="post-feed" *ngFor="let subPost of post">
+        <app-post [post]="subPost"></app-post>
+    </div>
 
 </body>
 
