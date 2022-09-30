@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Follow } from 'src/app/interfaces/follow';
-import {Post} from 'src/app/interfaces/post';
+import { Post } from 'src/app/interfaces/post';
 import { User } from 'src/app/interfaces/user';
 import { Comment } from 'src/app/interfaces/comment';
 import { AuthService } from 'src/app/services/auth.service';
@@ -9,7 +9,7 @@ import { FollowService } from 'src/app/services/follow.service';
 import { PostService } from 'src/app/services/post.service';
 import { Bookmark } from 'src/app/interfaces/bookmark';
 import { BookmarkService } from 'src/app/services/bookmark.service';
-import {UserService} from "../../services/user.service";
+import { UserService } from "../../services/user.service";
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
