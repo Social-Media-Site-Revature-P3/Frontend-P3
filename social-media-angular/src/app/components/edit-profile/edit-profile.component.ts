@@ -22,6 +22,7 @@ export class EditProfileComponent implements OnInit {
   authService: AuthService;
   public dialog: MatDialog;
   fileName = '';
+  hide = true;
   userId: number;
 
   
@@ -55,6 +56,14 @@ export class EditProfileComponent implements OnInit {
     this.userService.UpdateUser(this.user).subscribe(updateUser => {
       console.log(updateUser);
     })
+  }
+
+  deleteAccount() {
+    this.user.userId = this.authService.currentUser.userId;
+    console.log("user to be deleted: " + this.user.userId)
+    this.userService.DeleteUser(this.user.userId!).subscribe()
+    alert('Successfully Deleted Account');
+    this.router.navigate(["login"])
   }
 
   profilePicture: string;
