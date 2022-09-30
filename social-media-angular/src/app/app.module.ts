@@ -22,8 +22,6 @@ import { FollowPageComponent } from './components/follow-page/follow-page.compon
 import { BookmarkPageComponent } from './components/bookmark-page/bookmark-page.component';
 import { LikesComponent } from './components/likes/likes.component';
 import { CookieService } from 'ngx-cookie-service';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import { LikesComponent } from './components/likes/likes.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +40,6 @@ import { LikesComponent } from './components/likes/likes.component';
     BookmarkPageComponent,
     UserProfileComponent,
     EditProfileComponent,
-    UserProfileComponent,
     LikesComponent
   ],
   imports: [

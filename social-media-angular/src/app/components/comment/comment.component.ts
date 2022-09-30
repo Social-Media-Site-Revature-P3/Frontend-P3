@@ -144,18 +144,17 @@ export class CommentComponent implements OnInit {
       )
   }
 
-  editReply=(e:any)=>{
+  editReply=(e:any) => {
     e.preventDefault();
       this.newPost.postId = this.inputComment.postId
       this.newPost.text = this.commentForm.value.text || ""
       this.newPost.title = " " 
       this.inputComment.text = this.newPost.text
       this.newPost.imageUrl= ""
-      this.newPost.user.userId =this.authService.currentUser.userId||0
-       this.postService.updatePost(this.newPost, this.inputComment.postId )
+      this.newPost.user.userId = +this.cookieService.get('userId')
+      this.postService.updatePost(this.newPost, this.inputComment.postId )
         .subscribe((response)=>{
-               console.log(this.editReply)
           this.toggleEditToComment()
-          console.log(this.editReply)})
+        })
   }
 }

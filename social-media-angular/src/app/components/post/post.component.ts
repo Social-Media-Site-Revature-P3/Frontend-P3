@@ -84,11 +84,11 @@ commentConnect: Comment ={
 
   submitReply = (e: any) => {
     e.preventDefault()
-    this.newPost.text = this.commentForm.value.text || ""
-    this.newPost.title = "hallo"
-    this.newPost.imageUrl= this.commentForm.value.imageUrl||""
-    this.newPost.user.userId =this.authService.currentUser.userId||0
-    this.newPost.comment = true
+    this.newPost.text = this.commentForm.value.text || "";
+    this.newPost.title = "hallo";
+    this.newPost.imageUrl= this.commentForm.value.imageUrl||"";
+    this.newPost.user.userId = +this.cookieService.get('userId');
+    this.newPost.comment = true;
     this.postService.postPost(this.newPost).subscribe((response) => {
       this.newPost = response
       this.commentConnect.commentId = this.newPost.postId||0

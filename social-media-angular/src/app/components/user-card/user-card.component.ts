@@ -19,7 +19,7 @@ export class UserCardComponent implements OnInit {
     firstName: "",
     lastName: "",
     aboutMe: "",
-    profilePicutre: ""
+    profilePicture: ""
   };
   userId: number;
 
@@ -37,7 +37,7 @@ export class UserCardComponent implements OnInit {
       this.user.firstName = user.firstName;
       this.user.lastName = user.lastName;
       this.user.aboutMe = user.aboutMe;
-      this.user.profilePicutre = user.profilePicutre;
+      this.user.profilePicture = user.profilePicture;
     })
     console.log(this.user)
   }
