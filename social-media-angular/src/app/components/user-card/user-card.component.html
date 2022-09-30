@@ -1,5 +1,9 @@
 <mat-card class="user-card">
-    <div class="user-circle"></div>
+
+    <!-- <div class="user-circle"></div> -->
+    <div *ngIf="user.profilePicture; else userCircle"><img class="profilePicture" src="{{user.profilePicture}}"></div>
+    <ng-template #userCircle><div class="user-circle"></div></ng-template>
+    
     <mat-divider></mat-divider>
     <p style="padding-top: 1em; font-weight: bold;">
         {{user.firstName}} {{user.lastName}}

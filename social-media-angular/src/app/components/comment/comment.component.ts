@@ -17,6 +17,7 @@ export class CommentComponent implements OnInit {
 
   commentForm = new FormGroup({
     text: new FormControl(''),
+    imageUrl: new FormControl(''),
   })
 
   @Input('comment') inputComment: Post | any;
@@ -50,7 +51,6 @@ export class CommentComponent implements OnInit {
     if (this.inputComment.user.userId == this.cookieService.get('userId')) {
       this.creatorUser = true;
     }
-
     this.commentForm.get('text')?.patchValue(this.inputComment.text);
 
     this.userService.GetUser(this.inputComment.user.userId).subscribe({
@@ -63,6 +63,9 @@ export class CommentComponent implements OnInit {
   }
 
   toggleEditToComment = () => {
+    if(this.replyToComment == true){
+    this.replyToComment = !this.replyToComment
+    }
     this.editToComment = !this.editToComment
   }
 
@@ -111,6 +114,9 @@ export class CommentComponent implements OnInit {
        this.commentForm.get('text')?.patchValue('')}else{
         this.commentForm.get('text')?.patchValue(this.inputComment.text)
        }
+       if(this.editToComment == true){
+        this.editToComment = !this.editToComment
+       }
     this.replyToComment = !this.replyToComment
   }
 
@@ -124,8 +130,8 @@ export class CommentComponent implements OnInit {
     e.preventDefault()
     this.newPost.text = this.commentForm.value.text || ""
     this.newPost.title = "hallo"
-    this.newPost.imageUrl= "assets/images/favicon.png"
-    this.newPost.user.userId = +this.cookieService.get('userId')
+    this.newPost.imageUrl= this.commentForm.value.imageUrl||""
+    this.newPost.user.userId = + this.cookieService.get('userId')
     this.postService.postPost(this.newPost)
       .subscribe(
         (response) => {
@@ -140,17 +146,16 @@ export class CommentComponent implements OnInit {
 
   editReply=(e:any)=>{
     e.preventDefault();
-    this.newPost.postId = this.inputComment.postId
-    this.newPost.text = this.commentForm.value.text || ""
-    this.newPost.title = " " 
-    this.inputComment.text = this.newPost.text
-    this.newPost.imageUrl= ".../assets/images/favicon.png"
-    this.newPost.user.userId = +this.cookieService.get('userId')
-    this.postService.updatePost(this.newPost, this.inputComment.postId)
-      .subscribe((response)=>{
-        console.log(this.editReply)
-        this.toggleEditToComment()
-        console.log(this.editReply)
-      })
+      this.newPost.postId = this.inputComment.postId
+      this.newPost.text = this.commentForm.value.text || ""
+      this.newPost.title = " " 
+      this.inputComment.text = this.newPost.text
+      this.newPost.imageUrl= ""
+      this.newPost.user.userId =this.authService.currentUser.userId||0
+       this.postService.updatePost(this.newPost, this.inputComment.postId )
+        .subscribe((response)=>{
+               console.log(this.editReply)
+          this.toggleEditToComment()
+          console.log(this.editReply)})
   }
 }

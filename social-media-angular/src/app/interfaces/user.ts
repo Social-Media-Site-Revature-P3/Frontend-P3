@@ -1,10 +1,10 @@
 export interface User {
-    userId?: number;
+    userId: number;
     email: string;
     nickname?: string;
     password: string;
     firstName: string;
     lastName: string;
     aboutMe?: String;
-    profilePicutre?: string
+    profilePicture?: string
 }
