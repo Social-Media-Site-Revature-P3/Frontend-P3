@@ -39,6 +39,9 @@
         <strong class="error" *ngIf="registerForm.get('lastName')?.touched && registerForm.get('lastName')?.hasError('required')">
           This field is required
         </strong>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Handle" formControlName="nickname">
+        </mat-form-field>
         <mat-form-field appearance="fill" style="width: 100%">
           <mat-label>Security Questions</mat-label>
           <mat-select formControlName="securityQuestion">

@@ -6,7 +6,7 @@ import { LikesComponent } from './components/likes/likes.component';
 import { LoginComponent } from './components/login/login.component';
 import { PostFeedPageComponent } from './components/post-feed-page/post-feed-page.component';
 import { RegisterComponent } from './components/register/register.component';
-import { FollowPageComponent } from './follow-page/follow-page.component';
+import { FollowPageComponent } from './components/follow-page/follow-page.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 

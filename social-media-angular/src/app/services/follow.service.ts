@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class FollowServiceService {
+export class FollowService {
 
   constructor(private http: HttpClient) { }
 
@@ -31,7 +31,7 @@ export class FollowServiceService {
 
   //Get a list of users that are following a person
   followThemAll(followedId: number): Observable<Follow[]> {
-    return this.http.get<Follow[]>(`${this.baseurl}` + 'followed/' + followedId, this.httpOptions).pipe(
+    return this.http.get<Follow[]>(`${this.baseurl}` + 'followed/' + followedId, {headers: environment.headers, withCredentials: environment.withCredentials}).pipe(
       retry(1),
       catchError(this.errorHandl)
     );
@@ -39,7 +39,7 @@ export class FollowServiceService {
 
   //Gets a list of users that are being followed by a specific user
   TheyAreFollowing(followerId: number): Observable<Follow[]> {
-    return this.http.get<Follow[]>(`${this.baseurl}` + 'follower/' + followerId, this.httpOptions).pipe(
+    return this.http.get<Follow[]>(`${this.baseurl}` + 'follower/' + followerId, {headers: environment.headers, withCredentials: environment.withCredentials}).pipe(
       retry(1),
       catchError(this.errorHandl)
     );

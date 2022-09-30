@@ -46,3 +46,9 @@ mat-grid-tile {
     position: relative;
 }
 
+
+
+.file-input {
+    display: none;
+  }
+

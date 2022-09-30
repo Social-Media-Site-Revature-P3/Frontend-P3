@@ -6,5 +6,5 @@ export interface User {
     firstName: string;
     lastName: string;
     aboutMe?: String;
-    profilePicutre?: string
+    profilePicture?: string
 }

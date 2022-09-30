@@ -13,7 +13,10 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  //baseurl = 'http://localhost:8080/users';
   baseurl = `${environment.baseUrl}/users`;
+
+  userResult: any;
 
    // Http Headers
    httpOptions = {
@@ -24,7 +27,7 @@ export class UserService {
 
   //Find user by User ID
   GetUser(userId: number): Observable<User> {
-    return this.http.get<User>(`${this.baseurl}/`+userId,  this.httpOptions).pipe(
+    return this.http.get<User>(`${this.baseurl}/`+ userId, this.httpOptions).pipe(
       retry(1),
       catchError(this.errorHandl)
     );
@@ -70,6 +73,10 @@ export class UserService {
       );
     }
 
+    UploadImage(file: any){
+      return 
+    }
+    
   //Delete User by userId
   DeleteUser(userId: number): Observable<User> {
     return this.http.delete<User>(`${this.baseurl}/`+userId,  this.httpOptions).pipe(
