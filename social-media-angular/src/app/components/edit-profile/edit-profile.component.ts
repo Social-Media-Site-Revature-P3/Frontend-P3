@@ -21,14 +21,15 @@ export class EditProfileComponent implements OnInit {
   authService: AuthService;
   public dialog: MatDialog;
   fileName = '';
-  userId: number;
-
+  hide = true;
+  profilePicture = "";
   
-  constructor(private router: Router, private _userService: UserService, private _authService: AuthService) { 
-    this.userService = _userService;
-    this.authService = _authService;
+  constructor(private router: Router, userService: UserService,  authService: AuthService) { 
+    this.userService = userService;
+    this.authService = authService;
   }
 
+  // user: User = {} as User;
   user: User = {
     userId: 0,
     email: "",
@@ -40,42 +41,33 @@ export class EditProfileComponent implements OnInit {
     profilePicture: ""
   }
 
-    // Create updateUser of type User
-    updateUser: User = {
-      userId: this.user.userId,
-      email: "",
-      password: "",
-      firstName: "",
-      lastName: "",
-      nickname: "",
-      aboutMe: "",
-      profilePicture: ""
-  }
-
-  // user: User = {} as User;
+  
   ngOnInit(): void {
     //this.user = this.authService.currentUser;
-    this.user.userId = this._authService.currentUser.userId;
+    this.user.userId = this.authService.currentUser.userId;
+    console.log("authservice current userid" + this.user.userId)
     this.userService.GetUser(this.user.userId).subscribe(data => {
       this.user = data;
-      console.log("user id:" + this.user.userId)
-      console.log("first name: " + this.user.firstName)
     })
 
   }
 
   UpdateUser() {
-    console.log("user before update:" + this.user)
-    console.log("updateuser before update:" + this.updateUser)
-
-    this.userService.UpdateUser(this.updateUser).subscribe(updateUser => {
-      //this.user = updateUser;
-      console.log(updateUser.userId);
+    this.user.userId = this.authService.currentUser.userId;
+    console.log(this.user.userId)
+    this.userService.UpdateUser(this.user).subscribe(updateUser => {
       console.log(updateUser);
     })
   }
 
-  profilePicture: string;
+  deleteAccount() {
+    this.user.userId = this.authService.currentUser.userId;
+    console.log("user to be deleted: " + this.user.userId)
+    this.userService.DeleteUser(this.user.userId).subscribe()
+    alert('Successfully Deleted Account');
+    this.router.navigate(["login"])
+  }
+
   profilePictureDialog() {
     const dialogRef = this.dialog.open(UploadProfilePictureDialog, {
       width: '250px',
@@ -93,15 +85,10 @@ export class EditProfileComponent implements OnInit {
     const file:File = event.target.files[0];
 
     if (file) {
-
         this.fileName = file.name;
-
         const formData = new FormData();
-
         formData.append("thumbnail", file);
-
         const upload$ = this.userService.UploadImage(formData);
-
         //upload$.subscribe();
     }
   }
