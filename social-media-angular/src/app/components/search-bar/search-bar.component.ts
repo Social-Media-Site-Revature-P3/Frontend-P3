@@ -18,15 +18,6 @@ export class SearchBarComponent implements OnInit {
 
 
   searchUser() {
-    console.log("searching products by name")
-    console.log(this.searchTerm)
-    // if(this.searchTerm.length > 0) {
-    //   this.productServe.GetProductByName(this.searchTerm).subscribe((uwu:Product[]) => {
-    //     this._product = uwu
-    //     console.log(this._product)
-    //   })
-    // } else {
-    //   this.getProducts();
-    // }
+
     }
 }
