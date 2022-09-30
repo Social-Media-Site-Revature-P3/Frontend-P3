@@ -22,7 +22,7 @@
     </div>
 
     <div [ngClass]="['sidebyside', 'user-stats']">
-        <p>{{post.length}} post</p>
+        <p>{{posts.length}} post</p>
     </div>
     <div [ngClass]="['sidebyside', 'user-stats']">
         <p>{{follower.length}} followers</p>
@@ -48,7 +48,7 @@
     </div>
     </div>
 
-    <div id="post-feed" *ngFor="let subPost of post">
+    <div id="post-feed" *ngFor="let subPost of posts">
         <app-post [post]="subPost"></app-post>
     </div>
 

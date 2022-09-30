@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
 import { User } from 'src/app/interfaces/user';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class EditProfileComponent implements OnInit {
   userId: number;
 
   
-  constructor(private router: Router, private _userService: UserService, private _authService: AuthService) { 
+  constructor(private router: Router, private _userService: UserService, private _authService: AuthService, private cookieService: CookieService) { 
     this.userService = _userService;
     this.authService = _authService;
   }
@@ -55,8 +56,8 @@ export class EditProfileComponent implements OnInit {
   // user: User = {} as User;
   ngOnInit(): void {
     //this.user = this.authService.currentUser;
-    this.user.userId = this._authService.currentUser.userId;
-    this.userService.GetUser(this.user.userId).subscribe(data => {
+    let userId = +this.cookieService.get('userId');
+    this.userService.GetUser(userId).subscribe(data => {
       this.user = data;
       console.log("user id:" + this.user.userId)
       console.log("first name: " + this.user.firstName)
@@ -75,50 +76,54 @@ export class EditProfileComponent implements OnInit {
     })
   }
 
-  profilePicture: string;
-  profilePictureDialog() {
-    const dialogRef = this.dialog.open(UploadProfilePictureDialog, {
-      width: '250px',
-      data: { profilePicutre: this.profilePicture},
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog is closed');
-      this.profilePicture = result;
-    });
+
+
+  
+//   profilePicture: string;
+//   profilePictureDialog() {
+//     const dialogRef = this.dialog.open(UploadProfilePictureDialog, {
+//       width: '250px',
+//       data: { profilePicutre: this.profilePicture},
+//     });
+
+//     dialogRef.afterClosed().subscribe(result => {
+//       console.log('The dialog is closed');
+//       this.profilePicture = result;
+//     });
+//   }
+
+//   onFileSelected(event: any) {
+
+//     const file:File = event.target.files[0];
+
+//     if (file) {
+
+//         this.fileName = file.name;
+
+//         const formData = new FormData();
+
+//         formData.append("thumbnail", file);
+
+//         const upload$ = this.userService.UploadImage(formData);
+
+//         //upload$.subscribe();
+//     }
+//   }
+
+// }
+
+// @Component({
+//   selector: './upload-profile-picture-dialog',
+//   templateUrl: './upload-profile-picture-dialog.html',
+// })
+// export class UploadProfilePictureDialog {
+//   constructor(
+//     public dialogRef: MatDialogRef<UploadProfilePictureDialog>,
+//     @Inject(MAT_DIALOG_DATA) public data: User,
+//   ) {}
+
+//   onNoClick(): void {
+//     this.dialogRef.close();
+//   }
   }
-
-  onFileSelected(event: any) {
-
-    const file:File = event.target.files[0];
-
-    if (file) {
-
-        this.fileName = file.name;
-
-        const formData = new FormData();
-
-        formData.append("thumbnail", file);
-
-        const upload$ = this.userService.UploadImage(formData);
-
-        //upload$.subscribe();
-    }
-  }
-
-}
-
-@Component({
-  selector: './upload-profile-picture-dialog',
-  templateUrl: './upload-profile-picture-dialog.html',
-})
-export class UploadProfilePictureDialog {
-  constructor(
-    public dialogRef: MatDialogRef<UploadProfilePictureDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: User,
-  ) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-}
