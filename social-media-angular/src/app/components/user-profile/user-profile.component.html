@@ -4,11 +4,11 @@
         <mat-card class="user-profile-card">
             <div class="user-circle"></div>
             <mat-divider></mat-divider>
-            <p style="padding-top: 1em; font-weight: bold;">
+            <p class="profile-card-text" style="padding-top: 1em; font-weight: bold;">
                 <!-- {{user.firstName}} {{user.lastName}} -->
                 Kyle Plummer
             </p>
-            <p>
+            <p class="profile-card-text">
                 <!-- {{user.email}} -->
                 @kplummer
             </p> 
@@ -24,13 +24,13 @@
     </div>
 
     <div [ngClass]="['sidebyside', 'user-stats']">
-        <p>1 post</p>
+        <p class="profile-text">1 post</p>
     </div>
     <div [ngClass]="['sidebyside', 'user-stats']">
-        <p>2 followers</p>
+        <p class="profile-text">2 followers</p>
     </div>
     <div [ngClass]="['sidebyside', 'user-stats']">
-        <p>3 following</p>
+        <p class="profile-text">3 following</p>
     </div>
     <div [ngClass]="['sidebyside', 'follow-button']">
         <button mat-raised-button color="button-color" (click)="followUser()">Follow</button>

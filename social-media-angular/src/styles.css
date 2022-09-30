@@ -5,10 +5,13 @@ body {
   height: 100%;
 }
 body {
+  --transition-delay: .5s;
+
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   min-height: 100vh;
   background: #e2e2e2;
+  transition: var(--transition-delay);
 }
 
 /* DarkMode  */
@@ -18,6 +21,7 @@ body.darkMode {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   min-height: 100vh;
   background: #282125;
+  transition: var(--transition-delay);
 }
 
 .app-header {
@@ -71,6 +75,7 @@ body.darkMode {
   -ms-transform: scale(1);
   z-index: 5;
   max-width: 330px;
+  transition: var(--transition-delay);
 }
 
 /* DarkMode */
@@ -89,6 +94,7 @@ body.darkMode {
   -ms-transform: scale(1);
   z-index: 5;
   max-width: 330px;
+  transition: var(--transition-delay);
 }
 
 .box.back {
@@ -112,6 +118,7 @@ body.darkMode {
   -webkit-transform: scale(.95);
   -ms-transform: scale(.95);
   z-index: -1;
+  transition: var(--transition-delay);
 }
 
 /* DarkMode */
@@ -129,6 +136,7 @@ body.darkMode {
   -webkit-transform: scale(.95);
   -ms-transform: scale(.95);
   z-index: -1;
+  transition: var(--transition-delay);
 }
 
 .login-wrapper .example-form {
@@ -144,12 +152,14 @@ body.darkMode {
 /* color of login button */
 .btn-block {
   color: #FFA2B2;
+  transition: var(--transition-delay);
 }
 
 /* DarkMode login button */
 .darkMode .btn-block {
   width: 100%;
   color:#191919;
+  transition: var(--transition-delay);
 }
 
 .login-wrapper mat-card-header {
@@ -177,6 +187,7 @@ body.darkMode {
   border: 1px solid currentColor;
   line-height: 54px;
   background: #F26925;
+  transition: var(--transition-delay);
 }
 
 .login-wrapper .mat-form-field-appearance-legacy .mat-form-field-infix {
@@ -229,10 +240,12 @@ body.darkMode {
   margin: auto;
 }
 
+/* this style will not chnge the transition time of the user card??? */
 .user-card {
   width: 10em;
   text-align: center;
   margin: 1em;
+  transition: var(--transition-delay);
 }
 
 .sidebyside {
@@ -291,20 +304,38 @@ body.darkMode {
   flex: 1 1 auto;
 }
 
+/* background color on the user profile card */
+.darkMode .user-profile-card {
+  background: #282125;
+  transition: var(--transition-delay);
+}
+
+/* delays the change in color in the nav bar into light mode */
+.mat-toolbar {
+  transition: var(--transition-delay);
+}
+
 /* nav-bar dark mode */
 .darkMode .mat-toolbar {
   background: #F26925;
+  transition: var(--transition-delay);
+}
+
+.mat-form-field-flex {
+  transition: var(--transition-delay);
 }
 
 /* post dark mode */
 /* all inputs are the same color */
 .darkMode .mat-form-field-flex {
   background: #a5a4ac;
+  transition: var(--transition-delay);
 }
 
 /* need to ask what the user card is and how to change the background */
 .darkMode .user-card {
   background-color: #a5a4ac;
+  transition: var(--transition-delay);
 }
 
 .error{
@@ -319,7 +350,21 @@ body.darkMode {
   /* background-color: #474c; */
   background-color: #474c55;
   vertical-align: top;
-  color: white
+  color: white;
+  transition: var(--transition-delay);
+}
+
+/* DarkMode */
+.darkMode .user-profile-container {
+  max-width: 100%;
+  max-height: 412px;
+  /* position: absolute; */
+  /* overflow: hidden; */
+  /* background-color: #474c; */
+  background-color: #a5a4ac;
+  vertical-align: top;
+  color: white;
+  transition: var(--transition-delay);
 }
 
 .user-profile-card {
@@ -348,6 +393,28 @@ body.darkMode {
   max-width: fit-content;
 }
 
+/* darkMode for profile text */
+.darkMode .user-bio {
+  color: #191919;
+  transition: var(--transition-delay);
+}
+
+.darkMode .user-info-text {
+  color: #191919;
+  transition: var(--transition-delay);
+}
+
+.darkMode .profile-card-text {
+  color: #e2e2e2;
+  transition: var(--transition-delay);
+}
+
+.darkMode .profile-text {
+  color: #191919;
+  transition: var(--transition-delay);
+}
+/* darkMode for profile text */
+
 .follow-button {
   padding: 1em;
   float: right;
@@ -357,4 +424,6 @@ body.darkMode {
 .mat-button-color {
   background-color: #F26925;
   color: white;
+  transition: var(--transition-delay);
 }
+
