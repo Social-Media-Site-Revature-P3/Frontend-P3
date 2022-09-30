@@ -1,12 +1,7 @@
 <app-navbar></app-navbar>
 <h2 style="text-align:center">Edit Profile</h2>
-<!-- <div class="user-circle-profile"></div> -->
 <div *ngIf="user.profilePicture; else userCircle"><img class="profilePicture" src="{{user.profilePicture}}"></div>
     <ng-template #userCircle class="user-circle-profile"><div class="user-circle-profile"></div></ng-template>
-<!-- <button class="upload-picture-button" mat-raised-button color="button-color">Upload Profile Picture</button> -->
-<!-- <div>
-    <button class="upload-picture-button" align="center" mat-raised-button color="button-color">Upload Profile Picture</button>
-</div> -->
 
 <mat-grid-list cols="1" rowHeight="600px">
     <mat-grid-tile>

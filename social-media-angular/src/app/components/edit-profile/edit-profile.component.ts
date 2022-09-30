@@ -29,6 +29,7 @@ export class EditProfileComponent implements OnInit {
     this.authService = authService;
   }
 
+  // user: User = {} as User;
   user: User = {
     userId: 0,
     email: "",
@@ -40,7 +41,7 @@ export class EditProfileComponent implements OnInit {
     profilePicture: ""
   }
 
-  // user: User = {} as User;
+  
   ngOnInit(): void {
     //this.user = this.authService.currentUser;
     this.user.userId = this.authService.currentUser.userId;
@@ -84,15 +85,10 @@ export class EditProfileComponent implements OnInit {
     const file:File = event.target.files[0];
 
     if (file) {
-
         this.fileName = file.name;
-
         const formData = new FormData();
-
         formData.append("thumbnail", file);
-
         const upload$ = this.userService.UploadImage(formData);
-
         //upload$.subscribe();
     }
   }
