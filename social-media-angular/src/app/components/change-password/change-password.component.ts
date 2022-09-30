@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Login } from 'src/app/interfaces/login';
 import { SecurityQuestion } from 'src/app/interfaces/security-question';
 import { User } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { SecurityServiceService } from 'src/app/services/security-service.service';
+import { SecurityService } from 'src/app/services/security.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -41,7 +40,7 @@ export class ChangePasswordComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private securityservice: SecurityServiceService,
+    private securityservice: SecurityService,
     private router: Router
   ) {}
 
