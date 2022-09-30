@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
 import { User } from 'src/app/interfaces/user';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -22,16 +23,17 @@ export class EditProfileComponent implements OnInit {
   public dialog: MatDialog;
   fileName = '';
   hide = true;
-  profilePicture = "";
+  userId: number;
+
   
-  constructor(private router: Router, userService: UserService,  authService: AuthService) { 
-    this.userService = userService;
-    this.authService = authService;
+  constructor(private router: Router, private _userService: UserService, private _authService: AuthService, private cookieService: CookieService) { 
+    this.userService = _userService;
+    this.authService = _authService;
   }
 
   // user: User = {} as User;
   user: User = {
-    userId: 0,
+    userId: +this.cookieService.get('userId'),
     email: "",
     nickname: "",
     password: "",
@@ -43,13 +45,9 @@ export class EditProfileComponent implements OnInit {
 
   
   ngOnInit(): void {
-    //this.user = this.authService.currentUser;
-    this.user.userId = this.authService.currentUser.userId;
-    console.log("authservice current userid" + this.user.userId)
-    this.userService.GetUser(this.user.userId).subscribe(data => {
+    this.userService.GetUser(this.user.userId!).subscribe(data => {
       this.user = data;
     })
-
   }
 
   UpdateUser() {
@@ -63,11 +61,12 @@ export class EditProfileComponent implements OnInit {
   deleteAccount() {
     this.user.userId = this.authService.currentUser.userId;
     console.log("user to be deleted: " + this.user.userId)
-    this.userService.DeleteUser(this.user.userId).subscribe()
+    this.userService.DeleteUser(this.user.userId!).subscribe()
     alert('Successfully Deleted Account');
     this.router.navigate(["login"])
   }
 
+  profilePicture: string;
   profilePictureDialog() {
     const dialogRef = this.dialog.open(UploadProfilePictureDialog, {
       width: '250px',
