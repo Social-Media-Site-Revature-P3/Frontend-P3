@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
   }
   constructor(
     private authService: AuthService,
-    private sequrityService: SecurityServiceService,
+    private securityService: SecurityService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -68,7 +68,7 @@ export class RegisterComponent implements OnInit {
                 userId: response.userId || 0
               }
             }
-            this.sequrityService.createSecurityQuestion(security).subscribe({
+            this.securityService.createSecurityQuestion(security).subscribe({
               next: data => { 
                 this.router.navigate(['login'])
               }
