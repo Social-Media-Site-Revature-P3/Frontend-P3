@@ -34,7 +34,7 @@
 
           <mat-form-field appearance="fill" class="width-100">
             <mat-label>Enter new password</mat-label>
-            <input matInput [(ngModel)]="updateUser.password">
+            <input type="password" matInput [(ngModel)]="updateUser.password">
           </mat-form-field>
           <br>
 
@@ -46,7 +46,8 @@
           <br>
 
           <div class="example-button-row">
-            <button class="button-space" mat-raised-button color="button-color" (click)="profilePictureDialog()">Upload Profile Picture</button>
+            <button class="button-space" mat-raised-button color="button-color" (click)="fileUpload.click()">Upload Profile Picture</button>
+            <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
             <button class="button-space" mat-raised-button color="primary" (click)="UpdateUser()">Confirm</button>
             <button class="button-space" mat-stroked-button [routerLink]="['/profile']">Cancel</button>
           </div>

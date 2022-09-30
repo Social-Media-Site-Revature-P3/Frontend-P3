@@ -16,8 +16,12 @@ import { UserInitialsPipe } from './pipes/user-initials.pipe';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { EditProfileComponent, UploadProfilePictureDialog } from './components/edit-profile/edit-profile.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import { EditUserProfileComponent } from './components/edit-user-profile/edit-user-profile.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { FollowPageComponent } from './components/follow-page/follow-page.component';
+import { BookmarkPageComponent } from './components/bookmark-page/bookmark-page.component';
+import { LikesComponent } from './components/likes/likes.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -30,10 +34,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     UserCardComponent,
     NavbarComponent,
     UserInitialsPipe,
-    EditProfileComponent,
-    UserProfileComponent,
-    EditUserProfileComponent,
+    SearchBarComponent,
     UploadProfilePictureDialog,
+    FollowPageComponent,
+    BookmarkPageComponent,
+    UserProfileComponent,
+    EditProfileComponent,
+    LikesComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +53,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     ReactiveFormsModule,
     MatFormFieldModule,
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
