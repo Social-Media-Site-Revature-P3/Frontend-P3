@@ -11,6 +11,8 @@ import { PostService } from 'src/app/services/post.service';
 import { Post } from 'src/app/interfaces/post';
 import { FollowServiceService } from 'src/app/services/follow-service.service';
 import { Follow } from 'src/app/interfaces/follow';
+import { FormControl } from '@angular/forms';
+
 
 @Component({
   selector: 'app-user-profile',
@@ -53,11 +55,13 @@ export class UserProfileComponent implements OnInit {
   following: Follow[] = [];
   userId: number;
   nowFollowing: Follow;
-  postInput: any;
+  postInput: FormControl;
+  createPost: Post;
 
   dialog: MatDialog;
 
   ngOnInit(): void {
+    this.postInput = new FormControl()
 
     //How are we storing userId? If storing the userId in local storage:
     //this.currentUserId = Number(localStorage.getItem("currentUserId"));
@@ -159,9 +163,20 @@ export class UserProfileComponent implements OnInit {
   }
 
 
-  //Do we need a post textbox in the User profile?
-  postPost(){
-    //this._postService.postPost()
+  submitPost(){
+
+  
+    this.createPost ={
+      text:  this.postInput.value || "",
+      title: "",
+      imageUrl: "",
+      user: {
+          userId: this.authService.currentUser.userId||0
+    }
+  }
+    this._postService.postPost(this.createPost).subscribe((res: any)=> {console.log(res)})
+    console.log(this.postInput.value)
+  
 
   }
 
