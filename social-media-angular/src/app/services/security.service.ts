@@ -8,7 +8,7 @@ import { SecurityQuestion } from '../interfaces/security-question';
 @Injectable({
   providedIn: 'root'
 })
-export class SecurityServiceService {
+export class SecurityService {
 
   securityQuestionUrl: string = `${environment.baseUrl}/security-question/`
 

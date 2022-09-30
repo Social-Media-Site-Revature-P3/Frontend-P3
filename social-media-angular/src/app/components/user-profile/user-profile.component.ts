@@ -4,12 +4,12 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dial
 import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { CurrencyPipe } from '@angular/common';
 import { PostService } from 'src/app/services/post.service';
 import { Post } from 'src/app/interfaces/post';
-import { FollowServiceService } from 'src/app/services/follow-service.service';
 import { Follow } from 'src/app/interfaces/follow';
+import { FormControl } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
+import { FollowService } from 'src/app/services/follow.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -22,12 +22,13 @@ export class UserProfileComponent implements OnInit {
   _userService: UserService;
   _router: Router;
   _postService: PostService;
-  _followService: FollowServiceService;
+  _followService: FollowService;
   currentUserId: number;
   
 
   // constructor(private authService: AuthService, private dialog: MatDialog) { }
-  constructor(private authService: AuthService, public service: UserService, router: Router, public postService: PostService, public followService: FollowServiceService) {
+  constructor(private authService: AuthService, public service: UserService, router: Router,
+     public postService: PostService, public followService: FollowService, private cookieService: CookieService) {
     this._authService = authService;
     this._userService = service;
     this._router = router;
@@ -63,14 +64,17 @@ export class UserProfileComponent implements OnInit {
   following: Follow[] = [];
   userId: number;
   nowFollowing: Follow;
-  postInput: any;
+  postInput: FormControl;
+  createPost: Post;
 
   dialog: MatDialog;
 
   ngOnInit(): void {
+    this.postInput = new FormControl()
+
     //How are we storing userId? If storing the userId in local storage:
     //this.currentUserId = Number(localStorage.getItem("currentUserId"));
-    let userId = this._authService.currentUser.userId;
+    let userId: number = +this.cookieService.get('userId')
 
     this.service.GetUser(userId).subscribe(data => {
       this.user = data;
@@ -112,9 +116,21 @@ export class UserProfileComponent implements OnInit {
 
   }
 
-  //Do we need a post textbox in the User profile?
-  postPost(){
-    //this._postService.postPost()
+
+  submitPost(){
+
+  
+    this.createPost ={
+      text:  this.postInput.value || "",
+      title: "",
+      imageUrl: "",
+      user: {
+          userId: this.authService.currentUser.userId||0
+    }
+  }
+    this._postService.postPost(this.createPost).subscribe((res: any)=> {console.log(res)})
+    console.log(this.postInput.value)
+  
 
   }
 
