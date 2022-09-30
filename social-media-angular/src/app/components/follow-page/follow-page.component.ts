@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Follow } from '../interfaces/follow';
-import { AuthService } from '../services/auth.service';
-import { FollowServiceService } from '../services/follow-service.service';
-import { User } from '../interfaces/user';
-import { UserService } from '../services/user.service';
+import { Follow } from '../../interfaces/follow';
+import { AuthService } from '../../services/auth.service';
+import { FollowService } from '../../services/follow.service';
+import { User } from '../../interfaces/user';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-follow-page',
@@ -17,7 +17,7 @@ export class FollowPageComponent implements OnInit {
   followListUsers: User[] = [];
   followHeader: string = "";
 
-  constructor(router: ActivatedRoute, private authService: AuthService, private followService: FollowServiceService, private userService: UserService) { 
+  constructor(router: ActivatedRoute, private authService: AuthService, private followService: FollowService, private userService: UserService) { 
     this.router = router;
   }
 

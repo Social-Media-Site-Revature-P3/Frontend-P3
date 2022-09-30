@@ -5,6 +5,7 @@ import { PostService } from 'src/app/services/post.service';
 import { User } from 'src/app/interfaces/user';
 import { Like } from '../../interfaces/like'
 import {LikesService } from '../../services/likes.service'
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-likes',
@@ -13,11 +14,9 @@ import {LikesService } from '../../services/likes.service'
 })
 export class LikesComponent implements OnInit {
 
-  user: User =this.authService.currentUser;
-
   likePost: boolean = false
 
-  constructor(private authService: AuthService, private likesService: LikesService, private postService: PostService) { }
+  constructor(private authService: AuthService, private likesService: LikesService, private postService: PostService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
     this.getLikes()
@@ -29,7 +28,7 @@ export class LikesComponent implements OnInit {
       postId: 0
     },
     user:{
-      userId: this.authService.currentUser.userId||0
+      userId: +this.cookieService.get('userId')
     }
   }
 
@@ -39,7 +38,7 @@ export class LikesComponent implements OnInit {
       postId: 0
     },
     user: {
-      userId:  this.authService.currentUser.userId||0
+      userId:  +this.cookieService.get('userId')
   }
   }]
 
@@ -49,7 +48,7 @@ export class LikesComponent implements OnInit {
       postId: 0
     },
     user: {
-      userId:  this.authService.currentUser.userId||0
+      userId:  +this.cookieService.get('userId')
   }
   }]
 

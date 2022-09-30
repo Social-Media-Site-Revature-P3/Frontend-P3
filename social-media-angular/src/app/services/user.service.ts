@@ -24,7 +24,7 @@ export class UserService {
 
   //Find user by User ID
   GetUser(userId: number): Observable<User> {
-    return this.http.get<User>(`${this.baseurl}/`+userId,  this.httpOptions).pipe(
+    return this.http.get<User>(`${this.baseurl}/`+ userId, this.httpOptions).pipe(
       retry(1),
       catchError(this.errorHandl)
     );

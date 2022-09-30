@@ -15,14 +15,16 @@ export class RegisterComponent implements OnInit {
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)])
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    nickname: new FormControl('')
   })
 
   register: Register= {
     email:"",
     password:"",
     firstName: "",
-    lastName: ""
+    lastName: "",
+    nickname: ""
   }
 
   constructor(private authService: AuthService, private router: Router) { }
@@ -37,7 +39,8 @@ export class RegisterComponent implements OnInit {
         email: this.registerForm.value.email || "",
         password: this.registerForm.value.password || "",
         firstName: this.registerForm.value.firstName || "",
-        lastName: this.registerForm.value.lastName || ""
+        lastName: this.registerForm.value.lastName || "",
+        nickname: this.registerForm.value.nickname || ""
       }
       this.authService.register(register)
         .subscribe(
