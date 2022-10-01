@@ -59,7 +59,8 @@ export class CommentComponent implements OnInit {
 
   toggleEditToComment = () => {
     if(this.replyToComment == true){
-    this.replyToComment = !this.replyToComment
+    this.toggleReplyToComment()
+
     }
     this.editToComment = !this.editToComment
   }
@@ -110,7 +111,7 @@ export class CommentComponent implements OnInit {
         this.commentForm.get('text')?.patchValue(this.inputComment.text)
        }
        if(this.editToComment == true){
-        this.editToComment = !this.editToComment
+        this.toggleEditToComment()
        }
     this.replyToComment = !this.replyToComment
   }
