@@ -24,10 +24,10 @@ export class SearchBarComponent implements OnInit {
     firstName: '',
     lastName: '',
     aboutMe: '',
-    profilePicture: ''
 }]
 name : Name = {
-  firstName : ''
+  firstName : '',
+  lastName: 'Lash'
 }
 fullName : Name = {
   firstName : '',
@@ -43,21 +43,25 @@ fullName : Name = {
 
 
   searchUser() {
-    let searchTerm = this.searchTerm.split(' ')
-      if(searchTerm.length > 0 && searchTerm.length < 3) {
-        if(searchTerm.length == 1){
-          this.name.firstName = searchTerm.toString();
-          this.userService.GetUsersByName(this.name).subscribe((users : User[]) => {
-            this.user = users;
-          })
-        }
-        if(this.searchTerm.length == 2){
-          this.fullName.firstName = searchTerm.slice(0, 1).toString();
-          this.fullName.lastName = searchTerm.slice(1, 1).toString();
-          this.userService.GetUsersByFullName(this.fullName).subscribe((name:User[]) => {
+    let searchTerm = this.searchTerm.split(' ');
+    console.log(searchTerm.length);
+    if(searchTerm.length > 0 && searchTerm.length < 3) {
+      if(searchTerm.length == 1){
+        this.name.firstName = searchTerm.toString();
+        console.log(this.name)
+        this.userService.GetUsersByName(this.name).subscribe((users : User[]) => {
+          this.user = users;
+        })
+      }
+      if(this.searchTerm.length == 2){
+        this.fullName.firstName = searchTerm.slice(0, 1).toString();
+        this.fullName.lastName = searchTerm.slice(1, 1).toString();
+        this.userService.GetUsersByFullName(this.fullName).subscribe((name:User[]) => {
+
           this.user = name;
-            })
-        }
+          console.log(name)
+        })
       }
     }
+  }
 }
