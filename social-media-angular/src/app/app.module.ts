@@ -22,9 +22,11 @@ import { FollowPageComponent } from './components/follow-page/follow-page.compon
 import { BookmarkPageComponent } from './components/bookmark-page/bookmark-page.component';
 import { LikesComponent } from './components/likes/likes.component';
 import { CookieService } from 'ngx-cookie-service';
-import { FollowComponent } from './follow/follow.component';
 import { FollowButtonComponent } from './follow-button/follow-button.component';
 import { BookmarkComponent } from './components/bookmark/bookmark.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FollowDialogComponent } from './follow-dialog/follow-dialog.component';
+
 
 @NgModule({
   declarations: [
@@ -44,10 +46,12 @@ import { BookmarkComponent } from './components/bookmark/bookmark.component';
     UserProfileComponent,
     EditProfileComponent,
     LikesComponent,
-    FollowComponent,
     FollowButtonComponent,
-    BookmarkComponent
+    BookmarkComponent,
+    FollowDialogComponent, 
+    
   ],
+  entryComponents: [FollowDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -58,6 +62,7 @@ import { BookmarkComponent } from './components/bookmark/bookmark.component';
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
+    MatDialogModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

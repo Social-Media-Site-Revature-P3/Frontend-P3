@@ -1,5 +1,9 @@
-<!-- <mat-card-actions >
-    can put in the numbers of followers and following 
-    <button mat-raised-button color="primary" [routerLink]="['/follow-page', user.userId, 1]"> Followers</button>
-    <button mat-raised-button color="primary" [routerLink]="['/follow-page',user.userId, 2 ]"> Following</button>
-</mat-card-actions>  -->
+<div [ngClass]="['sidebyside', 'user-stats']">
+   <p> {{followerListUsers.length}} <button mat-raised-button color="primary" (click)="displayFollowers()"> Followers</button></p> 
+    
+</div>
+<div [ngClass]="['sidebyside', 'user-stats']">
+    <p> {{followingListUsers.length}} <button mat-raised-button color="primary" (click)="displayFollowing()"> Following</button> </p>
+
+</div>
+    

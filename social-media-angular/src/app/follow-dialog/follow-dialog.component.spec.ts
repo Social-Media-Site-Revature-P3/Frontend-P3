@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FollowComponent } from './follow.component';
+import { FollowDialogComponent } from './follow-dialog.component';
 
-describe('FollowComponent', () => {
-  let component: FollowComponent;
-  let fixture: ComponentFixture<FollowComponent>;
+describe('FollowDialogComponent', () => {
+  let component: FollowDialogComponent;
+  let fixture: ComponentFixture<FollowDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FollowComponent ]
+      declarations: [ FollowDialogComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(FollowComponent);
+    fixture = TestBed.createComponent(FollowDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
