@@ -3,6 +3,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { User } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
+import { Follow } from 'src/app/interfaces/follow';
+import { FollowService } from 'src/app/services/follow.service';
 
 @Component({
   selector: 'app-user-card',
@@ -23,7 +25,7 @@ export class UserCardComponent implements OnInit {
   };
   userId: number;
 
-  constructor(private authService: AuthService, private cookieService: CookieService, private userService: UserService) { }
+  constructor(private authService: AuthService, private cookieService: CookieService, private userService: UserService, private followService: FollowService) { }
 
   ngOnInit(): void {
     this.userId = +this.cookieService.get('userId')
@@ -40,6 +42,23 @@ export class UserCardComponent implements OnInit {
       this.user.profilePicture = user.profilePicture;
     })
     console.log(this.user)
+  }
+
+  followUser(postAuthorId: number): void {
+      let newFollow: Follow = {
+      followedUser: {
+           userId: postAuthorId
+      },
+      followerUser: {
+          userId: +this.cookieService.get('userId')
+      }
+    }
+  
+    // add following 
+    this.followService.IWillFollow(newFollow)
+    .subscribe(()=> {
+      console.log("new follow: ", newFollow);
+    })
   }
 
 }

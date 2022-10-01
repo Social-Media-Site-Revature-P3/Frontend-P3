@@ -41,7 +41,7 @@
           <mat-form-field hintLabel="Max 181 characters" appearance="fill" class="width-100">
             <mat-label>About Me</mat-label>
             <textarea matInput #input maxlength="181" placeholder="Ex. I'm saucy" [(ngModel)]="updateUser.aboutMe"></textarea>
-            <mat-hint align="end">{{input.value?.length || 0}}/181</mat-hint>
+            <mat-hint align="end">{{input.value.length || 0}}/181</mat-hint>
           </mat-form-field>
           <br>
 

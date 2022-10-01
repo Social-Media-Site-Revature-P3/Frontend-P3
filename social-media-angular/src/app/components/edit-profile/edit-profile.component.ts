@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
 import { User } from 'src/app/interfaces/user';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -22,11 +23,13 @@ export class EditProfileComponent implements OnInit {
   public dialog: MatDialog;
   fileName = '';
   userId: number;
+  
 
   
-  constructor(private router: Router, private _userService: UserService, private _authService: AuthService) { 
+  constructor(private router: Router, private _userService: UserService, private _authService: AuthService, private cookieService: CookieService) { 
     this.userService = _userService;
     this.authService = _authService;
+    this.cookieService = cookieService;
   }
 
   user: User = {
@@ -55,7 +58,7 @@ export class EditProfileComponent implements OnInit {
   // user: User = {} as User;
   ngOnInit(): void {
     //this.user = this.authService.currentUser;
-    this.user.userId = this._authService.currentUser.userId;
+    this.userId = +this.cookieService.get('userId');
     this.userService.GetUser(this.user.userId).subscribe(data => {
       this.user = data;
       console.log("user id:" + this.user.userId)

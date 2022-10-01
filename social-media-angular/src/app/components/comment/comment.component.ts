@@ -28,6 +28,7 @@ export class CommentComponent implements OnInit {
   firstName: string;
   lastName: string;
   user: User = {
+    userId: 0,
     email: '',
     password: '',
     firstName: '',
