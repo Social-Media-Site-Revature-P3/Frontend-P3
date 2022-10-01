@@ -3,19 +3,14 @@
   <mat-card-header>
     <div mat-card-avatar class="header-image"></div>
     <mat-card-title>{{user.firstName}} {{user.lastName}}</mat-card-title>
-    <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="user.nickname != null">@{{user.nickname}}</mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content>
 
-</mat-card-content>
   <mat-card-content>
     <p *ngIf="!editToComment">{{inputComment.text}}</p>
   
     <img mat-card-image *ngIf="inputComment.imageUrl!=''" src="{{ inputComment.imageUrl }}" alt="Post Image">
     <div class="comment-reply" align="right" *ngIf="creatorUser">
-      <div class="comment-reply-text" (click)="toggleEditToComment()">
-        Edit
-      </div>
       <form class="form" *ngIf="editToComment" [formGroup]="commentForm" (ngSubmit)="editReply($event)">
         <mat-form-field class="full-width" appearance="fill">
             <mat-label>Edit your Comment</mat-label>
@@ -37,7 +32,11 @@
         Reply
     </div>
 
-    <form class="form" *ngIf="replyToComment" [formGroup]="commentForm" (ngSubmit)="submitReply($event)">
+    <div class="comment-reply" align="right">
+      <button mat-raised-button color="primary" type="submit" (click)="toggleEditToComment()">Edit</button>
+      <button mat-raised-button color="primary" class="comment-reply-text" type="submit" (click)="toggleReplyToComment()">Reply</button>
+      
+      <form class="form" *ngIf="replyToComment" [formGroup]="commentForm" (ngSubmit)="submitReply($event)">
         <mat-form-field class="full-width" appearance="fill">
           <mat-label>Make a Comment</mat-label>
           <textarea matInput autofocus formControlName="text"></textarea>
@@ -51,10 +50,10 @@
           <button mat-raised-button color="primary" type="submit">Submit</button>
         </div>
       </form>
-    </div></mat-card-content></mat-card>
+    </div>
+  </mat-card-content>
+</mat-card>
   
-
-
 <div *ngFor="let comment of comments" class="comment-container">
     <mat-divider></mat-divider>
     <app-comment *ngIf="comment.postId != 0" [comment]="comment"></app-comment>

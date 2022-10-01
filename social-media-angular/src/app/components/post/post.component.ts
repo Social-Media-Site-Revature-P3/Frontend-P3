@@ -1,15 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Follow } from 'src/app/interfaces/follow';
-import {Post} from 'src/app/interfaces/post';
+import { Post } from 'src/app/interfaces/post';
 import { User } from 'src/app/interfaces/user';
 import { Comment } from 'src/app/interfaces/comment';
 import { AuthService } from 'src/app/services/auth.service';
-import { FollowServiceService } from 'src/app/services/follow-service.service';
+import { FollowService } from 'src/app/services/follow.service';
 import { PostService } from 'src/app/services/post.service';
 import { Bookmark } from 'src/app/interfaces/bookmark';
 import { BookmarkService } from 'src/app/services/bookmark.service';
-import {UserService} from "../../services/user.service";
+import { UserService } from "../../services/user.service";
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -35,8 +35,9 @@ export class PostComponent implements OnInit {
               private postService: PostService,
               private authService: AuthService,
               private userService: UserService,
-              private followService:FollowServiceService,
-               private bookMarkService: BookmarkService) {}
+              private followService: FollowService,
+              private bookMarkService: BookmarkService,
+              private cookieService: CookieService) {}
 
   ngOnInit(): void {
     this.user = this.authService.currentUser
@@ -51,18 +52,19 @@ export class PostComponent implements OnInit {
      }
    })
 
-   this.postService.getByComments(this.post.postId).subscribe({
-     next: data => this.comments = data
-   })
+    this.postService.getByComments(this.post.postId).subscribe({
+      next: data => this.comments = data
+    })
 
-  this.getComments()
+    this.getComments()
   }
 
   newPost: Post = {
     text:  "",
     title: "",
-    imageUrl: "string",
+    imageUrl: "",
     comment: true,
+    createDateTime: "",
     user: {
         userId:  0
     }
@@ -99,11 +101,11 @@ toggleEditToPost=()=>{
 
   submitReply = (e: any) => {
     e.preventDefault()
-    this.newPost.text = this.commentForm.value.text || ""
-    this.newPost.title = "hallo"
-    this.newPost.imageUrl= this.commentForm.value.imageUrl||""
-    this.newPost.user.userId =this.authService.currentUser.userId||0
-    this.newPost.comment = true
+    this.newPost.text = this.commentForm.value.text || "";
+    this.newPost.title = "hallo";
+    this.newPost.imageUrl= this.commentForm.value.imageUrl||"";
+    this.newPost.user.userId = +this.cookieService.get('userId');
+    this.newPost.comment = true;
     this.postService.postPost(this.newPost).subscribe((response) => {
       this.newPost = response
       this.commentConnect.commentId = this.newPost.postId||0
@@ -147,7 +149,7 @@ toggleEditToPost=()=>{
         },
         user: 
         {
-          userId: this.authService.currentUser.userId||0
+          userId: +this.cookieService.get('userId')
         }
 
       };
@@ -158,15 +160,13 @@ toggleEditToPost=()=>{
       });
     }
 
-  followUser(postAuthorId: number): void
-{
-  let newFollow: Follow = 
-  {
+  followUser(postAuthorId: number): void {
+    let newFollow: Follow = {
     followedUser: {
         userId: postAuthorId
     },
     followerUser: {
-        userId: this.authService.currentUser.userId||0
+        userId: +this.cookieService.get('userId')
     }
   }
 
