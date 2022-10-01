@@ -47,7 +47,8 @@ export class CommentComponent implements OnInit {
 
   toggleEditToComment = () => {
     if(this.replyToComment == true){
-    this.replyToComment = !this.replyToComment
+    this.toggleReplyToComment()
+
     }
     this.editToComment = !this.editToComment
   }
@@ -100,7 +101,7 @@ commentConnect: Comment ={
         this.commentForm.get('text')?.patchValue(this.inputComment.text)
        }
        if(this.editToComment == true){
-        this.editToComment = !this.editToComment
+        this.toggleEditToComment()
        }
     this.replyToComment = !this.replyToComment
   }
@@ -141,8 +142,9 @@ commentConnect: Comment ={
       this.newPost.user.userId =this.authService.currentUser.userId||0
        this.postService.updatePost(this.newPost, this.inputComment.postId )
         .subscribe((response)=>{
-               console.log(this.editReply)
+              //  console.log(this.editReply)
           this.toggleEditToComment()
-          console.log(this.editReply)})
+          // console.log(this.editReply)
+        })
   }
 }
