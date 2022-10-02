@@ -21,6 +21,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { FollowPageComponent } from './components/follow-page/follow-page.component';
 import { BookmarkPageComponent } from './components/bookmark-page/bookmark-page.component';
 import { LikesComponent } from './components/likes/likes.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
@@ -39,8 +40,9 @@ import { CookieService } from 'ngx-cookie-service';
     FollowPageComponent,
     BookmarkPageComponent,
     UserProfileComponent,
+    LikesComponent,
+    ChangePasswordComponent,
     EditProfileComponent,
-    LikesComponent
   ],
   imports: [
     BrowserModule,

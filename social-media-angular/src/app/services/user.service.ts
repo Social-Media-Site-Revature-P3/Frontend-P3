@@ -49,13 +49,21 @@ export class UserService {
     );
   }
 
-  //Find user by first or last name
-  GetUsersByName(name: Name): Observable<User[]> {
-    return this.http.post<User[]>(`${this.baseurl}/name`, JSON.stringify(name), this.httpOptions).pipe(
-      retry(1),
-      catchError(this.errorHandl)
-    );
+    //Find user by User email
+    GetUserByEmail(email: string): Observable<User> {
+      return this.http.get<User>(`${this.baseurl}/email/`+ email, this.httpOptions).pipe(
+        retry(1),
+        catchError(this.errorHandl)
+      );
   }
+
+    //Find user by first or last name
+    GetUserByName(name: Name): Observable<User> {
+      return this.http.post<User>(`${this.baseurl}/name`, JSON.stringify(name), this.httpOptions).pipe(
+        retry(1),
+        catchError(this.errorHandl)
+      );
+    }
 
     //Update user
   UpdateUser(user: User): Observable<User> {
