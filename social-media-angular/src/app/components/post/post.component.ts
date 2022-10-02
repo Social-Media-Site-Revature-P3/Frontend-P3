@@ -36,8 +36,7 @@ export class PostComponent implements OnInit {
               private authService: AuthService,
               private userService: UserService,
               private followService: FollowService,
-              private bookMarkService: BookmarkService,
-              private cookieService: CookieService) {}
+              private bookMarkService: BookmarkService) {}
 
   ngOnInit(): void {
     this.user = this.authService.currentUser
