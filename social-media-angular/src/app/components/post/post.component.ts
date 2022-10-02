@@ -28,8 +28,7 @@ export class PostComponent implements OnInit {
   replyToPost: boolean = false;
   editToPost: boolean=false;
   creatorUser: boolean=false;
-  comments: Post[] = [];
-  user: User 
+  comments: Post[] = []; 
  
   constructor(private cookieService: CookieService,
               private postService: PostService,
@@ -39,9 +38,8 @@ export class PostComponent implements OnInit {
               private bookMarkService: BookmarkService) {}
 
   ngOnInit(): void {
-    this.user = this.authService.currentUser
     // this.cookieService.get('userId').valueOf()
-    if(this.post.user.userId==this.user.userId){
+    if(this.post.user.userId==this.cookieService.get('userId')){
       this.creatorUser= true
     }
 
@@ -118,7 +116,7 @@ toggleEditToPost=()=>{
     this.newPost.text = this.commentForm.value.text || ""
     this.newPost.title = "hallo"
     this.newPost.imageUrl= this.commentForm.value.imageUrl||""
-    this.newPost.user.userId =this.authService.currentUser.userId||0
+    this.newPost.user.userId = +this.cookieService.get('userId');
     this.newPost.comment = false
     this.postService.updatePost(this.newPost, this.post.postId).subscribe((response) => {
       this.toggleReplyToPost()

@@ -13,8 +13,6 @@ export class SearchBarComponent implements OnInit {
 
 
   searchTerm: string = "";
-  userService : UserService;
-  cookieService : CookieService;
   userId : number = 0
   user : User[] = [{
     userId : 0,
@@ -24,23 +22,21 @@ export class SearchBarComponent implements OnInit {
     firstName: '',
     lastName: '',
     aboutMe: '',
-}]
-name : Name = {
-  firstName : '',
-  lastName: 'Lash'
-}
-fullName : Name = {
-  firstName : '',
-  lastName : ''
-}
-
-
-  constructor() { }
-
-  ngOnInit(): void {
-    this.userId = +this.cookieService.get("userId")
+  }]
+  name : Name = {
+    firstName : '',
+    lastName: 'Lash'
+  }
+  fullName : Name = {
+    firstName : '',
+    lastName : ''
   }
 
+  constructor(private cookieService: CookieService, private userService: UserService) { }
+
+  ngOnInit(): void {
+    this.userId = +this.cookieService.get('userId');
+  }
 
   searchUser() {
     let searchTerm = this.searchTerm.split(' ');
@@ -48,18 +44,14 @@ fullName : Name = {
     if(searchTerm.length > 0 && searchTerm.length < 3) {
       if(searchTerm.length == 1){
         this.name.firstName = searchTerm.toString();
-        console.log(this.name)
         this.userService.GetUsersByName(this.name).subscribe((users : User[]) => {
           this.user = users;
         })
-      }
-      if(this.searchTerm.length == 2){
+      }else if(searchTerm.length == 2){
         this.fullName.firstName = searchTerm.slice(0, 1).toString();
         this.fullName.lastName = searchTerm.slice(1, 1).toString();
         this.userService.GetUsersByFullName(this.fullName).subscribe((name:User[]) => {
-
           this.user = name;
-          console.log(name)
         })
       }
     }

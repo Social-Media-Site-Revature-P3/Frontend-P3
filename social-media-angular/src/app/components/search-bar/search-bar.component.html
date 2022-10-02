@@ -1,5 +1,5 @@
 <!-- Display search bar -->
 <div class="searchbar">
-    <input class="search-input" type="text" placeholder="Find a Friend!" name="searchTerm" [(ngModel)]="searchTerm"/>
+    <input class="search-input" type="text" placeholder="Find a Friend!" name="searchTerm" [(ngModel)]="searchTerm" (input)="searchUser()"/>
     <button class="search-icon" (click)="searchUser()">Search!</button>
 </div>

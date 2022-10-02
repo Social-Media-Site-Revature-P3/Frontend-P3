@@ -58,8 +58,8 @@ export class UserService {
   }
 
     //Find user by first or last name
-    GetUserByName(name: Name): Observable<User> {
-      return this.http.post<User>(`${this.baseurl}/name`, JSON.stringify(name), this.httpOptions).pipe(
+    GetUsersByName(name: Name): Observable<User[]> {
+      return this.http.post<User[]>(`${this.baseurl}/name`, JSON.stringify(name), this.httpOptions).pipe(
         retry(1),
         catchError(this.errorHandl)
       );
