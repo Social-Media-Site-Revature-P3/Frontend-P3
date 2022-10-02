@@ -26,9 +26,13 @@ export class PostComponent implements OnInit {
 
   @Input('post') post: Post | any;
   replyToPost: boolean = false;
+  editToPost: boolean=false;
+  creatorUser: boolean=false;
   comments: Post[] = [];
   user: User 
-  constructor(private postService: PostService,
+ 
+  constructor(private cookieService: CookieService,
+              private postService: PostService,
               private authService: AuthService,
               private userService: UserService,
               private followService: FollowService,
@@ -36,11 +40,17 @@ export class PostComponent implements OnInit {
               private cookieService: CookieService) {}
 
   ngOnInit(): void {
-    this.userService.GetUser(this.post.user.userId).subscribe({
-      next: user => {
-        this.post.user = user;
-      }
-    })
+    this.user = this.authService.currentUser
+    // this.cookieService.get('userId').valueOf()
+    if(this.post.user.userId==this.user.userId){
+      this.creatorUser= true
+    }
+
+   this.userService.GetUser(this.post.user.userId).subscribe({
+     next: user => {
+       this.post.user = user;
+     }
+   })
 
     this.postService.getByComments(this.post.postId).subscribe({
       next: data => this.comments = data
@@ -65,9 +75,16 @@ commentConnect: Comment ={
   postId: 0
 }
   
-
+toggleEditToPost=()=>{
+  if(this.replyToPost){this.toggleReplyToPost()}
+  this.commentForm.get('text')?.patchValue(this.post.text)
+  this.commentForm.get('imageUrl')?.patchValue(this.post.imageUrl)
+  this.editToPost = !this.editToPost
+}
   toggleReplyToPost = () => {
+    if(this.editToPost){this.toggleEditToPost()}
     this.commentForm.get('text')?.patchValue('')
+    this.commentForm.get('imageUrl')?.patchValue('')
     this.replyToPost = !this.replyToPost
   }
 
@@ -97,6 +114,28 @@ commentConnect: Comment ={
       this.toggleReplyToPost()
     })
   }   
+
+  editPost=(e:any) =>{
+    this.newPost.text = this.commentForm.value.text || ""
+    this.newPost.title = "hallo"
+    this.newPost.imageUrl= this.commentForm.value.imageUrl||""
+    this.newPost.user.userId =this.authService.currentUser.userId||0
+    this.newPost.comment = false
+    this.postService.updatePost(this.newPost, this.post.postId).subscribe((response) => {
+      this.toggleReplyToPost()
+    })
+
+  }
+
+  deletePost=()=>{
+    this.postService.deletePost(this.post.postId).subscribe({
+      next: data =>{
+      this.toggleEditToPost();
+      this.getComments();
+      this.commentForm.get('text')?.patchValue('')
+    },
+  })
+  }
 
   bookmarkPosts(bookmarkPostId: number): void
     {
