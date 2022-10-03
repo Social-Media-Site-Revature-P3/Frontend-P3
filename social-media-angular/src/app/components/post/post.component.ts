@@ -48,7 +48,6 @@ export class PostComponent implements OnInit {
    this.userService.GetUser(this.post.user.userId).subscribe({
      next: user => {
        this.post.user = user;
-       this.userA=user
      }
    })
 
