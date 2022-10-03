@@ -28,7 +28,7 @@ export class PostComponent implements OnInit {
   replyToPost: boolean = false;
   editToPost: boolean=false;
   creatorUser: boolean=false;
-
+  showComments: boolean=false;
   comments: Post[] = []; 
  
   constructor(private cookieService: CookieService,
@@ -48,7 +48,6 @@ export class PostComponent implements OnInit {
    this.userService.GetUser(this.post.user.userId).subscribe({
      next: user => {
        this.post.user = user;
-       this.userA=user
      }
    })
 
@@ -59,6 +58,9 @@ export class PostComponent implements OnInit {
     this.getComments()
   }
 
+    toggleComments=()=>{
+      this.showComments= !this.showComments
+    }
   newPost: Post = {
     text:  "",
     title: "",

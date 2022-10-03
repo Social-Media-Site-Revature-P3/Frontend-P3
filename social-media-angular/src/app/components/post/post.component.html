@@ -1,6 +1,7 @@
 <div class="post-card">
     <mat-card>
         <mat-card-header>
+            <button mat-icon-button><mat-icon>bookmark</mat-icon></button>
             <img mat-card-avatar *ngIf="post.user.profilePicture != null && post.user.profilePicture!=''" class="header-image"  src="{{ post.user.profilePicture }}">
             <mat-card-title>{{post.user.firstName}} {{post.user.lastName}}</mat-card-title>
             <mat-card-subtitle *ngIf="post.user.nickname != null">@{{post.user.nickname}}</mat-card-subtitle>
@@ -28,8 +29,11 @@
         </mat-card-content>
         <mat-card-actions align="end">
             <button mat-raised-button *ngIf="creatorUser" color="primary" (click)="toggleEditToPost()">Edit</button>
-            <button mat-raised-button color="primary" (click)="bookmarkPosts(post.postId || 0)"> bookmark</button>
             <button mat-raised-button color="primary" (click)="toggleReplyToPost()">Reply</button>
+        </mat-card-actions>
+        <mat-card-actions align="end">
+            <button mat-raised-button color="primary" *ngIf="showComments==true" (click)="toggleComments()" >Hide Comments</button>
+            <button mat-raised-button color="primary" *ngIf="showComments==false" (click)="toggleComments()">Show Comments</button>
         </mat-card-actions>
         <form class="form" *ngIf="replyToPost" [formGroup]="commentForm" (ngSubmit)="submitReply($event)">
             <mat-form-field class="full-width" appearance="fill">
@@ -45,9 +49,13 @@
                 <button mat-raised-button color="primary" type="submit">Post</button>
             </div>
         </form>
+        <div *ngIf="showComments ==true">
         <div *ngFor="let comment of comments" class="comment-container">
             <mat-divider></mat-divider>
             <app-comment [comment]="comment" (delete)="deleteComment($event)"></app-comment>
-        </div>  
+        </div>  </div>
+        <mat-card-actions align="end">
+            <button mat-raised-button color="primary" *ngIf="showComments==true" (click)="toggleComments()" >Hide Comments</button>
+        </mat-card-actions>
     </mat-card>
 </div>
