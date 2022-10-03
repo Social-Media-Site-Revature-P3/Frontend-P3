@@ -14,6 +14,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class LikesComponent implements OnInit {
 
+  foundIt: String = "false"
   likePost : boolean = false
   dislikePost : boolean = false
   @Input('postId') postId : number 
@@ -21,7 +22,12 @@ export class LikesComponent implements OnInit {
   constructor(private authService: AuthService, private likesService: LikesService, private postService: PostService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
+    this.foundIt= "false"
     this.getLikes()
+    if(this.foundIt!="false"){
+    if(this.foundIt=="like"){
+      this.toggleLikeComment()
+    }else{this.toggleDislikeComment()}}
   }
 
   newLike: Like = {
@@ -59,6 +65,7 @@ export class LikesComponent implements OnInit {
       this.toggleDislikeComment()
     }
     this.likePost = !this.likePost
+    console.log("DEBUG-LIKE", this.likePost)
   }
 
   toggleDislikeComment  ()  {
@@ -66,6 +73,7 @@ export class LikesComponent implements OnInit {
       this.toggleLikeComment()
     }
     this.dislikePost = !this.dislikePost
+    console.log("DEBUG-DISLIKE", this.likePost)
   }
 
   getLikes=()=>{
@@ -74,8 +82,23 @@ export class LikesComponent implements OnInit {
       let allDislikes = allLikesAndDislikes.slice(1);
       for(let likes of allLikes) {
         this.likes = likes;
+        for(let like of likes) {
+          if(like.user.userId == this.newLike.user.userId) {
+            console.log("getlikes line 81, the like object should have an ID: ", like);
+            this.newLike = like
+            this.foundIt="like"
+            // this.toggleLikeComment()
+          }
+        }
       }
       for(let dislikes of allDislikes){
+        for(let dislike of dislikes) {
+          if(dislike.user.userId == this.newLike.user.userId) {
+            this.newLike = dislike
+            this.foundIt="dislike"
+            // this.toggleDislikeComment()
+          }
+        }
         this.dislikes = dislikes;
       }
     })
@@ -83,14 +106,15 @@ export class LikesComponent implements OnInit {
   
 //this.postService.currentPost.postId || 0
   submitLike = (e : any) => {
-    
     if( this.likePost==false) {
+      console.log("likepost is false line 101")
       this.newLike.liked = true;
       this.newLike.post.postId = this.postId || 0
       this.newLike.user.userId = + this.cookieService.get('userId')
       this.likesService.CreateLike(this.newLike)
       .subscribe(
         (response) => {
+          console.log("value emitted line 108")
           this.newLike = response
           //this.likesService.CreateLike(this.newLike).subscribe((response)=> {this.getLikes()})
           this.getLikes()
@@ -98,7 +122,8 @@ export class LikesComponent implements OnInit {
         }
       )
     } else if(this.likePost==true) {
-      this.deleteLike
+      console.log("likepost is true line 116")
+      this.deleteLike()
     }
   }
 
@@ -117,11 +142,20 @@ export class LikesComponent implements OnInit {
         }
       )
     } else if(this.dislikePost==true) {
-      this.deleteLike
+      this.deleteLike()
     }
   }
-  deleteLike = (e : any) => {
-    console.log('deleted')
-    // this.likesService.DeleteLike() 
+
+  deleteLike() {
+    console.log("deleting like... This should be populated with the matching like ID: ", this.newLike.likeId, this.newLike);
+    this.likesService.DeleteLike(this.newLike.likeId || 0).subscribe(() => {
+      if(this.likePost == true) {
+        this.toggleLikeComment()
+      } else {
+        if (this.dislikePost) {
+          this.toggleDislikeComment()
+        }
+      }
+    })
   }
 }
