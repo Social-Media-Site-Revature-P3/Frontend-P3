@@ -73,7 +73,7 @@ export class LikesComponent implements OnInit {
   submitLike =(e:any) => {
     this.newLike.liked = true;
     this.newLike.post.postId = this.postService.currentPost.postId || 0
-    this.newLike.user.userId = this.authService.currentUser.userId || 0
+    this.newLike.user.userId = + this.cookieService.get('userId')
     this.likesService.CreateLike(this.newLike)
     .subscribe(
       (response) => {

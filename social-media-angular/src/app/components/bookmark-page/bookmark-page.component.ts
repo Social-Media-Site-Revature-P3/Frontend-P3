@@ -4,6 +4,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { BookmarkService } from 'src/app/services/bookmark.service';
 import { Post } from 'src/app/interfaces/post';
 import { PostService } from 'src/app/services/post.service';
+import { CookieService } from 'ngx-cookie-service';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/interfaces/user';
 
 @Component({
   selector: 'app-bookmark-page',
@@ -12,8 +15,21 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class BookmarkPageComponent implements OnInit {
 
-  constructor( private authService: AuthService, private bookmarkService: BookmarkService, private postService: PostService) { }
   usersBookmarkPosts: Post[] = [];
+  currentUserId: number =0;
+  user: User = 
+  {
+    userId: 0,
+    email: "",
+    nickname: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    aboutMe: "",
+    profilePicture: ""
+  }
+  constructor( private authService: AuthService, private userService: UserService, private bookmarkService: BookmarkService, private postService: PostService, private cookieService: CookieService) { }
+
   ngOnInit(): void {
     this.getUsersBookmarkPosts();
   }
@@ -21,9 +37,18 @@ export class BookmarkPageComponent implements OnInit {
 
   getUsersBookmarkPosts():void
   {
-    let currentUserId: number = this.authService.currentUser.userId||0;
+    this.currentUserId= +this.cookieService.get('userId');
 
-    this.bookmarkService.GetUserBookmarks(currentUserId)
+    this.userService.GetUser(this.currentUserId)
+    .subscribe(
+      (user: User)=>
+      {
+        this.user = user;
+      }
+    )
+
+
+    this.bookmarkService.GetUserBookmarks(this.currentUserId)
     .subscribe(
       (data: Bookmark[])=>
       {
@@ -36,7 +61,7 @@ export class BookmarkPageComponent implements OnInit {
           .subscribe(
             (post: Post)=> 
             {
-              this.usersBookmarkPosts.push( post)
+              this.usersBookmarkPosts.push(post)
             }
           )
         }

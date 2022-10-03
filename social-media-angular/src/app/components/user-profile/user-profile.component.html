@@ -2,15 +2,18 @@
 <div class="user-profile-container">
     <div class="sidebyside">
         <mat-card class="user-profile-card">
-            <div *ngIf="user.profilePicture; else userCircle"><img class="profilePicture" src="{{user.profilePicture}}"></div>
-            <ng-template #userCircle><div class="user-circle"></div></ng-template>
+            <div *ngIf="user.profilePicture; else userCircle"><img class="profilePicture" src="{{user.profilePicture}}">
+            </div>
+            <ng-template #userCircle>
+                <div class="user-circle"></div>
+            </ng-template>
             <mat-divider></mat-divider>
             <p style="padding-top: 1em; font-weight: bold;">
                 {{user.firstName}} {{user.lastName}}
             </p>
             <p>
                 {{user.email}}
-            </p> 
+            </p>
         </mat-card>
     </div>
 
@@ -24,12 +27,24 @@
     <div [ngClass]="['sidebyside', 'user-stats']">
         <p>{{posts.length}} post</p>
     </div>
+
     <div [ngClass]="['sidebyside', 'user-stats']">
+        <app-follow-page [ngClass]="['sidebyside', 'user-stats']" [userId]="user.userId!"> </app-follow-page>
+    </div>
+
+    <!-- <div>
+        <app-follow-button [userId] = "user.userId"></app-follow-button>
+    </div> -->
+
+    <!-- <div [ngClass]="['sidebyside', 'user-stats']">
         <p>{{follower.length}} followers</p>
     </div>
     <div [ngClass]="['sidebyside', 'user-stats']">
         <p> {{following.length}} following</p>
-    </div>
+    </div> -->
+
+
+
     <div [ngClass]="['sidebyside', 'follow-button']">
         <button mat-raised-button color="button-color" (click)="followUser()">Follow</button>
     </div>
@@ -37,7 +52,6 @@
     <div class="follow-button">
         <button mat-raised-button color="button-color" [routerLink]="['/edit-profile']">Edit Profile</button>
     </div>
-
 <body>
         
        <!-- <mat-form-field appearance="fill" class="width-800; margin:0 auto;">
@@ -70,7 +84,11 @@
         <app-post [post]="subPost"></app-post>
 </div>
 
-</body>
+
+        <div id="post-feed" *ngFor="let subPost of post">
+            <app-post [post]="subPost"></app-post>
+        </div>
+    </body>
 
 
-
+</div>

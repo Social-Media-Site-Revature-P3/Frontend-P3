@@ -22,16 +22,20 @@ export class EditProfileComponent implements OnInit {
   authService: AuthService;
   public dialog: MatDialog;
   fileName = '';
+  hide = true;
   userId: number;
+  
 
   
   constructor(private router: Router, private _userService: UserService, private _authService: AuthService, private cookieService: CookieService) { 
     this.userService = _userService;
     this.authService = _authService;
+    this.cookieService = cookieService;
   }
 
+  // user: User = {} as User;
   user: User = {
-    userId: 0,
+    userId: +this.cookieService.get('userId'),
     email: "",
     nickname: "",
     password: "",
@@ -41,89 +45,34 @@ export class EditProfileComponent implements OnInit {
     profilePicture: ""
   }
 
-    // Create updateUser of type User
-    updateUser: User = {
-      userId: this.user.userId,
-      email: "",
-      password: "",
-      firstName: "",
-      lastName: "",
-      nickname: "",
-      aboutMe: "",
-      profilePicture: ""
-  }
-
-  // user: User = {} as User;
+  
   ngOnInit(): void {
-    //this.user = this.authService.currentUser;
-    let userId = +this.cookieService.get('userId');
-    this.userService.GetUser(userId).subscribe(data => {
+    this.userService.GetUser(this.user.userId!).subscribe(data => {
       this.user = data;
-      console.log("user id:" + this.user.userId)
-      console.log("first name: " + this.user.firstName)
     })
-
   }
 
   UpdateUser() {
-    console.log("user before update:" + this.user)
-    console.log("updateuser before update:" + this.updateUser)
+    //this.user.userId = this.authService.currentUser.userId;
 
-    this.userService.UpdateUser(this.updateUser).subscribe(updateUser => {
-      //this.user = updateUser;
-      console.log(updateUser.userId);
+    console.log(this.user.userId)
+    this.userService.UpdateUser(this.user).subscribe(updateUser => {
       console.log(updateUser);
+      alert('Successfuly Updated User!');
     })
   }
 
+  deleteAccount() {
+    //this.user.userId = this.authService.currentUser.userId;
 
-
-
-  
-//   profilePicture: string;
-//   profilePictureDialog() {
-//     const dialogRef = this.dialog.open(UploadProfilePictureDialog, {
-//       width: '250px',
-//       data: { profilePicutre: this.profilePicture},
-//     });
-
-//     dialogRef.afterClosed().subscribe(result => {
-//       console.log('The dialog is closed');
-//       this.profilePicture = result;
-//     });
-//   }
-
-//   onFileSelected(event: any) {
-
-//     const file:File = event.target.files[0];
-
-//     if (file) {
-
-//         this.fileName = file.name;
-
-//         const formData = new FormData();
-
-//         formData.append("thumbnail", file);
-
-//         const upload$ = this.userService.UploadImage(formData);
-
-//         //upload$.subscribe();
-//     }
-//   }
-
-// }
-
-// @Component({
-//   selector: './upload-profile-picture-dialog',
-//   templateUrl: './upload-profile-picture-dialog.html',
-// })
-// export class UploadProfilePictureDialog {
-//   constructor(
-//     public dialogRef: MatDialogRef<UploadProfilePictureDialog>,
-//     @Inject(MAT_DIALOG_DATA) public data: User,
-//   ) {}
-
-//   onNoClick(): void {
-//     this.dialogRef.close();
-//   }
+    let text = "Sorry to see you go, confirm to delete your account.";
+    if (confirm(text) == true) {
+      console.log("user to be deleted: " + this.user.userId)
+      this.userService.DeleteUser(this.user.userId!).subscribe()
+      alert('Successfully Deleted Account');
+      this.router.navigate(["login"])
+    } else {
+      this.router.navigate(["edit-profile"]);
+    }
   }
+}

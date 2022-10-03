@@ -1,0 +1,23 @@
+.searchbar {
+    background : white;
+    height : 40px;
+    width : 50%;
+    margin : 1vh 1vh 1vh;
+    border-radius: 10px;
+    border : 2px solid #E4E4E4;
+    display : flex;
+    padding : 0.3em;
+    transition : width 0.5s ease-in;
+    float : center;
+    position: relative;
+}
+
+.search-input { 
+    width: 100%;
+    float : right;
+}
+
+#content {
+    display: block;
+    color: black;
+}

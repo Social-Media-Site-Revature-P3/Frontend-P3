@@ -1,9 +1,9 @@
-<div *ngFor="let follow of followListUsers">
-    <h2> {{followHeader}}</h2>
-    <p>
-        <!-- (click) = "brings them to the users page" within p tag  -->
-        {{follow.firstName }} {{follow.lastName}}
-    </p>
+<div [ngClass]="['sidebyside', 'user-stats']">
+   <p> {{followerListUsers.length}} <button mat-raised-button color="primary" (click)="displayFollowers()"> Followers</button></p> 
+    
 </div>
+<div [ngClass]="['sidebyside', 'user-stats']">
+    <p> {{followingListUsers.length}} <button mat-raised-button color="primary" (click)="displayFollowing()"> Following</button> </p>
 
-<!-- maybe a back button to the page  -->
+</div>
+    

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { User } from 'src/app/interfaces/user';
@@ -23,8 +23,7 @@ export class UserProfileComponent implements OnInit {
   _router: Router;
   _postService: PostService;
   _followService: FollowService;
-  currentUserId: number;
-  
+  currentUserId: number;  
 
   // constructor(private authService: AuthService, private dialog: MatDialog) { }
   constructor(private authService: AuthService, public service: UserService, router: Router,
@@ -88,10 +87,8 @@ export class UserProfileComponent implements OnInit {
     //this.postInput = new FormGroup()
 
     let userId: number = +this.cookieService.get('userId')
-
     this.service.GetUser(userId).subscribe(data => {
       this.user = data;
-      console.log("Get Request working for user with user ID of:" + data.userId)
     })
 
     this._postService.getByOriginalPost(userId).subscribe(data => {
@@ -99,18 +96,14 @@ export class UserProfileComponent implements OnInit {
       this.posts.sort((a,b) => {
         return <any>new Date(b.createDateTime!) - <any>new Date(a.createDateTime!)
       })
-   
-    })
 
     this._followService.TheyAreFollowing(userId).subscribe(data =>{
     this.follower = data;
-    console.log("theyAreFollowing method working" + data);
 
     })
 
     this._followService.followThemAll(userId).subscribe(data => {
     this.following = data;
-    console.log("followThemAll method working")
     })
 
   }
@@ -152,10 +145,8 @@ export class UserProfileComponent implements OnInit {
     //need Jaeshas code to function
 
     let name = this.authService.currentUser.firstName; 
-    console.log(this.nowFollowing);
     this._followService.IWillFollow(this.nowFollowing).subscribe(data => {
       this.nowFollowing = data;
-      console.log("IWillFollow method working");
     alert("You are now following " + name);
 
     })
@@ -164,8 +155,6 @@ export class UserProfileComponent implements OnInit {
 
 
   submitPost(){
-
-  
     this.createPost ={
       title: this.postInput.value.title || "",
       text:  this.postInput.value.text || "",
