@@ -5,6 +5,7 @@ import { PostService } from 'src/app/services/post.service';
 import { User } from 'src/app/interfaces/user';
 import { Like } from '../../interfaces/like'
 import {LikesService } from '../../services/likes.service'
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-likes',
@@ -13,11 +14,9 @@ import {LikesService } from '../../services/likes.service'
 })
 export class LikesComponent implements OnInit {
 
-  user: User =this.authService.currentUser;
-
   likePost: boolean = false
 
-  constructor(private authService: AuthService, private likesService: LikesService, private postService: PostService) { }
+  constructor(private authService: AuthService, private likesService: LikesService, private postService: PostService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
     this.getLikes()
@@ -29,17 +28,17 @@ export class LikesComponent implements OnInit {
       postId: 0
     },
     user:{
-      userId: this.authService.currentUser.userId||0
+      userId: +this.cookieService.get('userId')
     }
   }
 
-  like: Like[] = [{
+  likes: Like[] = [{
     liked: true,
     post:{
       postId: 0
     },
     user: {
-      userId:  this.authService.currentUser.userId||0
+      userId:  +this.cookieService.get('userId')
   }
   }]
 
@@ -49,7 +48,7 @@ export class LikesComponent implements OnInit {
       postId: 0
     },
     user: {
-      userId:  this.authService.currentUser.userId||0
+      userId:  +this.cookieService.get('userId')
   }
   }]
 
@@ -57,15 +56,7 @@ export class LikesComponent implements OnInit {
     this.likePost = true
   }
 
-  //getLikes=()=>{
-    //this.likesService.GetByPostId(this.postService.currentPost.postId || 0).subscribe((likes: Array<Like[]>)=>{
-      //for(let newLike of likes){
-        //if(this.newLike.liked){
-          //this.like = newLike
-        //}else{
-          //this.dislikes = newLike
-        //}
-
+  getLikes=()=>{
     this.likesService.GetByPostId(8).subscribe((allLikesAndDislikes: Array<Like[]>)=>{
       let allLikes = allLikesAndDislikes.slice(0, 1);
       let allDislikes = allLikesAndDislikes.slice(1);
@@ -82,7 +73,7 @@ export class LikesComponent implements OnInit {
   submitLike =(e:any) => {
     this.newLike.liked = true;
     this.newLike.post.postId = this.postService.currentPost.postId || 0
-    this.newLike.user.userId = this.authService.currentUser.userId || 0
+    this.newLike.user.userId = + this.cookieService.get('userId')
     this.likesService.CreateLike(this.newLike)
     .subscribe(
       (response) => {

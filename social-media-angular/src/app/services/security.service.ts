@@ -8,7 +8,7 @@ import { SecurityQuestion } from '../interfaces/security-question';
 @Injectable({
   providedIn: 'root'
 })
-export class SecurityServiceService {
+export class SecurityService {
 
   securityQuestionUrl: string = `${environment.baseUrl}/security-question/`
 
@@ -47,8 +47,8 @@ export class SecurityServiceService {
     )
   }
 
-  getSecurityQuestionsByUserId(userId: number): Observable<SecurityQuestion[]> {
-    return this.http.get<SecurityQuestion[]>(`${this.securityQuestionUrl}` + "user/" + userId, {headers: environment.headers, withCredentials: environment.withCredentials})
+  getSecurityQuestionsByUserId(userId: number): Observable<SecurityQuestion> {
+    return this.http.get<SecurityQuestion>(`${this.securityQuestionUrl}` + "user/" + userId, {headers: environment.headers, withCredentials: environment.withCredentials})
     .pipe(
       retry(1),
       catchError(this.errorHandl)

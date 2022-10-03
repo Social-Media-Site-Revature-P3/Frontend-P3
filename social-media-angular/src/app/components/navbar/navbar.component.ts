@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -12,7 +13,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class NavbarComponent implements OnInit{
   private isDark = false;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private cookieService: CookieService) { }
   
   ngOnInit(): void {
   }
@@ -21,6 +22,7 @@ export class NavbarComponent implements OnInit{
   }
 
   logout() {
+    this.cookieService.delete('userId');
     this.authService.logout();
     this.router.navigate(['login']);
   }
