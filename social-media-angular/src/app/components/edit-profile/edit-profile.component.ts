@@ -63,11 +63,15 @@ export class EditProfileComponent implements OnInit {
   deleteAccount() {
     //this.user.userId = this.authService.currentUser.userId;
 
-
-    console.log("user to be deleted: " + this.user.userId)
-    this.userService.DeleteUser(this.user.userId!).subscribe()
-    alert('Successfully Deleted Account');
-    this.router.navigate(["login"])
+    let text = "Sorry to see you go, confirm to delete your account.";
+    if (confirm(text) == true) {
+      console.log("user to be deleted: " + this.user.userId)
+      this.userService.DeleteUser(this.user.userId!).subscribe()
+      alert('Successfully Deleted Account');
+      this.router.navigate(["login"])
+    } else {
+      this.router.navigate(["edit-profile"]);
+    }
   }
 
   profilePicture: string;
