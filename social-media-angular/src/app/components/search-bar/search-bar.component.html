@@ -1,14 +1,8 @@
-<!-- <div class="searchbar">
-    <input class="search-input" type="text" placeholder="Search Products By Name" name="searchTerm" [(ngModel)]="" (input)="searchUser()"/>
-    <button class="search-icon" (click)="searchUser()"></button>
-    <div class="search-result" [class.active]="showSearch">
-        <div *ngFor="let item of itemArr" >
-          <picture>
-            <img class="search-image" [src]="item.itemImage">
-          </picture>
-          <div class="search-result-content">
-            <div><a [routerLink]="['/item']" [queryParams]="{id: item.itemId}" (click)="hideSearch()">{{item.itemName}}</a></div>
-            <div>{{item.category.name}}</div> 
-          </div>
-        </div>
-</div> -->
+<!-- Display search bar -->
+<div class="searchbar">
+    <input class="search-input" type="text" placeholder="Find a Friend!" id="myInput" name="searchTerm" [(ngModel)]="searchTerm" (keyup)="searchUser()"/>
+    <ng-container *ngIf="searchTerm.length!=0">
+        <div *ngFor="let user of users; let i = index" id="content" (click)="goToUserProfile(user.userId!);">{{user.firstName}}{{user.lastName}}</div>
+    </ng-container>
+    <button class="search-icon" (click)="searchUser()">Search!</button>
+</div>

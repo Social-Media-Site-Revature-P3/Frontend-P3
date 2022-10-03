@@ -21,6 +21,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { FollowPageComponent } from './components/follow-page/follow-page.component';
 import { BookmarkPageComponent } from './components/bookmark-page/bookmark-page.component';
 import { LikesComponent } from './components/likes/likes.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { CookieService } from 'ngx-cookie-service';
 import { FollowButtonComponent } from './follow-button/follow-button.component';
 import { BookmarkComponent } from './components/bookmark/bookmark.component';
@@ -44,12 +45,13 @@ import { FollowDialogComponent } from './follow-dialog/follow-dialog.component';
     FollowPageComponent,
     BookmarkPageComponent,
     UserProfileComponent,
+    LikesComponent,
+    ChangePasswordComponent,
     EditProfileComponent,
     LikesComponent,
     FollowButtonComponent,
     BookmarkComponent,
     FollowDialogComponent, 
-    
   ],
   entryComponents: [FollowDialogComponent],
   imports: [

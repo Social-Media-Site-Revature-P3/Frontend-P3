@@ -26,8 +26,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(login: Login): Observable<User> {
-    console.log(login)
-    const res = this.http.post<User>(`${this.authUrl}/login`,JSON.stringify(login), {headers: environment.headers, withCredentials: environment.withCredentials}).pipe(
+    const res = this.http.post<User>(`${this.authUrl}/login`, JSON.stringify(login), {headers: environment.headers, withCredentials: environment.withCredentials}).pipe(
       retry(1),
       catchError(this.errorHandl)
     );

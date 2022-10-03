@@ -229,6 +229,17 @@ body.darkMode {
   margin: auto;
 }
 
+.profilePicture {
+  border-radius: 7em;
+  border: 1px solid #888080;
+  width: 200px;
+  margin-bottom: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+
 .user-card {
   width: 10em;
   text-align: center;

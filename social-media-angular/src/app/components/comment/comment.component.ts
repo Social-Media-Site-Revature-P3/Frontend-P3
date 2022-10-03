@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import {Post} from 'src/app/interfaces/post';
+import { Post } from 'src/app/interfaces/post';
 import { AuthService } from 'src/app/services/auth.service';
 import { PostService } from 'src/app/services/post.service';
-import {UserService} from "../../services/user.service";
+import { UserService } from "../../services/user.service";
 import { Comment } from 'src/app/interfaces/comment';
 import { User } from 'src/app/interfaces/user';
 import { CookieService } from 'ngx-cookie-service';
@@ -24,9 +24,7 @@ export class CommentComponent implements OnInit {
   replyToComment: boolean = false;
   editToComment: boolean = false;
   creatorUser: boolean = false;
-
-  firstName: string;
-  lastName: string;
+  
   user: User = {
     userId: 0,
     email: '',
@@ -41,14 +39,10 @@ export class CommentComponent implements OnInit {
   constructor(private postService: PostService,
               private authService: AuthService,
               private userService: UserService,
-              private cookieService: CookieService,
-              private localService: LocalService) {
+              private cookieService: CookieService) {
   }
 
   ngOnInit(): void {
-    this.firstName = this.localService.getData('firstName')!;
-    this.lastName = this.localService.getData('lastName')!;
-
     if (this.inputComment.user.userId == this.cookieService.get('userId')) {
       this.creatorUser = true;
     }
@@ -65,7 +59,8 @@ export class CommentComponent implements OnInit {
 
   toggleEditToComment = () => {
     if(this.replyToComment == true){
-    this.replyToComment = !this.replyToComment
+    this.toggleReplyToComment()
+
     }
     this.editToComment = !this.editToComment
   }
@@ -116,7 +111,7 @@ export class CommentComponent implements OnInit {
         this.commentForm.get('text')?.patchValue(this.inputComment.text)
        }
        if(this.editToComment == true){
-        this.editToComment = !this.editToComment
+        this.toggleEditToComment()
        }
     this.replyToComment = !this.replyToComment
   }
