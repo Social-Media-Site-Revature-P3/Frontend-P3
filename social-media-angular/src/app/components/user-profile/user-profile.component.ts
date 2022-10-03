@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { User } from 'src/app/interfaces/user';
@@ -23,8 +23,7 @@ export class UserProfileComponent implements OnInit {
   _router: Router;
   _postService: PostService;
   _followService: FollowService;
-  currentUserId: number;
-  
+  currentUserId: number;  
 
   // constructor(private authService: AuthService, private dialog: MatDialog) { }
   constructor(private authService: AuthService, public service: UserService, router: Router,
@@ -117,8 +116,6 @@ export class UserProfileComponent implements OnInit {
 
 
   submitPost(){
-
-  
     this.createPost ={
       text:  this.postInput.value || "",
       title: "",
