@@ -1,13 +1,23 @@
 <!-- Display search bar -->
 <div class="searchbar" [class.active]="showSearch">
-    <div *ngFor="let user of user">
-        <picture>
-            <img class="search-image" [src]="user.profilePicture">
-        </picture>
-        <div class="search-result-content">
-            <a [routerLink]="['/user']" [queryParams]="{id: user.userId}" (click)="hideSearch()">{{user.firstName}} {{user.lastName}}</a>
-        </div>
+    <!-- <ng-container *ngIf="showSearch == false">
+        <div *ngFor="let user of user">
+            <picture>
+                <img class="search-image" [src]="user.profilePicture">
+            </picture> -->
+            <!-- <div class="search-result-content">
+                <a [routerLink]="['/user']" [queryParams]="{id: user.userId}" (click)="hideSearch()">{{user.firstName}} {{user.lastName}}</a>
+            </div> -->
+        <!-- </div>
+    </ng-container> -->
+        <input class="search-input" type="text" placeholder="Find a Friend!" name="searchTerm" [(ngModel)]="searchTerm" (keyup)="searchUser()"/>
+    <div id="content">
+        <ng-container *ngIf="searchTerm.length!=0">
+            <ng-container *ngFor="let user of user; let i = index">
+                <br>
+                <a  class="loop-search" (click)="goToUserProfile(user.userId!);" [routerLink]="['/user']" [queryParams]="{id: user.userId}">{{user.firstName}}{{user.lastName}}</a>
+            </ng-container>
+        </ng-container>
     </div>
-        <input class="search-input" type="text" placeholder="Find a Friend!" name="searchTerm" [(ngModel)]="searchTerm"/>
         <button class="search-icon" (click)="searchUser()">Search!</button>
 </div>

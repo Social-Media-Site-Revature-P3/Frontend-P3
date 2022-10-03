@@ -29,6 +29,7 @@
     </div>
 
     <div class="comment-reply" align="right">
+      <app-likes [postId]="inputComment.postId"></app-likes>
       <div class="comment-reply" align="right" *ngIf="editToComment == false && replyToComment == false" >
         <button mat-raised-button color="primary" *ngIf="creatorUser==true" type="submit" (click)="toggleEditToComment()">Edit</button>
         <button mat-raised-button color="primary" class="comment-reply-text" type="submit" (click)="toggleReplyToComment()">Reply</button>

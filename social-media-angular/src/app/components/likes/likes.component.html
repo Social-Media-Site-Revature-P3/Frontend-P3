@@ -1,2 +1,9 @@
-<mat-button-toggle  (click)="submitLike($event)" >Like </mat-button-toggle>
-<mat-button-toggle  (click)="submitDislike($event)" >Dislike </mat-button-toggle>
+<mat-button-toggle-group >
+    <mat-button-toggle class="like-btn" (click)="submitLike($event)" ><mat-icon>thumb_up</mat-icon> {{ likes.length }} </mat-button-toggle>
+    <mat-button-toggle class="like-btn" (click)="submitDislike($event)"><mat-icon>thumb_down</mat-icon> {{ dislikes.length }} </mat-button-toggle>
+</mat-button-toggle-group>
+
+<!-- <button mat-raised-button color="warn" *ngIf="likePost==false" (click)="submitLike($event)" >like {{ likes.length }}</button>
+<button mat-raised-button color="warn" *ngIf="likePost==true" (click)="submitLike($event)" >unlike {{ likes.length }}</button> 
+<button mat-raised-button color="warn" *ngIf="dislikePost==false" (click)="submitDislike($event)">dislike {{ dislikes.length }}</button>
+<button mat-raised-button color="warn"*ngIf="dislikePost==true" (click)="submitDislike($event)">undislike {{ dislikes.length }}</button> -->
