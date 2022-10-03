@@ -71,8 +71,7 @@ export class RegisterComponent implements OnInit {
         nickname: this.registerForm.value.nickname || "",
         picture: "https://images.unsplash.com/photo-1628563694622-5a76957fd09c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aW5zdGFncmFtJTIwcHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
       }
-     
-      this.authService.register(register)
+       this.authService.register(register)
         .subscribe(
           (response) => {
             let security: SecurityQuestion = {
