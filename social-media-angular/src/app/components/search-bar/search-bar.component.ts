@@ -57,7 +57,6 @@ fullName : Name = {
         this.fullName.firstName = searchTerm.slice(0, 1).toString();
         this.fullName.lastName = searchTerm.slice(1, 1).toString();
         this.userService.GetUsersByFullName(this.fullName).subscribe((name:User[]) => {
-
           this.user = name;
           console.log(name)
         })
