@@ -305,7 +305,7 @@ body.darkMode {
 }
 
 /* background color on the user profile card */
-.darkMode .user-profile-card {
+.darkMode .mat-card.mat-focus-indicator.user-profile-card {
   background: #282125;
   transition: var(--transition-delay);
 }
@@ -329,12 +329,6 @@ body.darkMode {
 /* all inputs are the same color */
 .darkMode .mat-form-field-flex {
   background: #a5a4ac;
-  transition: var(--transition-delay);
-}
-
-/* need to ask what the user card is and how to change the background */
-.darkMode .user-card {
-  background-color: #a5a4ac;
   transition: var(--transition-delay);
 }
 
@@ -430,4 +424,9 @@ body.darkMode {
 /* hides file input in post feed page since the button cannot be styled properly */
 .file-input {
   display: none;
+}
+
+/* /* post outline darkMode  */
+.darkMode .mat-card.mat-focus-indicator {
+  background-color: #a5a4ac;
 }
