@@ -84,9 +84,7 @@ export class UserProfileComponent implements OnInit {
   dialog: MatDialog;
 
   ngOnInit(): void {
-    //this.postInput = new FormGroup()
-
-    let userId: number = +this.cookieService.get('userId')
+    let userId: number = +this.cookieService.get('userId');
     this.service.GetUser(userId).subscribe(data => {
       this.user = data;
     })
@@ -97,18 +95,18 @@ export class UserProfileComponent implements OnInit {
         return <any>new Date(b.createDateTime!) - <any>new Date(a.createDateTime!)
       })
 
-    this._followService.TheyAreFollowing(userId).subscribe(data =>{
-    this.follower = data;
+      this._followService.TheyAreFollowing(userId).subscribe(data =>{
+        this.follower = data;
+      })
 
+      this._followService.followThemAll(userId).subscribe(data => {
+        this.following = data;
+      })
     })
-
-    this._followService.followThemAll(userId).subscribe(data => {
-    this.following = data;
-    })
-
   }
 
-  userBeingViewedProfile(){
+
+  userBeingViewedProfile() {
     let searchedUserId: number = 2;
 
     //storing viewed User ID in local storage.
@@ -140,7 +138,6 @@ export class UserProfileComponent implements OnInit {
 
 
   followUser() {
-
     //INCOMPLETE FUNCTION 
     //need Jaeshas code to function
 

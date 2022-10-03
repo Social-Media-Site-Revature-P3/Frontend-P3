@@ -7,16 +7,16 @@
             <div align="end">
                 <app-bookmark [post]="post"></app-bookmark>
             </div>
-            
         </mat-card-header>
-        <img mat-card-image *ngIf="post.imageUrl != ''" src="{{ post.imageUrl }}" alt="Post Image">
         
         <mat-card-content>
             <div style="border: black 1px solid; border-radius: 5px;">
                 <mat-card-title *ngIf="post.title != null" align="center">{{post.title}}</mat-card-title>
                 <br>
                 <p style="margin-left: 10px">{{post.text}}</p> 
-            </div>
+            </div><br>
+
+            <img mat-card-image *ngIf="post.imageUrl != ''" src="{{ post.imageUrl }}" alt="Post Image">
              
             <div class="comment-reply" align="right" *ngIf="creatorUser">
                 <form class="form" *ngIf="editToPost" [formGroup]="commentForm" (ngSubmit)="editPost($event)">
