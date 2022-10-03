@@ -7,7 +7,8 @@ import { User } from '../../interfaces/user';
 import { UserService } from '../../services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogRef } from '@angular/cdk/dialog';
-import { FollowDialogComponent } from 'src/app/follow-dialog/follow-dialog.component';
+import { FollowDialogComponent } from '../follow-dialog/follow-dialog.component';
+
 
 @Component({
   selector: 'app-follow-page',
@@ -99,7 +100,7 @@ export class FollowPageComponent implements OnInit {
         this.currentUserDisplay = user;
         console.log(" user profile", this.currentUserDisplay)
 
-        this.followTitle = this.currentUserDisplay.firstName + " Following";
+        this.followTitle = this.currentUserDisplay.firstName + "'s Following";
     // the people who this user is following 
     // need to be with in the display thingy : followHeader: string = ""; 
     const dialogDisplay = this.dialog.open(FollowDialogComponent, 
@@ -141,7 +142,7 @@ export class FollowPageComponent implements OnInit {
         console.log(" user profile", this.currentUserDisplay)
 
         console.log("this.followTitle",this.followTitle)
-    this.followTitle = this.currentUserDisplay.firstName + " Followers";
+    this.followTitle = this.currentUserDisplay.firstName + "'s Followers";
     // the people who this user is following 
     // need to be with in the display thingy : followHeader: string = ""; 
     const dialogDisplay = this.dialog.open(FollowDialogComponent, 

@@ -5,6 +5,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Register } from 'src/app/interfaces/register';
 import { SecurityQuestion } from 'src/app/interfaces/security-question';
 import { SecurityService } from 'src/app/services/security.service';
+import { FollowService } from 'src/app/services/follow.service';
+import { Follow } from 'src/app/interfaces/follow';
 
 @Component({
   selector: 'app-register',
@@ -39,9 +41,19 @@ export class RegisterComponent implements OnInit {
       userId: 0
     }
   }
+
+  follow: Follow = {
+    followedUser: {
+      userId: 0
+    },
+    followerUser: {
+      userId: 0
+    }
+  }
   constructor(
     private authService: AuthService,
     private securityService: SecurityService,
+    private followService: FollowService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -73,6 +85,10 @@ export class RegisterComponent implements OnInit {
                 this.router.navigate(['login'])
               }
             })
+
+            this.follow.followedUser.userId = response.userId!;
+            this.follow.followerUser.userId = response.userId!;
+            this.followService.IWillFollow(this.follow).subscribe();
           }
         )
     }else {
