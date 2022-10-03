@@ -369,3 +369,7 @@ body.darkMode {
   background-color: #F26925;
   color: white;
 }
+
+.mat-card-content {
+  word-wrap: break-word;
+}
