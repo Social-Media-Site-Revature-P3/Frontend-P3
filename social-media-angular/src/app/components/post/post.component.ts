@@ -28,6 +28,7 @@ export class PostComponent implements OnInit {
   replyToPost: boolean = false;
   editToPost: boolean=false;
   creatorUser: boolean=false;
+
   comments: Post[] = []; 
  
   constructor(private cookieService: CookieService,
@@ -38,10 +39,11 @@ export class PostComponent implements OnInit {
               private bookMarkService: BookmarkService) {}
 
   ngOnInit(): void {
-    // this.cookieService.get('userId').valueOf()
     if(this.post.user.userId==this.cookieService.get('userId')){
       this.creatorUser= true
     }
+
+    console.log(this.creatorUser)
 
    this.userService.GetUser(this.post.user.userId).subscribe({
      next: user => {
