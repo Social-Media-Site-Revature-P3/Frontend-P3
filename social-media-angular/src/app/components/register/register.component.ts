@@ -54,8 +54,7 @@ export class RegisterComponent implements OnInit {
         firstName: this.registerForm.value.firstName || "",
         lastName: this.registerForm.value.lastName || ""
       }
-     
-      this.authService.register(register)
+       this.authService.register(register)
         .subscribe(
           (response) => {
             let security: SecurityQuestion = {
@@ -75,15 +74,6 @@ export class RegisterComponent implements OnInit {
     }else {
       this.registerForm.markAllAsTouched();
     }
-
-
-//    e.preventDefault()
-//    this.authService.register(this.register)
-//      .subscribe(
-//        (response) => {
-//          this.router.navigate(['login'])
-//        }
-//      )
   }
 
 }
