@@ -125,7 +125,7 @@ toggleEditToPost=()=>{
     this.newPost.comment = false
     this.postService.updatePost(this.newPost, this.post.postId).subscribe((response) => {
       this.post.text = this.newPost.text
-      this.toggleReplyToPost()
+      this.toggleEditToPost()
 
     })
 
