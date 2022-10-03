@@ -75,46 +75,4 @@ export class EditProfileComponent implements OnInit {
       this.router.navigate(["edit-profile"]);
     }
   }
-
-  profilePicture: string;
-  profilePictureDialog() {
-    const dialogRef = this.dialog.open(UploadProfilePictureDialog, {
-      width: '250px',
-      data: { profilePicutre: this.profilePicture},
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog is closed');
-      this.profilePicture = result;
-    });
-  }
-
-  onFileSelected(event: any) {
-
-    const file:File = event.target.files[0];
-
-    if (file) {
-        this.fileName = file.name;
-        const formData = new FormData();
-        formData.append("thumbnail", file);
-        const upload$ = this.userService.UploadImage(formData);
-        //upload$.subscribe();
-    }
-  }
-
-}
-
-@Component({
-  selector: './upload-profile-picture-dialog',
-  templateUrl: './upload-profile-picture-dialog.html',
-})
-export class UploadProfilePictureDialog {
-  constructor(
-    public dialogRef: MatDialogRef<UploadProfilePictureDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: User,
-  ) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
 }

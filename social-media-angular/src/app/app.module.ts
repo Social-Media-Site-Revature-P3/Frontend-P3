@@ -14,7 +14,7 @@ import { CommentComponent } from './components/comment/comment.component';
 import { UserCardComponent } from './components/user-card/user-card.component';
 import { UserInitialsPipe } from './pipes/user-initials.pipe';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { EditProfileComponent, UploadProfilePictureDialog } from './components/edit-profile/edit-profile.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
@@ -41,7 +41,6 @@ import { FollowDialogComponent } from './follow-dialog/follow-dialog.component';
     NavbarComponent,
     UserInitialsPipe,
     SearchBarComponent,
-    UploadProfilePictureDialog,
     FollowPageComponent,
     BookmarkPageComponent,
     UserProfileComponent,
