@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/services/auth.service';
-import {Login} from "../../interfaces/login";
+import { LocalService } from 'src/app/services/local-storage.service';
+import { Login } from "../../interfaces/login";
 
 @Component({
   selector: 'app-login',
@@ -18,8 +20,7 @@ export class LoginComponent implements OnInit {
 
   emailPasswordError:boolean = false;
 
-
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private cookieService: CookieService, private localService: LocalService) {}
 
   ngOnInit(): void {
   }
@@ -35,6 +36,9 @@ export class LoginComponent implements OnInit {
         .subscribe( {next: (response) => {
               this.emailPasswordError = false;
               this.authService.currentUser = response
+              this.cookieService.set('userId', response.userId!.toString(), 365, '/', 'localhost')
+              this.localService.saveData('firstName', response.firstName);
+              this.localService.saveData('lastName', response.lastName);
               this.router.navigate(['post-feed'])
             },
             error: (err) => {
@@ -51,5 +55,4 @@ export class LoginComponent implements OnInit {
   register(): void {
     this.router.navigate(['register']);
   }
-
 }

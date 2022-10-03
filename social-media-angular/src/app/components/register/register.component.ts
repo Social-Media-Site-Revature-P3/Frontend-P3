@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { Register } from 'src/app/interfaces/register';
 import { SecurityQuestion } from 'src/app/interfaces/security-question';
-import { SecurityServiceService } from 'src/app/services/security-service.service';
+import { SecurityService } from 'src/app/services/security.service';
 
 @Component({
   selector: 'app-register',
@@ -18,6 +18,7 @@ export class RegisterComponent implements OnInit {
     lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    nickname: new FormControl(''),
     securityQuestion: new FormControl('', [Validators.required]),
     securityAnswer: new FormControl('', [Validators.required])
   })
@@ -26,7 +27,8 @@ export class RegisterComponent implements OnInit {
     email:"",
     password:"",
     firstName: "",
-    lastName: ""
+    lastName: "",
+    nickname: ""
   }
 
   securityQuestion: SecurityQuestion = {
@@ -39,7 +41,7 @@ export class RegisterComponent implements OnInit {
   }
   constructor(
     private authService: AuthService,
-    private sequrityService: SecurityServiceService,
+    private securityService: SecurityService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -52,7 +54,8 @@ export class RegisterComponent implements OnInit {
         email: this.registerForm.value.email || "",
         password: this.registerForm.value.password || "",
         firstName: this.registerForm.value.firstName || "",
-        lastName: this.registerForm.value.lastName || ""
+        lastName: this.registerForm.value.lastName || "",
+        nickname: this.registerForm.value.nickname || ""
       }
        this.authService.register(register)
         .subscribe(
@@ -64,7 +67,7 @@ export class RegisterComponent implements OnInit {
                 userId: response.userId || 0
               }
             }
-            this.sequrityService.createSecurityQuestion(security).subscribe({
+            this.securityService.createSecurityQuestion(security).subscribe({
               next: data => { 
                 this.router.navigate(['login'])
               }
@@ -75,5 +78,4 @@ export class RegisterComponent implements OnInit {
       this.registerForm.markAllAsTouched();
     }
   }
-
 }

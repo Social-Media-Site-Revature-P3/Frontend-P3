@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from 'src/app/interfaces/user';
+import { CookieService } from 'ngx-cookie-service';
+import { User } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-user-card',
@@ -9,12 +11,35 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class UserCardComponent implements OnInit {
 
-  user: User = {} as User;
+  user: User = {
+    userId: 0,
+    email: "",
+    nickname: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    aboutMe: "",
+    profilePicture: ""
+  };
+  userId: number;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private cookieService: CookieService, private userService: UserService) { }
 
   ngOnInit(): void {
-    this.user = this.authService.currentUser
+    this.userId = +this.cookieService.get('userId')
+    console.log(this.userId)
+    this.userService.GetUser(this.userId).subscribe(user => {
+      console.log(user)
+      this.user.userId = user.userId;
+      this.user.email = user.email;
+      this.user.nickname = user.nickname;
+      this.user.password = user.password;
+      this.user.firstName = user.firstName;
+      this.user.lastName = user.lastName;
+      this.user.aboutMe = user.aboutMe;
+      this.user.profilePicture = user.profilePicture;
+    })
+    console.log(this.user)
   }
 
 }

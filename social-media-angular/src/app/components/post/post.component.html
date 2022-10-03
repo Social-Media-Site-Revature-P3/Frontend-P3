@@ -1,11 +1,13 @@
 <div class="post-card">
     <mat-card>
         <mat-card-header>
-            <div mat-card-avatar class="header-image"></div>
+            <ng-container *ngIf="user.profilePicture != null">
+                <img mat-card-avatar class="header-image"  src="{{ user.profilePicture }}">
+            </ng-container>
             <mat-card-title>{{post.user.firstName}} {{post.user.lastName}}</mat-card-title>
-            <mat-card-subtitle>{{post.user.email}}</mat-card-subtitle>
+            <mat-card-subtitle *ngIf="post.user.nickname != null">@{{post.user.nickname}}</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image *ngIf="post.imageUrl" src="{{ post.imageUrl }}" alt="Post Image">
+        <img mat-card-image *ngIf="post.imageUrl != ''" src="{{ post.imageUrl }}" alt="Post Image">
         <button class="btn-follow" (click)="followUser(post.user.userId)"> follow</button>
         <mat-card-content>
             <h3>{{post.title}}</h3>
@@ -23,6 +25,10 @@
             <mat-form-field class="full-width" appearance="fill">
                 <mat-label>Make a Comment</mat-label>
                 <textarea matInput autofocus formControlName="text"></textarea>
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Add an Image?</mat-label>
+                <input matInput formControlName="imageUrl">
             </mat-form-field>
             <div align="end">
                 <button mat-raised-button color="warn" (click)="toggleReplyToPost()">Cancel</button>
