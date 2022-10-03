@@ -47,8 +47,8 @@ export class SecurityService {
     )
   }
 
-  getSecurityQuestionsByUserId(userId: number): Observable<SecurityQuestion[]> {
-    return this.http.get<SecurityQuestion[]>(`${this.securityQuestionUrl}` + "user/" + userId, {headers: environment.headers, withCredentials: environment.withCredentials})
+  getSecurityQuestionsByUserId(userId: number): Observable<SecurityQuestion> {
+    return this.http.get<SecurityQuestion>(`${this.securityQuestionUrl}` + "user/" + userId, {headers: environment.headers, withCredentials: environment.withCredentials})
     .pipe(
       retry(1),
       catchError(this.errorHandl)
