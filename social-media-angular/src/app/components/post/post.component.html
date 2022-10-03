@@ -1,15 +1,23 @@
 <div class="post-card">
     <mat-card>
         <mat-card-header>
-            <!-- <img mat-card-avatar class="header-image" src="{{ user.profilePicture }}"> -->
+            <img mat-card-avatar *ngIf="post.user.profilePicture != null && post.user.profilePicture!=''" class="header-image"  src="{{ post.user.profilePicture }}">
             <mat-card-title>{{post.user.firstName}} {{post.user.lastName}}</mat-card-title>
             <mat-card-subtitle *ngIf="post.user.nickname != null">@{{post.user.nickname}}</mat-card-subtitle>
+            <div align="end">
+                <app-bookmark [post]="post"></app-bookmark>
+            </div>
         </mat-card-header>
-        <img mat-card-image *ngIf="post.imageUrl != ''" src="{{ post.imageUrl }}" alt="Post Image">
-        <button class="btn-follow" (click)="followUser(post.user.userId)"> follow</button>
+        
         <mat-card-content>
-            <h3>{{post.title}}</h3>
-            <p>{{post.text}}</p>  
+            <div style="border: black 1px solid; border-radius: 5px;">
+                <mat-card-title *ngIf="post.title != null" align="center">{{post.title}}</mat-card-title>
+                <br>
+                <p style="margin-left: 10px">{{post.text}}</p> 
+            </div><br>
+
+            <img mat-card-image *ngIf="post.imageUrl != ''" src="{{ post.imageUrl }}" alt="Post Image">
+             
             <div class="comment-reply" align="right" *ngIf="creatorUser">
                 <form class="form" *ngIf="editToPost" [formGroup]="commentForm" (ngSubmit)="editPost($event)">
                   <mat-form-field class="full-width" appearance="fill">
@@ -28,7 +36,6 @@
         </mat-card-content>
         <mat-card-actions align="end">
             <button mat-raised-button *ngIf="creatorUser" color="primary" (click)="toggleEditToPost()">Edit</button>
-            <button mat-raised-button color="primary" (click)="bookmarkPosts(post.postId || 0)"> bookmark</button>
             <button mat-raised-button color="primary" (click)="toggleReplyToPost()">Reply</button>
         </mat-card-actions>
         <form class="form" *ngIf="replyToPost" [formGroup]="commentForm" (ngSubmit)="submitReply($event)">
