@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Bookmark } from '../interfaces/bookmark';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +11,7 @@ export class BookmarkService {
 
   constructor(private http: HttpClient) { }
 
-  baseurl = '${environment.baseUrl}/bookmarks';
+  baseurl = `${environment.baseUrl}/bookmarks`;
 
    // Http Headers
    httpOptions = {

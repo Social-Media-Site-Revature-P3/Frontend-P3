@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable , throwError} from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
@@ -15,13 +15,22 @@ export class AuthService {
   authUrl: string = `${environment.baseUrl}/auth`;
   currentUser: User;
 
+ // Http Headers
+ httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+}
+
   constructor(private http: HttpClient) { }
 
   login(login: Login): Observable<any> {
+    console.log(login)
     const res = this.http.post<any>(`${this.authUrl}/login`,JSON.stringify(login), {headers: environment.headers, withCredentials: environment.withCredentials}).pipe(
       retry(1),
       catchError(this.errorHandl)
     );
+   
     res.subscribe((data) => {
       this.currentUser = data
     }) 

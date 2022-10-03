@@ -5,6 +5,7 @@ import { catchError, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { FollowedId } from '../interfaces/followed-id';
 import { Post } from '../interfaces/post';
+import { Comment } from '../interfaces/comment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ import { Post } from '../interfaces/post';
 export class PostService {
 
   postUrl: string = `${environment.baseUrl}/post/`
+  currentPost: Post;
 
   constructor(private http: HttpClient) { }
 
@@ -19,12 +21,21 @@ export class PostService {
     return this.http.get<Post>(`${this.postUrl}` + postId, {headers: environment.headers, withCredentials: environment.withCredentials})
     .pipe(
       retry(1),
+      retry(1),
       catchError(this.errorHandl)
     )
   }
 
   getByUserId(userId: number): Observable<Post[]> {
     return this.http.get<Post[]>(`${this.postUrl}` + "user/" + userId, {headers: environment.headers, withCredentials: environment.withCredentials})
+    .pipe(
+      retry(1),
+      catchError(this.errorHandl)
+    )
+  }
+
+  getByOriginalPost(userId: number): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.postUrl}` + "post/" + userId, {headers: environment.headers, withCredentials: environment.withCredentials})
     .pipe(
       retry(1),
       catchError(this.errorHandl)
@@ -39,8 +50,10 @@ export class PostService {
     )
   }
 
-  getByComments(postId: number): Observable<Post> {
-    return this.http.get<Post>(`${this.postUrl}` + "comments/" + postId, {headers: environment.headers, withCredentials: environment.withCredentials})
+
+  //get all comments for a post
+  getByComments(postId: number): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.postUrl}` + "comments/" + postId, {headers: environment.headers, withCredentials: environment.withCredentials})
     .pipe(
       retry(1),
       catchError(this.errorHandl)
@@ -55,12 +68,28 @@ export class PostService {
     )
   }
 
+  postPost(post: Post): Observable<Post> {
+    return this.http.post<Post>(`${this.postUrl}`, JSON.stringify(post), {headers: environment.headers, withCredentials: environment.withCredentials})
+    .pipe(
+      retry(1),
+      catchError(this.errorHandl)
+    )
+  }
+
   postComment(comment: Comment): Observable<Comment> {
     return this.http.post<Comment>(`${this.postUrl}` + "comment", JSON.stringify(comment), {headers: environment.headers, withCredentials: environment.withCredentials})
     .pipe(
       retry(1),
       catchError(this.errorHandl)
     )
+  }
+
+  createPost(post: Post): Observable<Post> {
+    return this.http.post<Post>(`${this.postUrl}`, JSON.stringify(post), {headers: environment.headers, withCredentials: environment.withCredentials})
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl)
+      )
   }
 
   updatePost(post: Post, postId: number): Observable<Post> {
