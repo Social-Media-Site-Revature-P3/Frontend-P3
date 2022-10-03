@@ -51,15 +51,19 @@ export class EditProfileComponent implements OnInit {
   }
 
   UpdateUser() {
-    this.user.userId = this.authService.currentUser.userId;
+    //this.user.userId = this.authService.currentUser.userId;
+
     console.log(this.user.userId)
     this.userService.UpdateUser(this.user).subscribe(updateUser => {
       console.log(updateUser);
+      alert('Successfuly Updated User!');
     })
   }
 
   deleteAccount() {
-    this.user.userId = this.authService.currentUser.userId;
+    //this.user.userId = this.authService.currentUser.userId;
+
+
     console.log("user to be deleted: " + this.user.userId)
     this.userService.DeleteUser(this.user.userId!).subscribe()
     alert('Successfully Deleted Account');
