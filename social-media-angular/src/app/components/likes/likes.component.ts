@@ -15,6 +15,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class LikesComponent implements OnInit {
 
   likePost: boolean = false
+  @Input() 
 
   constructor(private authService: AuthService, private likesService: LikesService, private postService: PostService, private cookieService: CookieService) { }
 
@@ -43,7 +44,7 @@ export class LikesComponent implements OnInit {
   }]
 
   dislikes: Like[] = [{
-    liked: true,
+    liked: false,
     post:{
       postId: 0
     },
@@ -57,11 +58,12 @@ export class LikesComponent implements OnInit {
   }
 
   getLikes=()=>{
-    this.likesService.GetByPostId(8).subscribe((allLikesAndDislikes: Array<Like[]>)=>{
+    this.likesService.GetByPostId(this.newLike.post.postId).subscribe((allLikesAndDislikes: Array<Like[]>)=>{
       let allLikes = allLikesAndDislikes.slice(0, 1);
       let allDislikes = allLikesAndDislikes.slice(1);
       for(let likes of allLikes) {
         this.likes = likes;
+        console.log(likes.length)
       }
       for(let dislikes of allDislikes){
         this.dislikes = dislikes;
@@ -72,6 +74,20 @@ export class LikesComponent implements OnInit {
 //this.postService.currentPost.postId || 0
   submitLike =(e:any) => {
     this.newLike.liked = true;
+    this.newLike.post.postId = this.postService.currentPost.postId || 0
+    this.newLike.user.userId = + this.cookieService.get('userId')
+    this.likesService.CreateLike(this.newLike)
+    .subscribe(
+      (response) => {
+        this.newLike = response
+        this.likesService.CreateLike(this.newLike).subscribe((response)=> {this.getLikes()})
+        this.toggleLikeComment()
+      }
+    )
+  }
+
+  submitDislike =(e:any) => {
+    this.newLike.liked = false;
     this.newLike.post.postId = this.postService.currentPost.postId || 0
     this.newLike.user.userId = + this.cookieService.get('userId')
     this.likesService.CreateLike(this.newLike)
