@@ -10,6 +10,7 @@ import { Bookmark } from 'src/app/interfaces/bookmark';
 import { BookmarkService } from 'src/app/services/bookmark.service';
 import { UserService } from "../../services/user.service";
 import { CookieService } from 'ngx-cookie-service';
+import { FollowService } from 'src/app/services/follow.service';
 
 @Component({
   selector: 'app-post',
@@ -176,4 +177,4 @@ toggleEditToPost=()=>{
   })
 }
 
-
+}
