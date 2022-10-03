@@ -4,9 +4,13 @@
             <img mat-card-avatar *ngIf="post.user.profilePicture != null && post.user.profilePicture!=''" class="header-image"  src="{{ post.user.profilePicture }}">
             <mat-card-title>{{post.user.firstName}} {{post.user.lastName}}</mat-card-title>
             <mat-card-subtitle *ngIf="post.user.nickname != null">@{{post.user.nickname}}</mat-card-subtitle>
+            <div align="end">
+                <app-bookmark [post]="post"></app-bookmark>
+            </div>
+            
         </mat-card-header>
         <img mat-card-image *ngIf="post.imageUrl != ''" src="{{ post.imageUrl }}" alt="Post Image">
-        <button class="btn-follow" (click)="followUser(post.user.userId)"> follow</button>
+        
         <mat-card-content>
             <h3>{{post.title}}</h3>
             <p>{{post.text}}</p>  

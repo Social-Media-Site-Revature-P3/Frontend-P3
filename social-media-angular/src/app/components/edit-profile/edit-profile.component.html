@@ -5,9 +5,8 @@
 
 <mat-grid-list cols="1" rowHeight="600px">
     <mat-grid-tile>
-        <div class="example-container">
-  
-              <mat-form-field appearance="fill" class="width-50">
+        <div class="example-container">  
+            <mat-form-field appearance="fill" class="width-50">
               <mat-label>First Name</mat-label>
               <input matInput [(ngModel)]="user.firstName">
             </mat-form-field>
@@ -57,8 +56,7 @@
               <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
               <button class="button-space" mat-raised-button color="primary" (click)="UpdateUser()">Confirm</button>
               <button class="button-space" mat-stroked-button [routerLink]="['/profile']">Cancel</button>
-            </div>
-          
+            </div>          
         </div>
     </mat-grid-tile>
 </mat-grid-list>

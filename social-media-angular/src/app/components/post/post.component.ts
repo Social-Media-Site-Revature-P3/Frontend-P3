@@ -5,7 +5,6 @@ import { Post } from 'src/app/interfaces/post';
 import { User } from 'src/app/interfaces/user';
 import { Comment } from 'src/app/interfaces/comment';
 import { AuthService } from 'src/app/services/auth.service';
-import { FollowService } from 'src/app/services/follow.service';
 import { PostService } from 'src/app/services/post.service';
 import { Bookmark } from 'src/app/interfaces/bookmark';
 import { BookmarkService } from 'src/app/services/bookmark.service';
@@ -55,7 +54,8 @@ export class PostComponent implements OnInit {
       next: data => this.comments = data
     })
 
-    this.getComments()
+    this.getComments();
+
   }
 
   newPost: Post = {
@@ -175,4 +175,5 @@ toggleEditToPost=()=>{
     console.log("new follow: ", newFollow);
   })
 }
-}
+
+

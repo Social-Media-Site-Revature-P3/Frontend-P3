@@ -24,11 +24,13 @@ export class EditProfileComponent implements OnInit {
   fileName = '';
   hide = true;
   userId: number;
+  
 
   
   constructor(private router: Router, private _userService: UserService, private _authService: AuthService, private cookieService: CookieService) { 
     this.userService = _userService;
     this.authService = _authService;
+    this.cookieService = cookieService;
   }
 
   // user: User = {} as User;
