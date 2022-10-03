@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 import { Post } from 'src/app/interfaces/post';
 import { Follow } from 'src/app/interfaces/follow';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { FollowService } from 'src/app/services/follow.service';
 
@@ -75,13 +75,17 @@ export class UserProfileComponent implements OnInit {
   following: Follow[] = [];
   userId: number;
   nowFollowing: Follow;
-  postInput: FormControl;
+  postInput = new FormGroup({
+    title: new FormControl('', [Validators.required]),
+    text: new FormControl('', [Validators.required]),
+    imageUrl: new FormControl('', [Validators.required])
+  });
   createPost: Post;
 
   dialog: MatDialog;
 
   ngOnInit(): void {
-    this.postInput = new FormControl()
+    //this.postInput = new FormGroup()
 
     let userId: number = +this.cookieService.get('userId')
 
@@ -158,13 +162,14 @@ export class UserProfileComponent implements OnInit {
 
   }
 
+
   submitPost(){
 
   
     this.createPost ={
-      text:  this.postInput.value || "",
-      title: "",
-      imageUrl: "",
+      title: this.postInput.value.title || "",
+      text:  this.postInput.value.text || "",
+      imageUrl: this.postInput.value.imageUrl || "",
       user: {
           userId: +this.cookieService.get('userId')
     }
