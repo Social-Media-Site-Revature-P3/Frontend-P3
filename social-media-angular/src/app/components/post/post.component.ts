@@ -28,23 +28,22 @@ export class PostComponent implements OnInit {
   replyToPost: boolean = false;
   editToPost: boolean=false;
   creatorUser: boolean=false;
-  comments: Post[] = [];
-  user: User 
+  showComments: boolean=false;
+  comments: Post[] = []; 
  
   constructor(private cookieService: CookieService,
               private postService: PostService,
               private authService: AuthService,
               private userService: UserService,
               private followService: FollowService,
-              private bookMarkService: BookmarkService,
-              private cookieService: CookieService) {}
+              private bookMarkService: BookmarkService) {}
 
   ngOnInit(): void {
-    this.user = this.authService.currentUser
-    // this.cookieService.get('userId').valueOf()
-    if(this.post.user.userId==this.user.userId){
+    if(this.post.user.userId==this.cookieService.get('userId')){
       this.creatorUser= true
     }
+
+    console.log(this.creatorUser)
 
    this.userService.GetUser(this.post.user.userId).subscribe({
      next: user => {
@@ -59,6 +58,9 @@ export class PostComponent implements OnInit {
     this.getComments()
   }
 
+    toggleComments=()=>{
+      this.showComments= !this.showComments
+    }
   newPost: Post = {
     text:  "",
     title: "",
@@ -119,10 +121,12 @@ toggleEditToPost=()=>{
     this.newPost.text = this.commentForm.value.text || ""
     this.newPost.title = "hallo"
     this.newPost.imageUrl= this.commentForm.value.imageUrl||""
-    this.newPost.user.userId =this.authService.currentUser.userId||0
+    this.newPost.user.userId = +this.cookieService.get('userId');
     this.newPost.comment = false
     this.postService.updatePost(this.newPost, this.post.postId).subscribe((response) => {
+      this.post.text = this.newPost.text
       this.toggleReplyToPost()
+
     })
 
   }

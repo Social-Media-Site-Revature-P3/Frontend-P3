@@ -36,30 +36,27 @@ fullName : Name = {
   lastName : ''
 }
 
-
-  constructor() { }
+  constructor(private cookieService: CookieService, private userService: UserService) { }
 
   ngOnInit(): void {
-    this.userId = +this.cookieService.get("userId")
+    this.userId = +this.cookieService.get('userId');
   }
+
 
   hideSearch() {
     this.showSearch = false
   }
 
-
   searchUser() {
     let searchTerm = this.searchTerm.split(' ');
-    console.log(searchTerm.length);
+  
     if(searchTerm.length > 0 && searchTerm.length < 3) {
       if(searchTerm.length == 1){
         this.name.firstName = searchTerm.toString();
-        console.log(this.name)
         this.userService.GetUsersByName(this.name).subscribe((users : User[]) => {
-          this.user = users;
+          this.users = users;
         })
-      }
-      if(this.searchTerm.length == 2){
+      }else if(searchTerm.length == 2){
         this.fullName.firstName = searchTerm.slice(0, 1).toString();
         this.fullName.lastName = searchTerm.slice(1, 1).toString();
         this.userService.GetUsersByFullName(this.fullName).subscribe((name:User[]) => {
@@ -68,5 +65,9 @@ fullName : Name = {
         })
       }
     }
+  }
+
+  goToUserProfile(i: number){
+    
   }
 }
