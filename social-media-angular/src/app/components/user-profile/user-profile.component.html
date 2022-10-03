@@ -36,10 +36,11 @@
         <app-follow-button [userId] = "user.userId"></app-follow-button>
     </div> -->
 
-    <!-- <div [ngClass]="['sidebyside', 'user-stats']">
-        <p>{{follower.length}} followers</p>
+    <div style="padding: 1em" [ngClass]="['sidebyside', 'user-stats']">
+        <!-- <p>{{follower.length}} followers</p> -->
+        <app-follow-page [userId]="user.userId!"> </app-follow-page>
     </div>
-    <div [ngClass]="['sidebyside', 'user-stats']">
+    <!-- <div [ngClass]="['sidebyside', 'user-stats']">
         <p> {{following.length}} following</p>
     </div> -->
 

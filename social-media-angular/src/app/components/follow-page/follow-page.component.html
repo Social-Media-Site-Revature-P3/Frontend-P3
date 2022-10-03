@@ -1,9 +1,9 @@
 <div [ngClass]="['sidebyside', 'user-stats']">
-   <p> {{followerListUsers.length}} <button mat-raised-button color="primary" (click)="displayFollowers()"> Followers</button></p> 
+   <p (click)="displayFollowers()"> {{followerListUsers.length}}  Followers</p> 
     
 </div>
-<div [ngClass]="['sidebyside', 'user-stats']">
-    <p> {{followingListUsers.length}} <button mat-raised-button color="primary" (click)="displayFollowing()"> Following</button> </p>
+<div style="margin-left: 25px"[ngClass]="['sidebyside', 'user-stats']">
+    <p (click)="displayFollowing()" > {{followingListUsers.length}}  Following</p>
 
 </div>
     

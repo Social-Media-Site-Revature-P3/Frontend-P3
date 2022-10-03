@@ -4,9 +4,10 @@
             <img mat-card-avatar *ngIf="post.user.profilePicture != null && post.user.profilePicture!=''" class="header-image"  src="{{ post.user.profilePicture }}">
             <mat-card-title>{{post.user.firstName}} {{post.user.lastName}}</mat-card-title>
             <mat-card-subtitle *ngIf="post.user.nickname != null">@{{post.user.nickname}}</mat-card-subtitle>
-            <div align="end">
-                <app-bookmark [post]="post"></app-bookmark>
-            </div>
+            <!-- <div  style="justify-content: flex-end"> -->
+                <app-bookmark [post]="post" ></app-bookmark>
+            <!-- </div> -->
+
         </mat-card-header>
         
         <mat-card-content>
