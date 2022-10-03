@@ -5,6 +5,7 @@ import { Login } from 'src/app/interfaces/login';
 import { SecurityQuestion } from 'src/app/interfaces/security-question';
 import { User } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { PopupmsgService } from 'src/app/services/popupmsg.service';
 import { SecurityServiceService } from 'src/app/services/security-service.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -24,12 +25,8 @@ export class ChangePasswordComponent implements OnInit {
     securityAnswer: new FormControl('', [Validators.required]),
   });
 
-  // securityForm = new FormGroup({
-  //   securityAnswer: new FormControl('', [Validators.required]),
-  // });
-
   createPasswordForm = new FormGroup({
-    newPassword: new FormControl('', [Validators.required]),
+    newPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
     confirmPassword: new FormControl('', [Validators.required]),
   });
 
@@ -44,6 +41,7 @@ export class ChangePasswordComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private userService: UserService,
+    private popupService: PopupmsgService,
     private securityservice: SecurityServiceService,
     private router: Router
   ) {}
@@ -88,24 +86,6 @@ export class ChangePasswordComponent implements OnInit {
       this.emailForm.markAllAsTouched();
     }
   }
-  // onSubmitSecurity(e: any): void {
-  //   e.preventDefault;
-  //   if (this.securityForm.valid) {
-  //     if (
-  //       this.securityForm.get('securityAnswer')?.value ==
-  //       this.securityQuestion[0].answer
-  //     ) {
-  //       console.log('correct');
-  //       this.showEmailForm = false;
-  //       this.showPasswordForm = true;
-  //       this.showSecurityForm = false;
-  //     } else {
-  //       console.log('wrong');
-  //     }
-  //   } else {
-  //     this.securityForm.markAllAsTouched();
-  //   }
-  // }
 
   onSubmitPassword(e: any): void {
     e.preventDefault;
@@ -117,6 +97,7 @@ export class ChangePasswordComponent implements OnInit {
         this.user.password = this.createPasswordForm.get('newPassword')?.value;
         this.userService.UpdateUser(this.user).subscribe({
           next: (data) => {
+            this.popupService.setMessage("Your password is changed!");
             this.router.navigate(['login']);
           },
         });

@@ -21,6 +21,7 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { LikesComponent } from './components/likes/likes.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { PopupMsgComponent } from './components/popup-msg/popup-msg.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     UserProfileComponent,
     LikesComponent,
     ChangePasswordComponent,
+    PopupMsgComponent,
   ],
   imports: [
     BrowserModule,
