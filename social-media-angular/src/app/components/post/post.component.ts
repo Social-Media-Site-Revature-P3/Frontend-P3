@@ -28,19 +28,17 @@ export class PostComponent implements OnInit {
   replyToPost: boolean = false;
   editToPost: boolean=false;
   creatorUser: boolean=false;
-  comments: Post[] = [];
-  user: User 
- userA : User
-  constructor(
+
+  comments: Post[] = []; 
+ 
+  constructor(private cookieService: CookieService,
               private postService: PostService,
               private authService: AuthService,
               private userService: UserService,
               private followService: FollowService,
-              private bookMarkService: BookmarkService,
-              private cookieService: CookieService) {}
+              private bookMarkService: BookmarkService) {}
 
   ngOnInit(): void {
- 
     if(this.post.user.userId==this.cookieService.get('userId')){
       this.creatorUser= true
     }
@@ -121,7 +119,7 @@ toggleEditToPost=()=>{
     this.newPost.text = this.commentForm.value.text || ""
     this.newPost.title = "hallo"
     this.newPost.imageUrl= this.commentForm.value.imageUrl||""
-    this.newPost.user.userId =this.authService.currentUser.userId||0
+    this.newPost.user.userId = +this.cookieService.get('userId');
     this.newPost.comment = false
     this.postService.updatePost(this.newPost, this.post.postId).subscribe((response) => {
       this.toggleReplyToPost()
