@@ -15,7 +15,8 @@ export class SearchBarComponent implements OnInit {
   searchTerm: string = "";
   userService : UserService;
   cookieService : CookieService;
-  userId : number = 0
+  userId : number = 0;
+  showSearch : boolean = false;
   user : User[] = [{
     userId : 0,
     email: '',
@@ -24,6 +25,7 @@ export class SearchBarComponent implements OnInit {
     firstName: '',
     lastName: '',
     aboutMe: '',
+    profilePicture: ''
 }]
 name : Name = {
   firstName : '',
@@ -39,6 +41,10 @@ fullName : Name = {
 
   ngOnInit(): void {
     this.userId = +this.cookieService.get("userId")
+  }
+
+  hideSearch() {
+    this.showSearch = false
   }
 
 

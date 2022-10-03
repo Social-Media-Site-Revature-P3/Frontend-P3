@@ -1,5 +1,13 @@
 <!-- Display search bar -->
-<div class="searchbar">
-    <input class="search-input" type="text" placeholder="Find a Friend!" name="searchTerm" [(ngModel)]="searchTerm"/>
-    <button class="search-icon" (click)="searchUser()">Search!</button>
+<div class="searchbar" [class.active]="showSearch">
+    <div *ngFor="let user of user">
+        <picture>
+            <img class="search-image" [src]="user.profilePicture">
+        </picture>
+        <div class="search-result-content">
+            <a [routerLink]="['/user']" [queryParams]="{id: user.userId}" (click)="hideSearch()">{{user.firstName}} {{user.lastName}}</a>
+        </div>
+    </div>
+        <input class="search-input" type="text" placeholder="Find a Friend!" name="searchTerm" [(ngModel)]="searchTerm"/>
+        <button class="search-icon" (click)="searchUser()">Search!</button>
 </div>

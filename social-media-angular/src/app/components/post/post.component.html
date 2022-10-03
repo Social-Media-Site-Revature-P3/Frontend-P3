@@ -16,6 +16,7 @@
             </div>
         </mat-card-content>
         <mat-card-actions align="end">
+            <app-likes></app-likes>
             <button mat-raised-button color="primary" (click)="bookmarkPosts(post.postId || 0)"> bookmark</button>
             <button mat-raised-button color="primary" (click)="toggleReplyToPost()">Reply</button>
         </mat-card-actions>
