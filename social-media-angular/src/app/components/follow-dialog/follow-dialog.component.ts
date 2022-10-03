@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FollowDialog } from '../interfaces/follow-dialog';
+import { FollowDialog } from 'src/app/interfaces/follow-dialog';
 
 @Component({
   selector: 'app-follow-dialog',

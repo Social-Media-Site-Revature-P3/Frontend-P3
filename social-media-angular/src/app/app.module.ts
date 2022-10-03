@@ -23,10 +23,11 @@ import { BookmarkPageComponent } from './components/bookmark-page/bookmark-page.
 import { LikesComponent } from './components/likes/likes.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { CookieService } from 'ngx-cookie-service';
-import { FollowButtonComponent } from './follow-button/follow-button.component';
 import { BookmarkComponent } from './components/bookmark/bookmark.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { FollowDialogComponent } from './follow-dialog/follow-dialog.component';
+import { FollowDialogComponent } from './components/follow-dialog/follow-dialog.component';
+import { FollowButtonComponent } from './components/follow-button/follow-button.component';
+
 
 
 @NgModule({
@@ -48,9 +49,9 @@ import { FollowDialogComponent } from './follow-dialog/follow-dialog.component';
     ChangePasswordComponent,
     EditProfileComponent,
     LikesComponent,
-    FollowButtonComponent,
     BookmarkComponent,
-    FollowDialogComponent, 
+    FollowDialogComponent,
+    FollowButtonComponent
   ],
   entryComponents: [FollowDialogComponent],
   imports: [
