@@ -9,9 +9,15 @@
     padding : 0.3em;
     transition : width 0.5s ease-in;
     float : center;
+    position: relative;
 }
 
 .search-input { 
     width: 1000px;
     float : right;
+}
+
+#content {
+    display: block;
+    color: black;
 }

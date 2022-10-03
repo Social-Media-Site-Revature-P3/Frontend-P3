@@ -14,7 +14,7 @@ export class SearchBarComponent implements OnInit {
 
   searchTerm: string = "";
   userId : number = 0
-  user : User[] = [{
+  users : User[] = [{
     userId : 0,
     email: '',
     nickname: '',
@@ -40,20 +40,24 @@ export class SearchBarComponent implements OnInit {
 
   searchUser() {
     let searchTerm = this.searchTerm.split(' ');
-    console.log(searchTerm.length);
+  
     if(searchTerm.length > 0 && searchTerm.length < 3) {
       if(searchTerm.length == 1){
         this.name.firstName = searchTerm.toString();
         this.userService.GetUsersByName(this.name).subscribe((users : User[]) => {
-          this.user = users;
+          this.users = users;
         })
       }else if(searchTerm.length == 2){
         this.fullName.firstName = searchTerm.slice(0, 1).toString();
         this.fullName.lastName = searchTerm.slice(1, 1).toString();
         this.userService.GetUsersByFullName(this.fullName).subscribe((name:User[]) => {
-          this.user = name;
+          this.users = name;
         })
       }
     }
+  }
+
+  goToUserProfile(i: number){
+    
   }
 }
