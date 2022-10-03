@@ -76,23 +76,19 @@ export class UserProfileComponent implements OnInit {
     let userId: number = +this.cookieService.get('userId')
     this.service.GetUser(userId).subscribe(data => {
       this.user = data;
-      console.log("Get Request working for user with user ID of:" + data.userId)
     })
 
     this._postService.getByUserId(userId).subscribe(data => {
       this.post = data;
-      console.log("getByUserId working" + data);
     })
 
     this._followService.TheyAreFollowing(userId).subscribe(data =>{
     this.follower = data;
-    console.log("theyAreFollowing method working" + data);
 
     })
 
     this._followService.followThemAll(userId).subscribe(data => {
     this.following = data;
-    console.log("followThemAll method working")
     })
 
   }
@@ -104,10 +100,8 @@ export class UserProfileComponent implements OnInit {
     //routing rules - need the search to test it 
 
     let name = this.authService.currentUser.firstName; 
-    console.log(this.nowFollowing);
     this._followService.IWillFollow(this.nowFollowing).subscribe(data => {
       this.nowFollowing = data;
-      console.log("IWillFollow method working");
     alert("You are now following " + name);
 
     })

@@ -10,6 +10,7 @@ import { Bookmark } from 'src/app/interfaces/bookmark';
 import { BookmarkService } from 'src/app/services/bookmark.service';
 import { UserService } from "../../services/user.service";
 import { CookieService } from 'ngx-cookie-service';
+import { FollowService } from 'src/app/services/follow.service';
 
 @Component({
   selector: 'app-post',
@@ -67,19 +68,19 @@ export class PostComponent implements OnInit {
     user: {
         userId:  0
     }
-}
+  }
 
-commentConnect: Comment ={
-  commentId: 0,
-  postId: 0
-}
+  commentConnect: Comment ={
+    commentId: 0,
+    postId: 0
+  }
   
-toggleEditToPost=()=>{
-  if(this.replyToPost){this.toggleReplyToPost()}
-  this.commentForm.get('text')?.patchValue(this.post.text)
-  this.commentForm.get('imageUrl')?.patchValue(this.post.imageUrl)
-  this.editToPost = !this.editToPost
-}
+  toggleEditToPost=()=>{
+    if(this.replyToPost){this.toggleReplyToPost()}
+    this.commentForm.get('text')?.patchValue(this.post.text)
+    this.commentForm.get('imageUrl')?.patchValue(this.post.imageUrl)
+    this.editToPost = !this.editToPost
+  }
   toggleReplyToPost = () => {
     if(this.editToPost){this.toggleEditToPost()}
     this.commentForm.get('text')?.patchValue('')
@@ -159,21 +160,20 @@ toggleEditToPost=()=>{
       });
     }
 
-  followUser(postAuthorId: number): void {
-    let newFollow: Follow = {
-    followedUser: {
-        userId: postAuthorId
-    },
-    followerUser: {
-        userId: +this.cookieService.get('userId')
+    followUser(postAuthorId: number): void {
+      let newFollow: Follow = {
+      followedUser: {
+          userId: postAuthorId
+      },
+      followerUser: {
+          userId: +this.cookieService.get('userId')
+      }
     }
-  }
 
-  // add following 
-  this.followService.IWillFollow(newFollow)
-  .subscribe(()=> {
-    console.log("new follow: ", newFollow);
-  })
+    // add following 
+    this.followService.IWillFollow(newFollow)
+    .subscribe(()=> {
+      console.log("new follow: ", newFollow);
+    })
+  } 
 }
-
-

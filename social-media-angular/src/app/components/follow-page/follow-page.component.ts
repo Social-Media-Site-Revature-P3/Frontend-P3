@@ -32,12 +32,6 @@ export class FollowPageComponent implements OnInit {
   followerListUsers: User[] = [];
   followTitle: string = "";
   
-
-  
-
-
-
-
   constructor(router: ActivatedRoute, private authService: AuthService, private followService: FollowService, private userService: UserService, private dialog: MatDialog) { 
     
   }
