@@ -27,9 +27,7 @@ export class UserCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = +this.cookieService.get('userId')
-    console.log(this.userId)
     this.userService.GetUser(this.userId).subscribe(user => {
-      console.log(user)
       this.user.userId = user.userId;
       this.user.email = user.email;
       this.user.nickname = user.nickname;
@@ -39,7 +37,6 @@ export class UserCardComponent implements OnInit {
       this.user.aboutMe = user.aboutMe;
       this.user.profilePicture = user.profilePicture;
     })
-    console.log(this.user)
   }
 
 }

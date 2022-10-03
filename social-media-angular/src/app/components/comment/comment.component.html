@@ -16,25 +16,35 @@
           <mat-label>Edit your Comment</mat-label>
           <textarea matInput autofocus formControlName="text"></textarea>
         </mat-form-field>
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Add an Image?</mat-label>
+          <input matInput formControlName="imageUrl">
+        </mat-form-field>
         <div align="end">
           <button mat-raised-button color="warn" (click)="toggleEditToComment()">Cancel</button>
           <button mat-raised-button color="warn" (click)="deleteComment()">Delete</button>
+          <button mat-raised-button color="primary" type="submit">Edit</button>
         </div>
       </form>
     </div>
 
     <div class="comment-reply" align="right">
-      <button mat-raised-button color="primary" type="submit" (click)="toggleEditToComment()">Edit</button>
-      <button mat-raised-button color="primary" class="comment-reply-text" type="submit" (click)="toggleReplyToComment()">Reply</button>
-      
+      <div class="comment-reply-text" (click)="toggleReplyToComment()">
+          Reply
+      </div>
+
+      <div class="comment-reply" align="right">
+        <button mat-raised-button color="primary" type="submit" (click)="toggleEditToComment()">Edit</button>
+        <button mat-raised-button color="primary" class="comment-reply-text" type="submit" (click)="toggleReplyToComment()">Reply</button>
+      </div>
       <form class="form" *ngIf="replyToComment" [formGroup]="commentForm" (ngSubmit)="submitReply($event)">
         <mat-form-field class="full-width" appearance="fill">
           <mat-label>Make a Comment</mat-label>
           <textarea matInput autofocus formControlName="text"></textarea>
         </mat-form-field>
         <mat-form-field class="full-width" appearance="fill">
-            <mat-label>Add an Image?</mat-label>
-            <input matInput formControlName="imageUrl">
+          <mat-label>Add an Image?</mat-label>
+          <input matInput formControlName="imageUrl">
         </mat-form-field>
         <div align="end">
           <button mat-raised-button color="warn" (click)="toggleReplyToComment()">Cancel</button>
