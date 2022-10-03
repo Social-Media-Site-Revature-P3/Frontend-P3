@@ -65,6 +65,7 @@ export class PostFeedPageComponent implements OnInit {
   
   submitPost = (e: any) => {
     e.preventDefault();
+    this.post.title = this.postForm.value.title||""
     this.post.text =this.postForm.value.text || ""
     this.post.imageUrl =  this.postForm.value.imageUrl || ""
     this.post.comment = false
