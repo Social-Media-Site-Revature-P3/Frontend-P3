@@ -21,6 +21,7 @@ import { FollowPageComponent } from './components/follow-page/follow-page.compon
 import { BookmarkPageComponent } from './components/bookmark-page/bookmark-page.component';
 import { LikesComponent } from './components/likes/likes.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { PopupMsgComponent } from './components/popup-msg/popup-msg.component';
 import { CookieService } from 'ngx-cookie-service';
 import { BookmarkComponent } from './components/bookmark/bookmark.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -46,6 +47,7 @@ import { PostComponent } from './components/post/post.component';
     UserProfileComponent,
     LikesComponent,
     ChangePasswordComponent,
+    PopupMsgComponent,
     EditProfileComponent,
     LikesComponent,
     BookmarkComponent,

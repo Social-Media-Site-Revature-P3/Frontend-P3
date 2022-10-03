@@ -69,8 +69,7 @@ export class RegisterComponent implements OnInit {
         lastName: this.registerForm.value.lastName || "",
         nickname: this.registerForm.value.nickname || ""
       }
-     
-      this.authService.register(register)
+       this.authService.register(register)
         .subscribe(
           (response) => {
             let security: SecurityQuestion = {
