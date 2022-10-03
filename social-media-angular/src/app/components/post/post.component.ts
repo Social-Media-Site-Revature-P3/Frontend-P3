@@ -30,8 +30,8 @@ export class PostComponent implements OnInit {
   creatorUser: boolean=false;
   comments: Post[] = [];
   user: User 
- 
-  constructor(private cookieService: CookieService,
+ userA : User
+  constructor(
               private postService: PostService,
               private authService: AuthService,
               private userService: UserService,
@@ -40,15 +40,17 @@ export class PostComponent implements OnInit {
               private cookieService: CookieService) {}
 
   ngOnInit(): void {
-    this.user = this.authService.currentUser
-    // this.cookieService.get('userId').valueOf()
-    if(this.post.user.userId==this.user.userId){
+ 
+    if(this.post.user.userId==this.cookieService.get('userId')){
       this.creatorUser= true
     }
+
+    console.log(this.creatorUser)
 
    this.userService.GetUser(this.post.user.userId).subscribe({
      next: user => {
        this.post.user = user;
+       this.userA=user
      }
    })
 
