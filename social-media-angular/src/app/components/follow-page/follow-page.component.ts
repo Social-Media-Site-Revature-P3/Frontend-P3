@@ -83,8 +83,6 @@ export class FollowPageComponent implements OnInit {
         
       }
     )
-
-
   }
 
   displayFollowing(): void
@@ -132,8 +130,6 @@ export class FollowPageComponent implements OnInit {
 
   displayFollowers(): void
   {
-
-
     this.userService.GetUser(this.userId)
     .subscribe(
       (user: User)=>

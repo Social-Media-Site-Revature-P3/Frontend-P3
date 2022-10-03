@@ -24,16 +24,12 @@
         </div>
     </div>
 
-    <div [ngClass]="['sidebyside', 'user-stats']">
+    <div style="padding: 1em" [ngClass]="['sidebyside', 'user-stats']">
         <p>{{posts.length}} Posts</p>
     </div>
 
-    <div [ngClass]="['sidebyside', 'user-stats']">
+    <!-- <div [ngClass]="['sidebyside', 'user-stats']">
         <app-follow-page [ngClass]="['sidebyside', 'user-stats']" [userId]="user.userId!"> </app-follow-page>
-    </div>
-
-    <!-- <div>
-        <app-follow-button [userId] = "user.userId"></app-follow-button>
     </div> -->
 
     <div style="padding: 1em" [ngClass]="['sidebyside', 'user-stats']">
