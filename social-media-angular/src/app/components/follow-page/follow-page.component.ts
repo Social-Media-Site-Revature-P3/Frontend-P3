@@ -44,14 +44,13 @@ export class FollowPageComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     // this.userId = this.router.snapshot.params['userId'];
-    console.log("USER ID: ", this.userId);
-
     this.displayCount();
   }
 
   displayCount(): void
   {
     this.followService.TheyAreFollowing(this.userId).subscribe((follows: Follow[]) => {
+
       for(var follow of follows)
       {
         if(follow.followedUser.userId !== this.userId)
@@ -60,7 +59,7 @@ export class FollowPageComponent implements OnInit, OnChanges {
           console.log(follows)
         }
       }
-      
+      //this.followingListUsers = follows;
     })
     this.followService.followThemAll(this.userId).subscribe((follows: Follow[]) => {
       for(var follow of follows)
