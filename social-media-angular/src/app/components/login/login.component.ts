@@ -23,6 +23,9 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router, private cookieService: CookieService, private localService: LocalService) {}
 
   ngOnInit(): void {
+    // if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    //   document.body.classList.add("darkMode");
+    // }
   }
 
   onSubmit(e: any): void {

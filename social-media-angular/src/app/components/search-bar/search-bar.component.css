@@ -7,9 +7,14 @@
     border : 2px solid #E4E4E4;
     display : flex;
     padding : 0.3em;
-    transition : width 0.5s ease-in;
+    transition : .5s;
     float : center;
     position: relative;
+}
+
+::placeholder {
+    color: black;
+    opacity: 1;
 }
 
 a{
@@ -32,6 +37,11 @@ background:rgb(255, 255, 255)
 .search-input { 
     width: 100%;
     float : right;
+    transition : .5s;
+}
+
+button.search-icon {
+    transition : .5s;
 }
 
 .search-image {

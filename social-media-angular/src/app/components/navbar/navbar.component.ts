@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit{
+  private isDark = false;
 
   constructor(private authService: AuthService, private router: Router, private cookieService: CookieService) { }
   
@@ -26,4 +27,7 @@ export class NavbarComponent implements OnInit{
     this.router.navigate(['login']);
   }
 
-}
+  swapTheme() {
+      document.body.classList.toggle("darkMode");
+    }
+  }
