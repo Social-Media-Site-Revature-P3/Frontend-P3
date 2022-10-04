@@ -1,5 +1,7 @@
 import { Component, OnInit, Inject} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+
 import { FollowDialog } from 'src/app/interfaces/follow-dialog';
 
 @Component({
@@ -9,7 +11,8 @@ import { FollowDialog } from 'src/app/interfaces/follow-dialog';
 })
 export class FollowDialogComponent implements OnInit {
 
-  constructor(public dialogDisplay: MatDialogRef<FollowDialogComponent>, @Inject(MAT_DIALOG_DATA) public data : FollowDialog ) { }
+  constructor(public dialogDisplay: MatDialogRef<FollowDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data : FollowDialog, private router: Router ) { }
 
   ngOnInit(): void {
   }
@@ -21,4 +24,20 @@ export class FollowDialogComponent implements OnInit {
 
   // this is where our click buttons and routing 
   
+  display(userId: number): void
+  {
+    console.log("DISPLAY UserID: ", userId)
+    
+    this.onNoClick();
+
+    this.router.navigate(['/profile/', userId], { replaceUrl: true })
+    .then(
+      ()=> 
+      {
+        window.location.reload();
+      }
+    )
+
+    
+  }
 }

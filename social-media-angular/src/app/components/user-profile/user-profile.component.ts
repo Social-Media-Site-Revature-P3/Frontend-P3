@@ -81,7 +81,7 @@ export class UserProfileComponent implements OnInit {
   });
   createPost: Post;
   userId: number = +this.cookieService.get('userId')
-  pageUserId = 9
+  pageUserId = 1
 
   dialog: MatDialog;
 
@@ -91,6 +91,7 @@ export class UserProfileComponent implements OnInit {
     //How are we storing userId? If storing the userId in local storage:
     //this.currentUserId = Number(localStorage.getItem("currentUserId"));
     let userId: number = this.activatedRouter.snapshot.params['userId'];
+    console.log("USER PROFILE: ", userId)
     // this.service.setPageUser(userId);
     this.service.GetUser(userId).subscribe(data => {
       this.user = data;
@@ -143,18 +144,18 @@ export class UserProfileComponent implements OnInit {
   }
 
 
-  followUser() {
-    //INCOMPLETE FUNCTION 
-    //need Jaeshas code to function
+  // followUser() {
+  //   //INCOMPLETE FUNCTION 
+  //   //need Jaeshas code to function
 
-    let name = this.authService.currentUser.firstName; 
-    this._followService.IWillFollow(this.nowFollowing).subscribe(data => {
-      this.nowFollowing = data;
-    alert("You are now following " + name);
+  //   let name = this.authService.currentUser.firstName; 
+  //   this._followService.IWillFollow(this.nowFollowing).subscribe(data => {
+  //     this.nowFollowing = data;
+  //   alert("You are now following " + name);
 
-    })
+  //   })
 
-  }
+  // }
 
 
   submitPost(){
