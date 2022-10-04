@@ -70,6 +70,6 @@ fullName : Name = {
     this.showSearch = false;
   }
   goToUserProfile(i: number){
-
+    
   }
 }
