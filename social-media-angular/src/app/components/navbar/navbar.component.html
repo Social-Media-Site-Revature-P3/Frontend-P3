@@ -3,7 +3,8 @@
         <span [routerLink]="['/post-feed']" style="cursor: pointer;">Revvi</span> 
         <app-search-bar class="search-bar"></app-search-bar>
         <span class="spacer"></span>
-        <button mat-icon-button routerLink="/profile/{{userId}}" ><mat-icon>account_circle</mat-icon></button>
+        <button mat-icon-button (click)="reroute(userId)" ><mat-icon>account_circle</mat-icon></button>
+        <button mat-icon-button [routerLink]="['/bookmark-page']"><mat-icon>bookmark</mat-icon></button>
         <!-- theme swapper -->
         <button mat-icon-button (click)="swapTheme()">
             <svg style="width:24px;height:24px" viewBox="0 0 24 24">
@@ -14,8 +15,8 @@
             12.42L18.94,9.64L22.28,9.88L20.08,12.42M9.63,18.93L12.4,20.08L9.87,22.27L9.63,18.93Z" />
         </svg>
         </button>
-        <button mat-icon-button [routerLink]="['/profile']" ><mat-icon>account_circle</mat-icon></button>
-        <button mat-icon-button [routerLink]="['/bookmark-page']"><mat-icon>bookmark</mat-icon></button>
+        
+       
         <button mat-button (click)="logout();">Logout</button>
     </mat-toolbar>
 </p><br><br><br>
