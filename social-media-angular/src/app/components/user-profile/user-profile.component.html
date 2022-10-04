@@ -28,61 +28,37 @@
         <p>{{posts.length}} Posts</p>
     </div>
 
-    <!-- <div [ngClass]="['sidebyside', 'user-stats']">
-        <app-follow-page [ngClass]="['sidebyside', 'user-stats']" [userId]="user.userId!"> </app-follow-page>
-        <app-follow-page [ngClass]="['sidebyside', 'user-stats']" [userId]="user.userId"> </app-follow-page>
-    </div> -->
-<!-- 
-    <div>
-        <app-follow-button [userId] = "user.userId!"></app-follow-button>
-    </div> -->
-
     <div style="padding: 1em" [ngClass]="['sidebyside', 'user-stats']">
-        <!-- <p>{{follower.length}} followers</p> -->
         <app-follow-page [userId]="this.user.userId!"> </app-follow-page>
     </div>
-    <!-- <div [ngClass]="['sidebyside', 'user-stats']">
-        <p> {{following.length}} following</p>
-    </div> -->
 
     <div [ngClass]="['sidebyside', 'follow-button']" *ngIf="userId != pageUserId">
-        <app-follow-button [userId]="pageUserId"></app-follow-button>
-
+        <app-follow-button [userId]="pageUserId" ></app-follow-button>
     </div>
 
     <div class="follow-button">
         <button mat-raised-button color="primary" [routerLink]="['/edit-profile']" *ngIf="userId == pageUserId">Edit Profile</button>
     </div>
 
-<body class="user-profile-body">
-       <!-- <mat-form-field appearance="fill" class="width-800; margin:0 auto;">
-        <mat-label>Post Text</mat-label>
-        <div class="background"><span><h2> {{user.firstName}} {{user.lastName}}</h2></span></div>
-        <textarea matInput #input maxlength="500" placeholder="What's on your mind? " [formControl]="postInput"></textarea>
-        <mat-hint align="end">{{input.value.length || 0}}/500</mat-hint>
-        <div class="submitButton"><button mat-raised-button color="button-color" (click)="submitPost()">Submit Your Post</button></div>
-        </mat-form-field> -->
+    <body class="user-profile-body">
 
+        <div style="width: 800px; margin: 0 auto;" img class="postTextBox" *ngIf="userId == pageUserId">
+            <div class="background"><span><h2> {{user.firstName}} {{user.lastName}}</h2></span>
+                <form class="form" [formGroup]="postInput">
+                    <textarea #input name="postTitleTextBox" placeholder="Add a title to your post" cols="106" rows="2" maxlength="100" formControlName="title"></textarea>
+                    <div>{{input.value.length || 0}}/100</div>
 
+                    <textarea #input2 name="postTextBox" placeholder="What's on your mind?" cols="106" rows="8" maxlength="255" formControlName="text"></textarea>
+                    <div>{{input2.value.length || 0}}/255</div>
 
-    <div style="width: 800px; margin: 0 auto;" img class="postTextBox">
-        <div class="background"><span><h2> {{user.firstName}} {{user.lastName}}</h2></span>
-        <form class="form" [formGroup]="postInput">
-        <textarea #input name="postTitleTextBox" placeholder="Add a title to your post" cols="106" rows="2" maxlength="100" formControlName="title"></textarea>
-        <div>{{input.value.length || 0}}/100</div>
-        <textarea #input2 name="postTextBox" placeholder="What's on your mind?" cols="106" rows="8" maxlength="255" formControlName="text"></textarea>
-        <div>{{input2.value.length || 0}}/255</div>
-        <textarea #input3 name="imageURLTextBox" placeholder="Add Image URL here" cols="106" rows="2" formControlName="imageUrl"></textarea>
-        <div class="submitButton"><button mat-raised-button color="button-color" (click)="submitPost()">Submit Your Post</button></div>
-    </form> 
+                    <textarea #input3 name="imageURLTextBox" placeholder="Add Image URL here" cols="106" rows="2" formControlName="imageUrl"></textarea>
+                    <div class="submitButton"><button mat-raised-button color="button-color" (click)="submitPost()">Submit Your Post</button></div>
+                </form> 
             </div>
         </div>
 
-
-
-    <div style="margin: auto; "id="post-feed" *ngFor="let subPost of posts">
-        <app-post [post]="subPost"></app-post>
-</div>
-
+        <div style="margin: auto; "id="post-feed" *ngFor="let subPost of posts">
+            <app-post [post]="subPost"></app-post>
+        </div>
     </body>
 </div>
