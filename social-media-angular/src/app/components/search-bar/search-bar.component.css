@@ -12,9 +12,25 @@
     position: relative;
 }
 
-.search-input { 
+a{
+  color: inherit;
+  -webkit-tap-highlight-color: rgb(255, 255, 255);
+  cursor: pointer
+}
+
+.page-section:first-child{margin-top:0;}
+
+.page-section{
+ padding: 10;
+ margin-top:60px;
+position:relative;
+font-size: 13px;
+line-height: 2.0;
+background:rgb(255, 255, 255)
+}
+
+.search-input {
     width: 1000px;
-    float : right;
 }
 
 .search-image {
@@ -23,24 +39,60 @@
     height : 40px;
 }
 
-.ng-container {
-    position : absolute;
+
+.search.active {
+  position: relative;
+  top: 0;
+  bottom: 0;
+  background: #fff;
+  left: 0;
+  right: 0;
+  z-index: 100;
 }
 
-#content {
-    top: 50px;
-    width: 100%;
-    background-color: white;
-    height: 100px;
-    position: absolute;
-    color: black;
-    max-width: 100px;
-    max-height: 100px;
-    display: table;
-    justify-content : center;
-    flex-direction : row;
-    flex-wrap: wrap;
-    flex-grow: auto;
-    flex-shrink: auto;
-    z-index: 1;
+.search.active .input-search {
+  width: 1000px;
+  margin: 3rem auto;
+  display: block;
+}
+
+.search-result{
+  display: relative;
+  max-width: 1000px;
+  margin: auto;
+  align-self: center;
+}
+
+.search-result.active{
+  display: list-item;
+  padding: 50px
+}
+
+.search-image {
+  max-width: 16rem;
+  margin-right: 3rem;
+}
+
+.search-result-content {
+  font-size: 2.5rem;
+  color: #111;
+  padding: 50px
+}
+
+.search-result > div {
+  display: flex;
+  margin-bottom: 3rem;
+  align-items: center;
+  list-style: normal;
+  justify-content: center;
+}
+
+mat-nav-list{
+  display:inline-table;
+  align-items:flex-start;
+  background: inherit;
+  padding: 50px;
+  width: 100%;
+  max-width: 100px;
+
 }
