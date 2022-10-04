@@ -42,12 +42,12 @@
 
 
 
-    <div [ngClass]="['sidebyside', 'follow-button']">
-        <button mat-raised-button color="button-color" (click)="followUser()">Follow</button>
+    <div [ngClass]="['sidebyside', 'follow-button']" *ngIf="userId != pageUserId">
+        <app-follow-button [userId]="pageUserId"></app-follow-button>
     </div>
 
     <div class="follow-button">
-        <button mat-raised-button color="button-color" [routerLink]="['/edit-profile']">Edit Profile</button>
+        <button mat-raised-button color="primary" [routerLink]="['/edit-profile']" *ngIf="userId == pageUserId">Edit Profile</button>
     </div>
 <body>
         
