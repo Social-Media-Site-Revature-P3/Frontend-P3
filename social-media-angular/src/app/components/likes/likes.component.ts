@@ -84,7 +84,6 @@ export class LikesComponent implements OnInit {
         this.likes = likes;
         for(let like of likes) {
           if(like.user.userId == this.newLike.user.userId) {
-            console.log("getlikes line 81, the like object should have an ID: ", like);
             this.newLike = like
             this.foundIt="like"
             // this.toggleLikeComment()
@@ -107,14 +106,12 @@ export class LikesComponent implements OnInit {
 //this.postService.currentPost.postId || 0
   submitLike = (e : any) => {
     if( this.likePost==false) {
-      console.log("likepost is false line 101")
       this.newLike.liked = true;
       this.newLike.post.postId = this.postId || 0
       this.newLike.user.userId = + this.cookieService.get('userId')
       this.likesService.CreateLike(this.newLike)
       .subscribe(
         (response) => {
-          console.log("value emitted line 108")
           this.newLike = response
           //this.likesService.CreateLike(this.newLike).subscribe((response)=> {this.getLikes()})
           this.getLikes()
@@ -122,7 +119,6 @@ export class LikesComponent implements OnInit {
         }
       )
     } else if(this.likePost==true) {
-      console.log("likepost is true line 116")
       this.deleteLike()
     }
   }
