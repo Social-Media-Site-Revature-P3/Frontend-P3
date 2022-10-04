@@ -47,7 +47,7 @@ fullName : Name = {
 
   searchUser() {
     let searchTerm = this.searchTerm.split(' ');
-  
+
     if(searchTerm.length > 0 && searchTerm.length < 3) {
       if(searchTerm.length == 1){
         this.name.firstName = searchTerm.toString();
@@ -65,7 +65,11 @@ fullName : Name = {
     }
   }
 
+  onClickShowSearch(){
+    this.showSearch = true;
+  }
+
   goToUserProfile(i: number){
-    
+
   }
 }

@@ -52,7 +52,7 @@ body.darkMode {
 
 /* DarkMode */
 /* idk */
-.darkMode .positronx {    
+.darkMode .positronx {
   text-decoration: none;
   color: #09e727;
 }
@@ -162,7 +162,7 @@ body.darkMode {
   font-size: 30px;
   margin: 0;
 }
-.login-wrapper .mat-card {
+.login-wrapper .mat-card .mat-list-item{
   padding: 40px 70px 50px;
 }
 .login-wrapper .mat-stroked-button {
@@ -210,7 +210,7 @@ body.darkMode {
   width:10em;
   height: 10em;
   border-radius: 7em;
-      
+
   border: 1px solid #bd1313;
   margin-bottom: 1em;
   background-image: url('./assets/images/favicon.png');
@@ -371,3 +371,4 @@ body.darkMode {
 .mat-card-content {
   word-wrap: break-word;
 }
+
