@@ -33,7 +33,6 @@ export class PostComponent implements OnInit {
  
   constructor(private cookieService: CookieService,
               private postService: PostService,
-              private authService: AuthService,
               private userService: UserService,
               private followService: FollowService,
               private bookMarkService: BookmarkService) {}

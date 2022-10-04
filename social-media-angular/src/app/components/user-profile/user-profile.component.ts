@@ -1,9 +1,9 @@
-import { Component, OnInit, Inject, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 import { Post } from 'src/app/interfaces/post';
 import { Follow } from 'src/app/interfaces/follow';
@@ -25,9 +25,9 @@ export class UserProfileComponent implements OnInit {
   _followService: FollowService;
   currentUserId: number;  
 
-  // constructor(private authService: AuthService, private dialog: MatDialog) { }
   constructor(private authService: AuthService, public service: UserService, router: Router,
-     public postService: PostService, public followService: FollowService, private cookieService: CookieService) {
+     public postService: PostService, public followService: FollowService, private cookieService: CookieService, 
+     private activatedRouter: ActivatedRoute) {
     this._authService = authService;
     this._userService = service;
     this._router = router;
@@ -79,76 +79,36 @@ export class UserProfileComponent implements OnInit {
     imageUrl: new FormControl('', [Validators.required])
   });
   createPost: Post;
-  userId: number = +this.cookieService.get('userId')
-  pageUserId = 9
+
+  userId: number = this.activatedRouter.snapshot.params['userId'];
+  pageUserId = +this.cookieService.get('userId');
+
 
   dialog: MatDialog;
 
   ngOnInit(): void {
-    this.service.GetUser(this.userId).subscribe(data => {
+    this.userId = +this.cookieService.get('userId')
+    this.pageUserId = this.activatedRouter.snapshot.params['userId'];
+    // this.service.setPageUser(userId);
+    this.service.GetUser(this.pageUserId).subscribe(data => {
       this.user = data;
     })
 
-    this._postService.getByOriginalPost(this.userId).subscribe(data => {
+    this._postService.getByOriginalPost(this.pageUserId).subscribe(data => {
       this.posts = data;
       this.posts.sort((a,b) => {
         return <any>new Date(b.createDateTime!) - <any>new Date(a.createDateTime!)
       })
 
-      this._followService.TheyAreFollowing(this.userId).subscribe(data =>{
+      this._followService.TheyAreFollowing(this.pageUserId).subscribe(data =>{
         this.follower = data;
       })
 
-      this._followService.followThemAll(this.userId).subscribe(data => {
+      this._followService.followThemAll(this.pageUserId).subscribe(data => {
         this.following = data;
       })
     })
   }
-
-
-  userBeingViewedProfile() {
-    let searchedUserId: number = 2;
-
-    //storing viewed User ID in local storage.
-
-    this.service.GetUser(searchedUserId).subscribe(data => {
-      this.user = data;
-    })
-
-    this._postService.getByOriginalPost(searchedUserId).subscribe(data => {
-      this.posts = data;
-      this.posts.sort((a,b) => {
-        return <any>new Date(b.createDateTime!) - <any>new Date(a.createDateTime!)
-      })
-   
-    })
-
-    this._followService.TheyAreFollowing(searchedUserId).subscribe(data =>{
-    this.follower = data;
-    console.log("theyAreFollowing method working" + data);
-
-    })
-
-    this._followService.followThemAll(searchedUserId).subscribe(data => {
-    this.following = data;
-    console.log("followThemAll method working")
-    })
-  }
-
-
-  followUser() {
-    //INCOMPLETE FUNCTION 
-    //need Jaeshas code to function
-
-    let name = this.authService.currentUser.firstName; 
-    this._followService.IWillFollow(this.nowFollowing).subscribe(data => {
-      this.nowFollowing = data;
-    alert("You are now following " + name);
-
-    })
-
-  }
-
 
   submitPost(){
     this.createPost ={
@@ -160,9 +120,5 @@ export class UserProfileComponent implements OnInit {
     }
   }
     this._postService.postPost(this.createPost).subscribe((res: any)=> {console.log(res)})
-    console.log(this.postInput.value)
-  
-
   }
-
 }
