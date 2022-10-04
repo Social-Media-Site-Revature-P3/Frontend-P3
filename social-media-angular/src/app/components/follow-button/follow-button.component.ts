@@ -25,6 +25,7 @@ export class FollowButtonComponent implements OnInit {
     
 
     // check to see if the user has followes someone 
+    this.followthisUser = Number(this.followthisUser);
     this.currentUserId = +this.cookieService.get('userId');
     console.log("currentUser: ", this.currentUserId)
     console.log("followthisUser: ", this.followthisUser)
@@ -35,7 +36,7 @@ export class FollowButtonComponent implements OnInit {
   followUser():void
   {
     // will create a new Following 
-    console.log("followthisUser: ", this.followthisUser)
+    
     let newFollow : Follow = 
     {
      followedUser:
@@ -54,10 +55,14 @@ export class FollowButtonComponent implements OnInit {
       ()=> 
       {
         console.log("new follow: ", newFollow);
+        window.location.reload();
       }
     )
 
     this.followeduser = true;
+    
+
+    
   }
 
   unfollowUser(): void{
@@ -70,6 +75,7 @@ export class FollowButtonComponent implements OnInit {
       
       (listOfFollows: Follow[])=>
       {
+        // console.log("FOLLOWING USER ID", this.followthisUser)
         for(var follow of listOfFollows )
         {
           if(follow.followedUser.userId === this.followthisUser)
@@ -79,14 +85,16 @@ export class FollowButtonComponent implements OnInit {
           }
         }
 
+        // console.log("UNFOLLOW: ", unFollow)
         // want to use that follow and delete by unfollowing 
-        if(unFollow.followId != undefined)
+        if(unFollow.followId !== undefined)
         {
           this.followService.StopFollowingMe(unFollow.followId)
           .subscribe(
             ()=> 
             {
               console.log("Unfollow: ", unFollow);
+              window.location.reload();
             }
           )
         }
@@ -95,6 +103,7 @@ export class FollowButtonComponent implements OnInit {
     )
 
     this.followeduser = false;
+    
 
   }
 
@@ -108,9 +117,14 @@ export class FollowButtonComponent implements OnInit {
       {
         for(var follow of followLists)
         {
-          if(follow.followedUser.userId === this.followthisUser && follow.followerUser.userId === this.currentUserId)
+          console.log(" BEFORE IF FOLLOWING: ", this.followeduser)
+          console.log("FOLLOW THIS PERSON :", this.followthisUser)
+          console.log("FOLLOW YOU  :", this.currentUserId)
+          if(follow.followedUser.userId == this.followthisUser && follow.followerUser.userId == this.currentUserId)
           {
+
             this.followeduser = true;
+            console.log(" AFTER IF FOLLOWING: ", this.followeduser)
           }
         }
       }
