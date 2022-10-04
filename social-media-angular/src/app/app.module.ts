@@ -29,6 +29,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FollowDialogComponent } from './components/follow-dialog/follow-dialog.component';
 import { FollowButtonComponent } from './components/follow-button/follow-button.component';
 import { PostComponent } from './components/post/post.component';
+import { SearchFeedComponent } from './components/search-feed/search-feed.component';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { PostComponent } from './components/post/post.component';
     FollowDialogComponent,
     FollowButtonComponent,
     ClickOutsideDirective,
+    SearchFeedComponent,
   ],
   entryComponents: [FollowDialogComponent],
   imports: [

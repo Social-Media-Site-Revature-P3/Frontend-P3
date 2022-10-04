@@ -1,6 +1,6 @@
 <!-- Display search bar -->
 <div class="searchbar" clickOutside (clickOutside)="clickOutside()">
-  <button class="search-icon" (click)="searchUser()">Search!</button>
+  <button class="search-icon" (click)="searchUser()" [routerLink]="['/search-feed']">Search!</button>
   <input name="searchTerm" type="text" class="input"placeholder="Find a Friend!" size ="135px" [(ngModel)]="searchTerm"
     (keyup)="searchUser()" (click)="onClickShowSearch()" />
   <div class="search-result" *ngIf="showSearch" >

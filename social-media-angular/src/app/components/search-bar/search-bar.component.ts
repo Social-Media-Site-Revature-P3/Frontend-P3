@@ -3,6 +3,9 @@ import { CookieService } from 'ngx-cookie-service';
 import { Name } from 'src/app/interfaces/name';
 import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-bar',
@@ -13,10 +16,10 @@ export class SearchBarComponent implements OnInit {
 
 
   searchTerm: string = "";
-  userId : number = 0;
-  showSearch : boolean = false;
-  user : User[] = [{
-    userId : 0,
+  userId: number = 0;
+  showSearch: boolean = false;
+  user: User[] = [{
+    userId: 0,
     email: '',
     nickname: '',
     password: '',
@@ -24,17 +27,21 @@ export class SearchBarComponent implements OnInit {
     lastName: '',
     aboutMe: '',
     profilePicture: ''
-}]
-name : Name = {
-  firstName : '',
-  lastName: 'Lash'
-}
-fullName : Name = {
-  firstName : '',
-  lastName : ''
-}
+  }]
+  name: Name = {
+    firstName: '',
+    lastName: ''
+  }
+  fullName: Name = {
+    firstName: '',
+    lastName: ''
+  }
 
-  constructor(private cookieService: CookieService, private userService: UserService) { }
+  users$: Observable<User[]>
+
+
+  constructor(private cookieService: CookieService, private userService: UserService, private route: ActivatedRoute) { }
+
 
   ngOnInit(): void {
     this.userId = +this.cookieService.get('userId');
@@ -46,30 +53,53 @@ fullName : Name = {
   searchUser() {
     let searchTerm = this.searchTerm.split(' ');
 
-    if(searchTerm.length > 0 && searchTerm.length < 3) {
-      if(searchTerm.length == 1){
+    if (searchTerm.length > 0 && searchTerm.length < 3) {
+      if (searchTerm.length == 1) {
         this.name.firstName = searchTerm.toString();
-        this.userService.GetUsersByName(this.name).subscribe((users : User[]) => {
+        this.userService.GetUsersByName(this.name).subscribe((users: User[]) => {
           this.user = users;
         })
-      }else if(searchTerm.length == 2){
+      } else if (searchTerm.length == 2) {
         this.fullName.firstName = searchTerm.slice(0, 1).toString();
         this.fullName.lastName = searchTerm.slice(1, 1).toString();
-        this.userService.GetUsersByFullName(this.fullName).subscribe((name:User[]) => {
+        this.userService.GetUsersByFullName(this.fullName).subscribe((name: User[]) => {
           this.user = name;
-          console.log(name)
         })
+      }
+    }
+  }
+  searchRoute() {
+    let searchTerm = this.searchTerm.split(' ');
+
+    if (searchTerm.length > 0 && searchTerm.length < 3) {
+      if (searchTerm.length == 1) {
+        this.users$ = this.route.paramMap.pipe(
+          switchMap(params => {
+            this.name.firstName = searchTerm.toString();
+            this.searchTerm = String(params.get('name'));
+            return this.userService.GetUsersByName(this.name);
+          })
+        )
+      } else if (searchTerm.length == 2) {
+        this.users$ = this.route.paramMap.pipe(
+          switchMap(params => {
+            this.fullName.firstName = searchTerm.slice(0, 1).toString();
+            this.fullName.lastName = searchTerm.slice(1, 1).toString();
+            this.searchTerm = String(params.get('fullName'));
+            return this.userService.GetUsersByName(this.name);
+          })
+        )
       }
     }
   }
 
   onClickShowSearch(): void {
-    this.showSearch = !this.showSearch;
+    this.showSearch = true;
   }
   clickOutside() {
     this.showSearch = false;
   }
-  goToUserProfile(i: number){
+  goToUserProfile(i: number) {
 
   }
 }
