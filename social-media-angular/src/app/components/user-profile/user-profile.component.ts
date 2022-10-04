@@ -71,10 +71,10 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.postInput = new FormControl()
-
     //How are we storing userId? If storing the userId in local storage:
     //this.currentUserId = Number(localStorage.getItem("currentUserId"));
     let userId: number = this.activatedRouter.snapshot.params['userId'];
+    console.log("USER PROFILE: ", userId)
     // this.service.setPageUser(userId);
     this.service.GetUser(userId).subscribe(data => {
       this.user = data;
