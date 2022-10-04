@@ -37,7 +37,6 @@ export class CommentComponent implements OnInit {
   @Output() delete: EventEmitter<Post> = new EventEmitter();
 
   constructor(private postService: PostService,
-              private authService: AuthService,
               private userService: UserService,
               private cookieService: CookieService) {
   }
@@ -152,6 +151,7 @@ export class CommentComponent implements OnInit {
       this.newPost.user.userId = +this.cookieService.get('userId')
       this.postService.updatePost(this.newPost, this.inputComment.postId )
         .subscribe((response)=>{
+          this.newPost.postId= undefined
           this.toggleEditToComment()
         })
   }
