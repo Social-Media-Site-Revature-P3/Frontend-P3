@@ -43,8 +43,6 @@ export class PostComponent implements OnInit {
       this.creatorUser= true
     }
 
-    console.log(this.creatorUser)
-
    this.userService.GetUser(this.post.user.userId).subscribe({
      next: user => {
        this.post.user = user;
@@ -155,9 +153,7 @@ export class PostComponent implements OnInit {
       };
 
       this.bookMarkService.SaveBookmark(newBookMark)
-      .subscribe(
-        ()=> {console.log("Created a bookmark for postId: ",newBookMark)
-      });
+      .subscribe();
     }
 
     followUser(postAuthorId: number): void {
@@ -173,7 +169,7 @@ export class PostComponent implements OnInit {
     // add following 
     this.followService.IWillFollow(newFollow)
     .subscribe(()=> {
-      console.log("new follow: ", newFollow);
+      
     })
   } 
 }

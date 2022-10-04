@@ -1,13 +1,27 @@
 <h1> {{data.followTitle}}</h1>
-<div *ngFor="let user of data.followUserList">
-    <mat-card-header>
-        <div mat-card-avatar class="header-image"></div>
-        <mat-card-title>{{user.firstName}} {{user.lastName}}</mat-card-title>
-        <mat-card-subtitle *ngIf="user.nickname != null">@{{user.nickname}}</mat-card-subtitle>
+<ng-container *ngIf="data.follow == 'follower'">
+    <div *ngFor="let follow of data.followUserList">
+        <mat-card-header>
+            <img mat-card-avatar *ngIf="follow.followerUser.profilePicture == null || follow.followerUser.profilePicture==''" class="header-image">
+            <img mat-card-avatar *ngIf="follow.followerUser.profilePicture != null && follow.followerUser.profilePicture!=''" class="header-image"  src="{{ follow.followerUser.profilePicture }}">
+            <mat-card-title>{{follow.followerUser.firstName}} {{follow.followerUser.lastName}}</mat-card-title>
+            <mat-card-subtitle *ngIf="follow.followerUser.nickname != null">@{{follow.followerUser.nickname}}</mat-card-subtitle>
+        </mat-card-header>
+        <br> 
+    </div>
+</ng-container>
+<ng-container *ngIf="data.follow == 'following'">
+    <div *ngFor="let follow of data.followUserList">
+        <mat-card-header>
+            <img mat-card-avatar *ngIf="follow.followedUser.profilePicture == null || follow.followedUser.profilePicture==''" class="header-image">
+            <img mat-card-avatar *ngIf="follow.followedUser.profilePicture != null && follow.followedUser.profilePicture!=''" class="header-image"  src="{{ follow.followedUser.profilePicture }}">
+            <mat-card-title>{{follow.followedUser.firstName}} {{follow.followedUser.lastName}}</mat-card-title>
+            <mat-card-subtitle *ngIf="follow.followedUser.nickname != null">@{{follow.followedUser.nickname}}</mat-card-subtitle>
+        </mat-card-header>
+        <br> 
+    </div>
+</ng-container>
 
-    </mat-card-header>
-    <br> 
-</div>
 
 <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">Close</button>
