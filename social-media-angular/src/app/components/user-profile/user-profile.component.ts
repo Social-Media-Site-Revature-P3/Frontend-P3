@@ -87,24 +87,22 @@ export class UserProfileComponent implements OnInit {
   dialog: MatDialog;
 
   ngOnInit(): void {
-    this.userId = +this.cookieService.get('userId')
-    this.pageUserId = this.activatedRouter.snapshot.params['userId'];
     // this.service.setPageUser(userId);
-    this.service.GetUser(this.pageUserId).subscribe(data => {
+    this.service.GetUser(this.userId).subscribe(data => {
       this.user = data;
     })
 
-    this._postService.getByOriginalPost(this.pageUserId).subscribe(data => {
+    this._postService.getByOriginalPost(this.userId).subscribe(data => {
       this.posts = data;
       this.posts.sort((a,b) => {
         return <any>new Date(b.createDateTime!) - <any>new Date(a.createDateTime!)
       })
 
-      this._followService.TheyAreFollowing(this.pageUserId).subscribe(data =>{
+      this._followService.TheyAreFollowing(this.userId).subscribe(data =>{
         this.follower = data;
       })
 
-      this._followService.followThemAll(this.pageUserId).subscribe(data => {
+      this._followService.followThemAll(this.userId).subscribe(data => {
         this.following = data;
       })
     })

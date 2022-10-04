@@ -15,6 +15,7 @@ export class SearchBarComponent implements OnInit {
   searchTerm: string = "";
   userId : number = 0;
   showSearch : boolean = false;
+
   user : User[] = [{
     userId : 0,
     email: '',
@@ -51,6 +52,7 @@ fullName : Name = {
         this.name.firstName = searchTerm.toString();
         this.userService.GetUsersByName(this.name).subscribe((users : User[]) => {
           this.user = users;
+          console.log(users)
         })
       }else if(searchTerm.length == 2){
         this.fullName.firstName = searchTerm.slice(0, 1).toString();
