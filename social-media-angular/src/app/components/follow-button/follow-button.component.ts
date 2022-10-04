@@ -1,7 +1,8 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { FollowService } from '../services/follow.service';
-import { Follow } from '../interfaces/follow';
+import { Follow } from 'src/app/interfaces/follow';
+import { FollowService } from 'src/app/services/follow.service';
+
 
 @Component({
   selector: 'app-follow-button',

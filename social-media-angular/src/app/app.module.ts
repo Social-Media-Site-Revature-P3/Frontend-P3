@@ -13,7 +13,7 @@ import { CommentComponent } from './components/comment/comment.component';
 import { UserCardComponent } from './components/user-card/user-card.component';
 import { UserInitialsPipe } from './pipes/user-initials.pipe';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { EditProfileComponent, UploadProfilePictureDialog } from './components/edit-profile/edit-profile.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
@@ -21,11 +21,12 @@ import { FollowPageComponent } from './components/follow-page/follow-page.compon
 import { BookmarkPageComponent } from './components/bookmark-page/bookmark-page.component';
 import { LikesComponent } from './components/likes/likes.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { PopupMsgComponent } from './components/popup-msg/popup-msg.component';
 import { CookieService } from 'ngx-cookie-service';
-import { FollowButtonComponent } from './follow-button/follow-button.component';
 import { BookmarkComponent } from './components/bookmark/bookmark.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { FollowDialogComponent } from './follow-dialog/follow-dialog.component';
+import { FollowDialogComponent } from './components/follow-dialog/follow-dialog.component';
+import { FollowButtonComponent } from './components/follow-button/follow-button.component';
 import { PostComponent } from './components/post/post.component';
 
 
@@ -41,17 +42,17 @@ import { PostComponent } from './components/post/post.component';
     NavbarComponent,
     UserInitialsPipe,
     SearchBarComponent,
-    UploadProfilePictureDialog,
     FollowPageComponent,
     BookmarkPageComponent,
     UserProfileComponent,
     LikesComponent,
     ChangePasswordComponent,
+    PopupMsgComponent,
     EditProfileComponent,
     LikesComponent,
-    FollowButtonComponent,
     BookmarkComponent,
-    FollowDialogComponent, 
+    FollowDialogComponent,
+    FollowButtonComponent
   ],
   entryComponents: [FollowDialogComponent],
   imports: [

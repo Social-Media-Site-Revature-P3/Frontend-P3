@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 import { Post } from 'src/app/interfaces/post';
 import { Follow } from 'src/app/interfaces/follow';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { FollowService } from 'src/app/services/follow.service';
 
@@ -48,6 +48,17 @@ export class UserProfileComponent implements OnInit {
     profilePicture: ""
   }
 
+  userBeingViewed: User = {
+    userId: 0,
+    email: "",
+    nickname: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    aboutMe: "",
+    profilePicture: ""
+  }
+
   currUser: User = {
     userId: 0,
     email: "",
@@ -59,18 +70,24 @@ export class UserProfileComponent implements OnInit {
     profilePicture: ""
   }
 
-  post: Post[] = [];
+  posts: Post[] = [];
   follower: Follow[] = [];
   following: Follow[] = [];
-  userId: number;
   nowFollowing: Follow;
-  postInput: FormControl;
+  postInput = new FormGroup({
+    title: new FormControl('', [Validators.required]),
+    text: new FormControl('', [Validators.required]),
+    imageUrl: new FormControl('', [Validators.required])
+  });
   createPost: Post;
+  userId: number = +this.cookieService.get('userId')
+  pageUserId = 9
 
   dialog: MatDialog;
 
   ngOnInit(): void {
-    this.postInput = new FormControl()
+    // this.postInput = new FormControl()
+
     //How are we storing userId? If storing the userId in local storage:
     //this.currentUserId = Number(localStorage.getItem("currentUserId"));
     let userId: number = this.activatedRouter.snapshot.params['userId'];
@@ -78,38 +95,62 @@ export class UserProfileComponent implements OnInit {
     // this.service.setPageUser(userId);
     this.service.GetUser(userId).subscribe(data => {
       this.user = data;
-      console.log("Get Request working for user with user ID of:" + data.userId)
     })
 
-    this._postService.getByUserId(userId).subscribe(data => {
-      this.post = data;
-      console.log("getByUserId working" + data);
+    this._postService.getByOriginalPost(this.userId).subscribe(data => {
+      this.posts = data;
+      this.posts.sort((a,b) => {
+        return <any>new Date(b.createDateTime!) - <any>new Date(a.createDateTime!)
+      })
+
+      this._followService.TheyAreFollowing(this.userId).subscribe(data =>{
+        this.follower = data;
+      })
+
+      this._followService.followThemAll(this.userId).subscribe(data => {
+        this.following = data;
+      })
+    })
+  }
+
+
+  userBeingViewedProfile() {
+    let searchedUserId: number = 2;
+
+    //storing viewed User ID in local storage.
+
+    this.service.GetUser(searchedUserId).subscribe(data => {
+      this.user = data;
     })
 
-    this._followService.TheyAreFollowing(userId).subscribe(data =>{
+    this._postService.getByOriginalPost(searchedUserId).subscribe(data => {
+      this.posts = data;
+      this.posts.sort((a,b) => {
+        return <any>new Date(b.createDateTime!) - <any>new Date(a.createDateTime!)
+      })
+   
+    })
+
+    this._followService.TheyAreFollowing(searchedUserId).subscribe(data =>{
     this.follower = data;
     console.log("theyAreFollowing method working" + data);
 
     })
 
-    this._followService.followThemAll(userId).subscribe(data => {
+    this._followService.followThemAll(searchedUserId).subscribe(data => {
     this.following = data;
     console.log("followThemAll method working")
     })
-
   }
 
-  followUser() {
 
+  followUser() {
     //INCOMPLETE FUNCTION 
-    //how we are storing the viewed user
-    //routing rules - need the search to test it 
+    //need Jaeshas code to function
 
     let name = this.authService.currentUser.firstName; 
-    console.log(this.nowFollowing);
     this._followService.IWillFollow(this.nowFollowing).subscribe(data => {
       this.nowFollowing = data;
-      console.log("IWillFollow method working");
     alert("You are now following " + name);
 
     })
@@ -119,11 +160,11 @@ export class UserProfileComponent implements OnInit {
 
   submitPost(){
     this.createPost ={
-      text:  this.postInput.value || "",
-      title: "",
-      imageUrl: "",
+      title: this.postInput.value.title || "",
+      text:  this.postInput.value.text || "",
+      imageUrl: this.postInput.value.imageUrl || "",
       user: {
-          userId: this.authService.currentUser.userId||0
+          userId: +this.cookieService.get('userId')
     }
   }
     this._postService.postPost(this.createPost).subscribe((res: any)=> {console.log(res)})

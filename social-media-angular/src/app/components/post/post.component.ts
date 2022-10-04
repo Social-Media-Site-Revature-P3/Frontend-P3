@@ -28,7 +28,7 @@ export class PostComponent implements OnInit {
   replyToPost: boolean = false;
   editToPost: boolean=false;
   creatorUser: boolean=false;
-
+  showComments: boolean=false;
   comments: Post[] = []; 
  
   constructor(private cookieService: CookieService,
@@ -42,8 +42,6 @@ export class PostComponent implements OnInit {
     if(this.post.user.userId==this.cookieService.get('userId')){
       this.creatorUser= true
     }
-
-    console.log(this.creatorUser)
 
    this.userService.GetUser(this.post.user.userId).subscribe({
      next: user => {
@@ -59,6 +57,9 @@ export class PostComponent implements OnInit {
 
   }
 
+    toggleComments=()=>{
+      this.showComments= !this.showComments
+    }
   newPost: Post = {
     text:  "",
     title: "",
@@ -68,19 +69,19 @@ export class PostComponent implements OnInit {
     user: {
         userId:  0
     }
-}
+  }
 
-commentConnect: Comment ={
-  commentId: 0,
-  postId: 0
-}
+  commentConnect: Comment ={
+    commentId: 0,
+    postId: 0
+  }
   
-toggleEditToPost=()=>{
-  if(this.replyToPost){this.toggleReplyToPost()}
-  this.commentForm.get('text')?.patchValue(this.post.text)
-  this.commentForm.get('imageUrl')?.patchValue(this.post.imageUrl)
-  this.editToPost = !this.editToPost
-}
+  toggleEditToPost=()=>{
+    if(this.replyToPost){this.toggleReplyToPost()}
+    this.commentForm.get('text')?.patchValue(this.post.text)
+    this.commentForm.get('imageUrl')?.patchValue(this.post.imageUrl)
+    this.editToPost = !this.editToPost
+  }
   toggleReplyToPost = () => {
     if(this.editToPost){this.toggleEditToPost()}
     this.commentForm.get('text')?.patchValue('')
@@ -122,7 +123,9 @@ toggleEditToPost=()=>{
     this.newPost.user.userId = +this.cookieService.get('userId');
     this.newPost.comment = false
     this.postService.updatePost(this.newPost, this.post.postId).subscribe((response) => {
-      this.toggleReplyToPost()
+      this.post.text = this.newPost.text
+      this.toggleEditToPost()
+
     })
 
   }
@@ -155,26 +158,23 @@ toggleEditToPost=()=>{
       };
 
       this.bookMarkService.SaveBookmark(newBookMark)
-      .subscribe(
-        ()=> {console.log("Created a bookmark for postId: ",newBookMark)
-      });
+      .subscribe();
     }
 
-  followUser(postAuthorId: number): void {
-    let newFollow: Follow = {
-    followedUser: {
-        userId: postAuthorId
-    },
-    followerUser: {
-        userId: +this.cookieService.get('userId')
+    followUser(postAuthorId: number): void {
+      let newFollow: Follow = {
+      followedUser: {
+          userId: postAuthorId
+      },
+      followerUser: {
+          userId: +this.cookieService.get('userId')
+      }
     }
-  }
 
-  // add following 
-  this.followService.IWillFollow(newFollow)
-  .subscribe(()=> {
-    console.log("new follow: ", newFollow);
-  })
-}
-
+    // add following 
+    this.followService.IWillFollow(newFollow)
+    .subscribe(()=> {
+      
+    })
+  } 
 }

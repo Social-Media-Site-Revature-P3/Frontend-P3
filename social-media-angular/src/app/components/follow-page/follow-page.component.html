@@ -1,10 +1,16 @@
 <div [ngClass]="['sidebyside', 'user-stats']">
-   <p (click)="displayFollowers()"> {{followerListUsers.length}}  Followers</p> 
-    
+<p>{{followerListUsers.length}}</p> 
+
 </div>
+
+<div [ngClass]="['sidebyside', 'user-stats']">
+    <p (click)="displayFollowers()" style="cursor: pointer; text-decoration: underline; margin-left: 5px;">Followers</p> 
+</div>
+
 <div style="margin-left: 25px"[ngClass]="['sidebyside', 'user-stats']">
-    <p (click)="displayFollowing()" > {{followingListUsers.length}}  Following</p>
-
+    <p>{{followingListUsers.length}}</p>
 </div>
-    
 
+<div [ngClass]="['sidebyside', 'user-stats']">
+    <p (click)="displayFollowing()" style="cursor: pointer; text-decoration: underline; margin-left: 5px;">Following</p>
+</div>

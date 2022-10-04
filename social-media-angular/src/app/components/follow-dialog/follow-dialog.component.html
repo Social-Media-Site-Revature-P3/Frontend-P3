@@ -1,0 +1,42 @@
+<h1> {{data.followTitle}}</h1>
+<ng-container *ngIf="data.follow == 'follower'">
+    <div *ngFor="let follow of data.followUserList">
+        <mat-card-header style="display: flex; justify-content: space-between; border-bottom: 1px solid black;">
+            <mat-card-title>
+                <div class="user">
+                    <img mat-card-avatar style="margin-right: 15px;" *ngIf="follow.followerUser.profilePicture == null || follow.followerUser.profilePicture==''" class="header-image">
+                    <img mat-card-avatar style="margin-right: 15px;" *ngIf="follow.followerUser.profilePicture != null && follow.followerUser.profilePicture!=''" class="header-image"  src="{{ follow.followerUser.profilePicture }}">
+                </div>
+                <div class="user">
+                    {{follow.followerUser.firstName}} {{follow.followerUser.lastName}}
+                    <mat-card-subtitle *ngIf="follow.followerUser.nickname != null">@{{follow.followerUser.nickname}}</mat-card-subtitle>
+                </div>
+            </mat-card-title>
+            <app-follow-button [userId]="follow.followerUser.userId"></app-follow-button>
+        </mat-card-header>
+        <br> 
+    </div>
+</ng-container>
+<ng-container *ngIf="data.follow == 'following'">
+    <div *ngFor="let follow of data.followUserList">
+        <mat-card-header style="display: flex; justify-content: space-between; border-bottom: 1px solid black;">
+            <mat-card-title>
+                <div class="user">
+                    <img mat-card-avatar style="margin-right: 15px;" *ngIf="follow.followedUser.profilePicture == null || follow.followedUser.profilePicture==''" class="header-image">
+                    <img mat-card-avatar style="margin-right: 15px;" *ngIf="follow.followedUser.profilePicture != null && follow.followedUser.profilePicture!=''" class="header-image"  src="{{ follow.followedUser.profilePicture }}">
+                </div>
+                <div class="user">
+                    {{follow.followedUser.firstName}} {{follow.followedUser.lastName}}
+                    <mat-card-subtitle *ngIf="follow.followedUser.nickname != null">@{{follow.followedUser.nickname}}</mat-card-subtitle>
+                </div>
+            </mat-card-title>
+            <app-follow-button [userId]="follow.followedUser.userId"></app-follow-button>
+        </mat-card-header>
+        <br> 
+    </div>
+</ng-container>
+
+
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Close</button>
+</div>
