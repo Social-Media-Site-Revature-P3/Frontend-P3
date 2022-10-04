@@ -7,14 +7,24 @@
     border : 2px solid #E4E4E4;
     display : flex;
     padding : 0.3em;
-    transition : width 0.5s ease-in;
+    transition : .5s;
     float : center;
     position: relative;
 }
 
-.search-input { 
+::placeholder {
+    color: black;
+    opacity: 1;
+}
+
+input.search-input { 
     width: 1000px;
     float : right;
+    transition : .5s;
+}
+
+button.search-icon {
+    transition : .5s;
 }
 
 #content {
