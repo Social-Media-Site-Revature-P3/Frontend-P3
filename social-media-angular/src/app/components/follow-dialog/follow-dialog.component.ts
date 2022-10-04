@@ -27,9 +27,17 @@ export class FollowDialogComponent implements OnInit {
   display(userId: number): void
   {
     console.log("DISPLAY UserID: ", userId)
+    
     this.onNoClick();
 
-    this.router.navigate(['/profile/', userId], { replaceUrl: true });
+    this.router.navigate(['/profile/', userId], { replaceUrl: true })
+    .then(
+      ()=> 
+      {
+        window.location.reload();
+      }
+    )
+
     
   }
 }

@@ -81,7 +81,7 @@ export class UserProfileComponent implements OnInit {
   });
   createPost: Post;
   userId: number = +this.cookieService.get('userId')
-  pageUserId = 9
+  pageUserId = 1
 
   dialog: MatDialog;
 
@@ -144,18 +144,18 @@ export class UserProfileComponent implements OnInit {
   }
 
 
-  followUser() {
-    //INCOMPLETE FUNCTION 
-    //need Jaeshas code to function
+  // followUser() {
+  //   //INCOMPLETE FUNCTION 
+  //   //need Jaeshas code to function
 
-    let name = this.authService.currentUser.firstName; 
-    this._followService.IWillFollow(this.nowFollowing).subscribe(data => {
-      this.nowFollowing = data;
-    alert("You are now following " + name);
+  //   let name = this.authService.currentUser.firstName; 
+  //   this._followService.IWillFollow(this.nowFollowing).subscribe(data => {
+  //     this.nowFollowing = data;
+  //   alert("You are now following " + name);
 
-    })
+  //   })
 
-  }
+  // }
 
 
   submitPost(){
