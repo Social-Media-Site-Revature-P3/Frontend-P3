@@ -18,7 +18,7 @@
             <div style="border: black 1px solid; border-radius: 5px;">
                 <mat-card-title *ngIf="post.title != null" align="center" style="margin-top: 5px;">{{post.title}}</mat-card-title>
                 <br>
-                <p style="margin-left: 10px">{{post.text}}</p> 
+                <p style="margin-left: 10px; margin-right: 10px;">{{post.text}}</p> 
             </div><br>
 
             <img mat-card-image *ngIf="post.imageUrl != ''" src="{{ post.imageUrl }}" alt="Post Image">
@@ -35,15 +35,15 @@
                       </mat-form-field>
                     <div align="end">
                       <button mat-raised-button color="warn" (click)="toggleEditToPost()">Cancel</button>
-                      <button mat-raised-button color="warn" (click)="deletePost()">Delete</button>
-                      <button mat-raised-button color="primary" type="submit">Edit</button>
+                      <button mat-raised-button color="warn" (click)="deletePost()" style="margin-left: 8px">Delete</button>
+                      <button mat-raised-button color="primary" type="submit" style="margin-left: 8px">Submit</button>
                     </div>
                 </form>
             </div>
         </mat-card-content>
         <mat-card-actions align="end">
 
-            <app-likes [postId]="post.postId"></app-likes>
+            <app-likes [postId]="post.postId" style="margin-left: 8px"></app-likes>
             <button mat-raised-button *ngIf="creatorUser" color="primary" (click)="toggleEditToPost()">Edit</button>
             <button mat-raised-button color="primary" (click)="toggleReplyToPost()">Reply</button>
         </mat-card-actions>
@@ -62,7 +62,7 @@
             </mat-form-field>
             <div align="end">
                 <button mat-raised-button color="warn" (click)="toggleReplyToPost()">Cancel</button>
-                <button mat-raised-button color="primary" type="submit">Post</button>
+                <button mat-raised-button color="primary" type="submit" style="margin-left: 8px">Post</button>
             </div>
         </form>
         <div *ngIf="showComments ==true">
@@ -70,8 +70,5 @@
             <mat-divider></mat-divider>
             <app-comment [comment]="comment" (delete)="deleteComment($event)"></app-comment>
         </div>  </div>
-        <mat-card-actions align="end">
-            <button mat-raised-button color="primary" *ngIf="showComments==true" (click)="toggleComments()" >Hide Comments</button>
-        </mat-card-actions>
     </mat-card>
 </div>
