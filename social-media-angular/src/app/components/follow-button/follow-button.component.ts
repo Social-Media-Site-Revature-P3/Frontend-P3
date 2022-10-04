@@ -25,6 +25,7 @@ export class FollowButtonComponent implements OnInit {
 
   ngOnInit(): void {
     // check to see if the user has followes someone 
+    this.followthisUser = Number(this.followthisUser);
     this.currentUserId = +this.cookieService.get('userId');
     this.checkFollowingStatus();
   }
@@ -48,24 +49,49 @@ export class FollowButtonComponent implements OnInit {
     this.followService.IWillFollow(newFollow)
     .subscribe(follow => {
       this.follow = follow;
+      window.location.reload();
     })
 
+
     this.followeduser = true;
+    
+
+    
   }
 
   unfollowUser(): void{
-    // need to get the follow and then delete it 
     this.followService.StopFollowingMe(this.follow.followId!).subscribe();
-    this.followeduser = false;
+    this.followeduser = false; 
+    window.location.reload();
   }
 
   checkFollowingStatus():void
   {
-    this.followService.TheyAreFollowing(this.currentUserId).subscribe((follows: Follow[]) => {
-      for(let follow of follows) {
-        if(follow.followedUser.userId == this.followthisUser) {
-          this.followeduser = true;
-          this.follow = follow;
+
+    // check to see if they follow them 
+    this.followService.WhoFollowsWho()
+    .subscribe
+    (
+      (followLists: Follow[])=>
+      {
+        for(var follow of followLists)
+        {
+          console.log(" BEFORE IF FOLLOWING: ", this.followeduser)
+          console.log("FOLLOW THIS PERSON :", this.followthisUser)
+          console.log("FOLLOW YOU  :", this.currentUserId)
+          if(follow.followedUser.userId == this.followthisUser && follow.followerUser.userId == this.currentUserId)
+          {
+
+            this.followeduser = true;
+            console.log(" AFTER IF FOLLOWING: ", this.followeduser)
+          }
+
+    //this.followService.TheyAreFollowing(this.currentUserId).subscribe((follows: Follow[]) => {
+      //for(let follow of follows) {
+        //if(follow.followedUser.userId == this.followthisUser) {
+          //this.followeduser = true;
+          //this.follow = follow;
+
         }
       }
     })
