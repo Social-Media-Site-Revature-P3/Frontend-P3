@@ -36,6 +36,7 @@ export class ChangePasswordComponent implements OnInit {
   showPasswordForm: boolean = false;
   showEmailForm: boolean = true;
   notConfirmPassword: boolean = false;
+  answer: boolean = true;
 
   constructor(
     private authService: AuthService,
@@ -72,7 +73,7 @@ export class ChangePasswordComponent implements OnInit {
                     this.showPasswordForm = true;
                     this.showSecurityForm = false;
                   } else {
-                    console.log('wrong');
+                    this.answer = false;
                   }
                 },
               });
