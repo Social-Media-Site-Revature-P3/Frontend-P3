@@ -1,0 +1,8 @@
+<div *ngIf="!followeduser">
+    <button mat-raised-button color="primary" (click)="followUser()">Follow</button>
+</div>
+
+<div *ngIf="followeduser">
+    
+    <button mat-raised-button color="primary" (click)="unfollowUser()">Unfollow</button>
+</div>

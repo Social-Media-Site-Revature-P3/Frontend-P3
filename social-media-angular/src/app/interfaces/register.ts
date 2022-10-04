@@ -4,4 +4,5 @@ export interface Register {
     firstName: string;
     lastName: string;
     nickname?: string;
+    picture: string;
 }

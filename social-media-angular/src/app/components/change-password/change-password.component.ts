@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { SecurityQuestion } from 'src/app/interfaces/security-question';
 import { User } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { PopupmsgService } from 'src/app/services/popupmsg.service';
 import { SecurityService } from 'src/app/services/security.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -19,16 +20,15 @@ export class ChangePasswordComponent implements OnInit {
 
   emailForm = new FormGroup({
     email: new FormControl('', [Validators.required]),
-  });
-
-  securityForm = new FormGroup({
+    securityQuestion: new FormControl('', [Validators.required]),
     securityAnswer: new FormControl('', [Validators.required]),
   });
 
   createPasswordForm = new FormGroup({
-    newPassword: new FormControl('', [Validators.required]),
-    confirmPassword: new FormControl('', [Validators.required])
-  })
+    newPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    confirmPassword: new FormControl('', [Validators.required]),
+  });
+
   user: User | any;
   emailPasswordError: boolean = false;
   securityQuestion: SecurityQuestion[] | any = [];
@@ -40,6 +40,7 @@ export class ChangePasswordComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private userService: UserService,
+    private popupService: PopupmsgService,
     private securityservice: SecurityService,
     private router: Router
   ) {}
@@ -59,10 +60,20 @@ export class ChangePasswordComponent implements OnInit {
               .getSecurityQuestionsByUserId(userId)
               .subscribe({
                 next: (data) => {
-                  this.showSecurityForm = true;
-                  this.showEmailForm = false;
-                  this.showPasswordForm = false;
                   this.securityQuestion = data;
+                  if (
+                    (this.emailForm.get('securityQestion')?.value ==
+                      this.securityQuestion[0].question,
+                    this.emailForm.get('securityAnswer')?.value ==
+                      this.securityQuestion[0].answer)
+                  ) {
+                    console.log('correct');
+                    this.showEmailForm = false;
+                    this.showPasswordForm = true;
+                    this.showSecurityForm = false;
+                  } else {
+                    console.log('wrong');
+                  }
                 },
               });
           },
@@ -74,27 +85,8 @@ export class ChangePasswordComponent implements OnInit {
       this.emailForm.markAllAsTouched();
     }
   }
-  onSubmitSecurity(e: any): void {
-    e.preventDefault;
-    if (this.securityForm.valid) {
-      console.log('test');
-      if (
-        this.securityForm.get('securityAnswer')?.value ==
-        this.securityQuestion[0].answer
-      ) {
-        console.log('correct');
-        this.showEmailForm = false;
-        this.showPasswordForm = true;
-        this.showSecurityForm = false;
-      } else {
-        console.log('wrong');
-      }
-    } else {
-      this.securityForm.markAllAsTouched();
-    }
-  }
 
-  onSubmitPassword(e: any): void{
+  onSubmitPassword(e: any): void {
     e.preventDefault;
     if (this.createPasswordForm.valid) {
       if (
@@ -103,16 +95,16 @@ export class ChangePasswordComponent implements OnInit {
       ) {
         this.user.password = this.createPasswordForm.get('newPassword')?.value;
         this.userService.UpdateUser(this.user).subscribe({
-          next: data => {
+          next: (data) => {
+            this.popupService.setMessage("Your password is changed!");
             this.router.navigate(['login']);
-          }
-        })
-
+          },
+        });
       } else {
         this.notConfirmPassword = true;
       }
     } else {
-      this.securityForm.markAllAsTouched();
+      this.createPasswordForm.markAllAsTouched();
     }
   }
 }
