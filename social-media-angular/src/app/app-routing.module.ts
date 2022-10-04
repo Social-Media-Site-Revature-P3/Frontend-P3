@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: "post-feed", component: PostFeedPageComponent},
   { path: "bookmark-page", component: BookmarkPageComponent},
   { path: "follow-page", component: FollowPageComponent},
-  { path: "profile", component: UserProfileComponent},
+  { path: "profile/:userId", component: UserProfileComponent},
   { path: "edit-profile", component: EditProfileComponent},
   { path: "likes", component: LikesComponent },
   { path: "forgetpassword", component: ChangePasswordComponent}

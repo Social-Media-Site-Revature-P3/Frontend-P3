@@ -16,7 +16,9 @@ import { FollowDialogComponent } from 'src/app/follow-dialog/follow-dialog.compo
 })
 export class FollowPageComponent implements OnInit {
 
-  @Input('userId') userId : number ; 
+  @Input('userId') userId : number; 
+  // userId:number = 0; 
+
   currentUserDisplay: User = {
     userId: 0,
     email: "",
@@ -44,6 +46,7 @@ export class FollowPageComponent implements OnInit {
 
   ngOnInit(): void {
 
+    // this.userId = this.router.snapshot.params['userId'];
     console.log("USER ID: ", this.userId);
 
     this.displayCount();
@@ -51,15 +54,18 @@ export class FollowPageComponent implements OnInit {
 
   displayCount(): void
   {
-    // following 
+    //following 
+    console.log("USER ID 1: ", this.userId);
     this.followService.WhoFollowsWho()
     .subscribe(
       (data: Follow[])=> 
       {
+        console.log("USER ID 2: ", this.userId);
         for(var follow of data)
         {
           if(follow.followedUser.userId === this.userId)
           {
+            console.log("USER ID 3: ", this.userId);
             // follower 
             this.userService.GetUser(follow.followerUser.userId)
             .subscribe(
@@ -82,13 +88,70 @@ export class FollowPageComponent implements OnInit {
             )
           }
         }
-
-        
-
-        
+  
       }
     )
 
+
+    // console.log("USER ID 1: ", this.userId);
+    // // gets the users that are following this user 
+    // this.followService.followThemAll(this.userId)
+    // .subscribe(
+    // (data: Follow[])=> 
+    // {
+    //   console.log("USER ID 2: ", this.userId);
+    //   console.log(" FOLLOW THEM ALL: ", data)
+    //   for(var follow of data)
+    //   {
+    //     console.log("USER ID 3: ", this.userId);
+    //     //since they will be a follower of themselves avoids the following 
+    //     if(this.userId !== follow.followerUser.userId)
+    //     {
+    //       this.userService.GetUser(follow.followerUser.userId)
+    //       .subscribe(
+    //         (user: User)=> 
+    //         {
+    //           this.followerListUsers.push(user)
+    //         }
+    //       )
+    //     }
+            
+
+    //   }
+    // }
+
+    // )
+
+    // console.log("USER ID: ", this.userId);
+    // // gets a list of users they are following 
+    // this.followService.TheyAreFollowing(this.userId)
+    // .subscribe(
+    //   (data: Follow[])=> 
+    //   {
+    //     console.log(" THEY ARE FOLLOWING DATA: ", data)
+    //     for(var follow of data)
+    //     {
+          
+    //       //since they will be following themselves avoids counting themselves 
+    //       if(this.userId !== follow.followedUser.userId)
+    //       {
+    //         this.userService.GetUser(follow.followedUser.userId)
+    //         .subscribe(
+    //           (user: User)=> 
+    //           {
+    //             this.followingListUsers.push(user)
+    //           }
+    //         )
+    //       }
+            
+
+    //     }
+    //   }
+    // )
+
+
+    
+    
 
   }
 
