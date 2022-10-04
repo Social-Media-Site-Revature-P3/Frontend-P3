@@ -23,6 +23,7 @@ import { BookmarkPageComponent } from './components/bookmark-page/bookmark-page.
 import { LikesComponent } from './components/likes/likes.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { CookieService } from 'ngx-cookie-service';
+import {ClickOutsideDirective} from './clickOutside.directive'
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { CookieService } from 'ngx-cookie-service';
     LikesComponent,
     ChangePasswordComponent,
     EditProfileComponent,
+    ClickOutsideDirective,
   ],
   imports: [
     BrowserModule,
