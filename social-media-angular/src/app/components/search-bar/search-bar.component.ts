@@ -41,9 +41,7 @@ fullName : Name = {
   }
 
 
-  hideSearch() {
-    this.showSearch = false
-  }
+
 
   searchUser() {
     let searchTerm = this.searchTerm.split(' ');
@@ -65,10 +63,12 @@ fullName : Name = {
     }
   }
 
-  onClickShowSearch(){
-    this.showSearch = true;
+  onClickShowSearch(): void {
+    this.showSearch = !this.showSearch;
   }
-
+  clickOutside() {
+    this.showSearch = false;
+  }
   goToUserProfile(i: number){
 
   }
