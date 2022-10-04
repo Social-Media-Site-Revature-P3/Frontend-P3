@@ -26,7 +26,7 @@ export class CommentComponent implements OnInit {
   creatorUser: boolean = false;
   
   user: User = {
-    userId: undefined,
+    userId: 0,
     email: '',
     password: '',
     firstName: '',

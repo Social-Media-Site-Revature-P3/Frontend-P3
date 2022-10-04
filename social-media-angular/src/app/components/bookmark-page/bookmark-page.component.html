@@ -3,7 +3,14 @@
 
 
 <!-- needs an ngFor -->
+<div>
+    <app-navbar></app-navbar>
+</div>
 
-<div id="post-feed" *ngFor="let post of usersBookmarkPosts">
-    <app-post [post]="post"></app-post>
+<div align="center">
+    <h1> {{user.firstName}}'s Bookmarks </h1>
+    <h2>{{usersBookmarkPosts.length}} Bookmarked Posts</h2>
+    <div id="post-feed" *ngFor="let post of usersBookmarkPosts">
+        <app-post [post]="post"></app-post>
+    </div>
 </div>
