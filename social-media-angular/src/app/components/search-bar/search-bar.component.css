@@ -28,7 +28,7 @@ mat-card:hover{
 
 mat-card{
   justify-content: center;
-
+  height: 150px;
 }
 
 .page-section{
@@ -42,9 +42,10 @@ z-index: 1000;
 }
 
 .search-image {
-  position : relative;
-  width : 40px;
-  height : 40px;
+  position: relative;
+    width: 140px;
+    height: 140px;
+    top: 4.5px;
 }
 
 .search.active {
@@ -72,6 +73,10 @@ display: list-item;
   left: 550px;
 }
 
+img{
+  width: 100px;
+  height: 100px;
+}
 .search-result.active{
 position: relative;
 display: list-item;
@@ -80,10 +85,6 @@ max-width: 4rem;
 height: 4000px;
 }
 
-.search-image {
-max-width: 16rem;
-margin-right: 3rem;
-}
 
 .search-result-content {
 font-size: 2.5rem;
@@ -114,7 +115,7 @@ padding: 15px;
 width: 100%;
 width: 1000px;
 z-index: 1001;
-
+height: 150px;
 }
 
 .mat-form-field-flex {
@@ -125,6 +126,29 @@ z-index: 1001;
   flex-direction: column;
   flex-wrap: nowrap;
   align-content: center;
-  -webkit-tap-highlight-color: rgb(255, 115, 0);
+}
+.nickname{
+  position: absolute;
+  justify-content: center;
+  top: 80px;
+  left: 250px;
+  font-size: 24px;
+  color: rgb(0, 26, 255);
+}
+.name{
+  position: absolute;
+  top: 20px;
+  justify-content: center;
+  font-size: 36px;
+  left: 200px;
 }
 
+.aboutMe{
+  position: absolute;
+  top: 20px;
+  justify-content: center;
+  font-size: 18px;
+  right: 400px;
+  max-width: 395px;
+  max-height: 110px;
+}

@@ -10,8 +10,10 @@
            <a  (click)="goToUserProfile(user.userId!);" [routerLink]="['/user']"
             [queryParams]="{id: user.userId}">
             <mat-card>
-            <picture> <img class="search-image" [src]="user.profilePicture"> {{user.firstName}} {{user.lastName}}
+            <picture> <img class="search-image" [src]="user.profilePicture"><div class="name"> {{user.firstName}} {{user.lastName}}</div>
             </picture>
+            <div class="nickname"> {{user.nickname}}</div>
+            <div class="aboutMe"> {{user.aboutMe}}</div>
           </mat-card>
           </a>
         </mat-nav-list>
