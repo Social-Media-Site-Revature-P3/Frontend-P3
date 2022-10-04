@@ -3,7 +3,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 import { Post } from 'src/app/interfaces/post';
 import { Follow } from 'src/app/interfaces/follow';
@@ -27,7 +27,8 @@ export class UserProfileComponent implements OnInit {
 
   // constructor(private authService: AuthService, private dialog: MatDialog) { }
   constructor(private authService: AuthService, public service: UserService, router: Router,
-     public postService: PostService, public followService: FollowService, private cookieService: CookieService) {
+     public postService: PostService, public followService: FollowService, private cookieService: CookieService, 
+     private activatedRouter: ActivatedRoute) {
     this._authService = authService;
     this._userService = service;
     this._router = router;
@@ -72,7 +73,6 @@ export class UserProfileComponent implements OnInit {
   posts: Post[] = [];
   follower: Follow[] = [];
   following: Follow[] = [];
-  userId: number;
   nowFollowing: Follow;
   postInput = new FormGroup({
     title: new FormControl('', [Validators.required]),
@@ -80,26 +80,33 @@ export class UserProfileComponent implements OnInit {
     imageUrl: new FormControl('', [Validators.required])
   });
   createPost: Post;
+  userId: number = +this.cookieService.get('userId')
+  pageUserId = 9
 
   dialog: MatDialog;
 
   ngOnInit(): void {
-    let userId: number = +this.cookieService.get('userId');
+    // this.postInput = new FormControl()
+
+    //How are we storing userId? If storing the userId in local storage:
+    //this.currentUserId = Number(localStorage.getItem("currentUserId"));
+    let userId: number = this.activatedRouter.snapshot.params['userId'];
+    // this.service.setPageUser(userId);
     this.service.GetUser(userId).subscribe(data => {
       this.user = data;
     })
 
-    this._postService.getByOriginalPost(userId).subscribe(data => {
+    this._postService.getByOriginalPost(this.userId).subscribe(data => {
       this.posts = data;
       this.posts.sort((a,b) => {
         return <any>new Date(b.createDateTime!) - <any>new Date(a.createDateTime!)
       })
 
-      this._followService.TheyAreFollowing(userId).subscribe(data =>{
+      this._followService.TheyAreFollowing(this.userId).subscribe(data =>{
         this.follower = data;
       })
 
-      this._followService.followThemAll(userId).subscribe(data => {
+      this._followService.followThemAll(this.userId).subscribe(data => {
         this.following = data;
       })
     })
@@ -113,7 +120,6 @@ export class UserProfileComponent implements OnInit {
 
     this.service.GetUser(searchedUserId).subscribe(data => {
       this.user = data;
-      console.log("Get Request working for user with user ID of:" + data.userId)
     })
 
     this._postService.getByOriginalPost(searchedUserId).subscribe(data => {

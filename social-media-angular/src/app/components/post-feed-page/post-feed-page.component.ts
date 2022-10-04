@@ -34,7 +34,6 @@ export class PostFeedPageComponent implements OnInit {
     this.userId = +this.cookieService.get('userId');
     this.followService.TheyAreFollowing(this.userId).subscribe((follows: Follow[]) => {
       for(let follow of follows){
-        console.log(follow.followedUser.userId)
         this.postService.getByOriginalPost(follow.followedUser.userId).subscribe(response =>{
           this.posts = this.posts.concat(response)
           this.posts.sort((a,b) => {
@@ -65,7 +64,7 @@ export class PostFeedPageComponent implements OnInit {
   
   submitPost = (e: any) => {
     e.preventDefault();
-    this.post.title = this.postForm.value.title || ""
+    this.post.title = this.postForm.value.title||""
     this.post.text =this.postForm.value.text || ""
     this.post.imageUrl =  this.postForm.value.imageUrl || ""
     this.post.comment = false

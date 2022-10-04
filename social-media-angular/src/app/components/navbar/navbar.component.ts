@@ -11,10 +11,13 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit{
+  private isDark = false;
 
+  userId: number = 0;
   constructor(private authService: AuthService, private router: Router, private cookieService: CookieService) { }
   
   ngOnInit(): void {
+    this.userId = +this.cookieService.get('userId');
   }
 
   ngOnDestroy() {
@@ -26,4 +29,7 @@ export class NavbarComponent implements OnInit{
     this.router.navigate(['login']);
   }
 
-}
+  swapTheme() {
+      document.body.classList.toggle("darkMode");
+    }
+  }

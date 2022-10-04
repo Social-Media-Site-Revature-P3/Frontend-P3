@@ -1,9 +1,16 @@
 <div [ngClass]="['sidebyside', 'user-stats']">
-   <p> {{followerListUsers.length}} <button mat-raised-button color="primary" (click)="displayFollowers()"> Followers</button></p> 
-    
-</div>
-<div [ngClass]="['sidebyside', 'user-stats']">
-    <p> {{followingListUsers.length}} <button mat-raised-button color="primary" (click)="displayFollowing()"> Following</button> </p>
+<p>{{followerListUsers.length}}</p> 
 
 </div>
-    
+
+<div [ngClass]="['sidebyside', 'user-stats']">
+    <p (click)="displayFollowers()" style="cursor: pointer; text-decoration: underline; margin-left: 5px;">Followers</p> 
+</div>
+
+<div style="margin-left: 25px"[ngClass]="['sidebyside', 'user-stats']">
+    <p>{{followingListUsers.length}}</p>
+</div>
+
+<div [ngClass]="['sidebyside', 'user-stats']">
+    <p (click)="displayFollowing()" style="cursor: pointer; text-decoration: underline; margin-left: 5px;">Following</p>
+</div>

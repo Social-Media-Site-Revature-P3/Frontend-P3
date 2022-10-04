@@ -28,7 +28,7 @@ export class PostComponent implements OnInit {
   replyToPost: boolean = false;
   editToPost: boolean=false;
   creatorUser: boolean=false;
-
+  showComments: boolean=false;
   comments: Post[] = []; 
  
   constructor(private cookieService: CookieService,
@@ -42,8 +42,6 @@ export class PostComponent implements OnInit {
     if(this.post.user.userId==this.cookieService.get('userId')){
       this.creatorUser= true
     }
-
-    console.log(this.creatorUser)
 
    this.userService.GetUser(this.post.user.userId).subscribe({
      next: user => {
@@ -59,6 +57,9 @@ export class PostComponent implements OnInit {
 
   }
 
+    toggleComments=()=>{
+      this.showComments= !this.showComments
+    }
   newPost: Post = {
     text:  "",
     title: "",
@@ -122,7 +123,9 @@ export class PostComponent implements OnInit {
     this.newPost.user.userId = +this.cookieService.get('userId');
     this.newPost.comment = false
     this.postService.updatePost(this.newPost, this.post.postId).subscribe((response) => {
-      this.toggleReplyToPost()
+      this.post.text = this.newPost.text
+      this.toggleEditToPost()
+
     })
 
   }
@@ -155,9 +158,7 @@ export class PostComponent implements OnInit {
       };
 
       this.bookMarkService.SaveBookmark(newBookMark)
-      .subscribe(
-        ()=> {console.log("Created a bookmark for postId: ",newBookMark)
-      });
+      .subscribe();
     }
 
     followUser(postAuthorId: number): void {
@@ -173,7 +174,7 @@ export class PostComponent implements OnInit {
     // add following 
     this.followService.IWillFollow(newFollow)
     .subscribe(()=> {
-      console.log("new follow: ", newFollow);
+      
     })
   } 
 }

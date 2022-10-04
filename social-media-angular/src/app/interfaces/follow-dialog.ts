@@ -1,6 +1,6 @@
-import { User } from "./user";
+import { Follow } from "./follow";
 export interface FollowDialog {
-    
     followTitle: string;
-    followUserList: User[];
+    followUserList: Follow[];
+    follow: string;
 }
