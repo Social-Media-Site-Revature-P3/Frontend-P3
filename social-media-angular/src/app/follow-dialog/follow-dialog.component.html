@@ -1,0 +1,15 @@
+<h1> {{data.followTitle}}</h1>
+<div *ngFor="let user of data.followUserList">
+    <mat-card-header>
+        <img mat-card-avatar *ngIf="user.profilePicture == null || user.profilePicture==''" class="header-image">
+        <img mat-card-avatar *ngIf="user.profilePicture != null && user.profilePicture!=''" class="header-image"  src="{{ user.profilePicture }}">
+        <mat-card-title>{{user.firstName}} {{user.lastName}}</mat-card-title>
+        <mat-card-subtitle *ngIf="user.nickname != null">@{{user.nickname}}</mat-card-subtitle>
+
+    </mat-card-header>
+    <br> 
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Close</button>
+</div>

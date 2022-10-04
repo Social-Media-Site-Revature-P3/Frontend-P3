@@ -15,6 +15,7 @@ export class UserService {
 
   //baseurl = 'http://localhost:8080/users';
   baseurl = `${environment.baseUrl}/users`;
+ 
 
   userResult: any;
 
@@ -24,6 +25,8 @@ export class UserService {
       'Content-Type': 'application/json'
     })
   }
+
+  
 
   //Find user by User ID
   GetUser(userId: number): Observable<User> {
