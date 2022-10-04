@@ -80,6 +80,7 @@ export class UserProfileComponent implements OnInit {
   });
   createPost: Post;
   userId: number = +this.cookieService.get('userId')
+  pageUserId = 9
 
   dialog: MatDialog;
 
