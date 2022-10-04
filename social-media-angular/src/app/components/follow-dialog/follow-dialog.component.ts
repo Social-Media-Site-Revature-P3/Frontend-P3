@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 import { FollowDialog } from 'src/app/interfaces/follow-dialog';
 
@@ -11,10 +12,13 @@ import { FollowDialog } from 'src/app/interfaces/follow-dialog';
 })
 export class FollowDialogComponent implements OnInit {
 
+  userId: number;
+
   constructor(public dialogDisplay: MatDialogRef<FollowDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data : FollowDialog, private router: Router ) { }
+    @Inject(MAT_DIALOG_DATA) public data : FollowDialog, private router: Router, private cookieService: CookieService ) { }
 
   ngOnInit(): void {
+    this.userId = +this.cookieService.get('userId')
   }
 
   onNoClick(): void

@@ -1,6 +1,5 @@
 <div [ngClass]="['sidebyside', 'user-stats']">
-<p>{{followerListUsers.length}}</p> 
-
+    <p>{{followerListUsers.length - 1}}</p> 
 </div>
 
 <div [ngClass]="['sidebyside', 'user-stats']">
@@ -8,7 +7,7 @@
 </div>
 
 <div style="margin-left: 25px"[ngClass]="['sidebyside', 'user-stats']">
-    <p>{{followingListUsers.length}}</p>
+    <p>{{followingListUsers.length - 1}}</p>
 </div>
 
 <div [ngClass]="['sidebyside', 'user-stats']">

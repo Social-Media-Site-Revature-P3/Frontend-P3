@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { User } from 'src/app/interfaces/user';
@@ -25,7 +25,6 @@ export class UserProfileComponent implements OnInit {
   _followService: FollowService;
   currentUserId: number;  
 
-  // constructor(private authService: AuthService, private dialog: MatDialog) { }
   constructor(private authService: AuthService, public service: UserService, router: Router,
      public postService: PostService, public followService: FollowService, private cookieService: CookieService, 
      private activatedRouter: ActivatedRoute) {
@@ -109,36 +108,6 @@ export class UserProfileComponent implements OnInit {
     })
   }
 
-
-  userBeingViewedProfile() {
-    let searchedUserId: number = 2;
-
-    //storing viewed User ID in local storage.
-
-    this.service.GetUser(searchedUserId).subscribe(data => {
-      this.user = data;
-    })
-
-    this._postService.getByOriginalPost(searchedUserId).subscribe(data => {
-      this.posts = data;
-      this.posts.sort((a,b) => {
-        return <any>new Date(b.createDateTime!) - <any>new Date(a.createDateTime!)
-      })
-   
-    })
-
-    this._followService.TheyAreFollowing(searchedUserId).subscribe(data =>{
-    this.follower = data;
-    console.log("theyAreFollowing method working" + data);
-
-    })
-
-    this._followService.followThemAll(searchedUserId).subscribe(data => {
-    this.following = data;
-    console.log("followThemAll method working")
-    })
-  }
-
   submitPost(){
     this.createPost ={
       title: this.postInput.value.title || "",
@@ -149,9 +118,5 @@ export class UserProfileComponent implements OnInit {
     }
   }
     this._postService.postPost(this.createPost).subscribe((res: any)=> {console.log(res)})
-    console.log(this.postInput.value)
-  
-
   }
-
 }
