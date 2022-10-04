@@ -43,6 +43,9 @@ export class FollowPageComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
+    // this.userId = this.router.snapshot.params['userId'];
+    console.log("USER ID: ", this.userId);
+
     this.displayCount();
   }
 

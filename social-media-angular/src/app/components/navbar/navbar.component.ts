@@ -12,9 +12,11 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavbarComponent implements OnInit{
 
+  userId: number = 0;
   constructor(private authService: AuthService, private router: Router, private cookieService: CookieService) { }
   
   ngOnInit(): void {
+    this.userId = +this.cookieService.get('userId');
   }
 
   ngOnDestroy() {
