@@ -50,10 +50,27 @@ export class FollowPageComponent implements OnInit, OnChanges {
   displayCount(): void
   {
     this.followService.TheyAreFollowing(this.userId).subscribe((follows: Follow[]) => {
-      this.followingListUsers = follows;
+
+      for(var follow of follows)
+      {
+        if(follow.followedUser.userId !== this.userId)
+        {
+          this.followingListUsers.push(follow)
+          console.log(follows)
+        }
+      }
+      //this.followingListUsers = follows;
     })
     this.followService.followThemAll(this.userId).subscribe((follows: Follow[]) => {
-      this.followerListUsers = follows;
+      for(var follow of follows)
+      {
+        if(follow.followerUser.userId !== this.userId)
+        {
+          this.followerListUsers.push(follow)
+          console.log(follows)
+        }
+      }
+      
     })
   }
 

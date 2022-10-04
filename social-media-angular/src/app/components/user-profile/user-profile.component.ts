@@ -79,8 +79,10 @@ export class UserProfileComponent implements OnInit {
     imageUrl: new FormControl('', [Validators.required])
   });
   createPost: Post;
-  userId: number;
-  pageUserId: number;
+
+  userId: number = this.activatedRouter.snapshot.params['userId'];
+  pageUserId = +this.cookieService.get('userId');
+
 
   dialog: MatDialog;
 
