@@ -3,6 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Name } from 'src/app/interfaces/name';
 import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-bar',
@@ -35,7 +36,9 @@ fullName : Name = {
   lastName : ''
 }
 
-  constructor(private cookieService: CookieService, private userService: UserService) { }
+  constructor(private cookieService: CookieService, private userService: UserService, public router: Router) {
+
+   }
 
   ngOnInit(): void {
     this.userId = +this.cookieService.get('userId');
