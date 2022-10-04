@@ -26,10 +26,12 @@
           The email and password combination is incorrect
         </strong>
       </mat-card-content>
+      
       <button mat-stroked-button color="accent" class="btn-block" type="submit">Log in</button>
     </form>
 
-    <div><a class="login-rerout-link" [routerLink]="['/register']">Don't have an account?</a></div>
-    <div><a class="login-rerout-link-password" [routerLink]="['/forgetpassword']">Forget Password</a></div>
+    <div class="row omb_row-sm-offset-3">
+    <a [routerLink]="['/register']">Don't have an account?</a>
+    <a class="login-rerout-link" [routerLink]="['/forgetpassword']">Forgot Password</a></div>
   </mat-card>
 </div>

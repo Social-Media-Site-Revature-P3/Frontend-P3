@@ -5,12 +5,12 @@ import { Post } from 'src/app/interfaces/post';
 import { User } from 'src/app/interfaces/user';
 import { Comment } from 'src/app/interfaces/comment';
 import { AuthService } from 'src/app/services/auth.service';
-import { FollowService } from 'src/app/services/follow.service';
 import { PostService } from 'src/app/services/post.service';
 import { Bookmark } from 'src/app/interfaces/bookmark';
 import { BookmarkService } from 'src/app/services/bookmark.service';
 import { UserService } from "../../services/user.service";
 import { CookieService } from 'ngx-cookie-service';
+import { FollowService } from 'src/app/services/follow.service';
 
 @Component({
   selector: 'app-post',
@@ -28,6 +28,7 @@ export class PostComponent implements OnInit {
   replyToPost: boolean = false;
   editToPost: boolean=false;
   creatorUser: boolean=false;
+  showComments: boolean=false;
   comments: Post[] = []; 
  
   constructor(private cookieService: CookieService,
@@ -38,7 +39,6 @@ export class PostComponent implements OnInit {
               private bookMarkService: BookmarkService) {}
 
   ngOnInit(): void {
-    // this.cookieService.get('userId').valueOf()
     if(this.post.user.userId==this.cookieService.get('userId')){
       this.creatorUser= true
     }
@@ -53,9 +53,13 @@ export class PostComponent implements OnInit {
       next: data => this.comments = data
     })
 
-    this.getComments()
+    this.getComments();
+
   }
 
+    toggleComments=()=>{
+      this.showComments= !this.showComments
+    }
   newPost: Post = {
     text:  "",
     title: "",
@@ -65,19 +69,19 @@ export class PostComponent implements OnInit {
     user: {
         userId:  0
     }
-}
+  }
 
-commentConnect: Comment ={
-  commentId: 0,
-  postId: 0
-}
+  commentConnect: Comment ={
+    commentId: 0,
+    postId: 0
+  }
   
-toggleEditToPost=()=>{
-  if(this.replyToPost){this.toggleReplyToPost()}
-  this.commentForm.get('text')?.patchValue(this.post.text)
-  this.commentForm.get('imageUrl')?.patchValue(this.post.imageUrl)
-  this.editToPost = !this.editToPost
-}
+  toggleEditToPost=()=>{
+    if(this.replyToPost){this.toggleReplyToPost()}
+    this.commentForm.get('text')?.patchValue(this.post.text)
+    this.commentForm.get('imageUrl')?.patchValue(this.post.imageUrl)
+    this.editToPost = !this.editToPost
+  }
   toggleReplyToPost = () => {
     if(this.editToPost){this.toggleEditToPost()}
     this.commentForm.get('text')?.patchValue('')
@@ -119,7 +123,9 @@ toggleEditToPost=()=>{
     this.newPost.user.userId = +this.cookieService.get('userId');
     this.newPost.comment = false
     this.postService.updatePost(this.newPost, this.post.postId).subscribe((response) => {
-      this.toggleReplyToPost()
+      this.post.text = this.newPost.text
+      this.toggleEditToPost()
+
     })
 
   }
@@ -152,25 +158,23 @@ toggleEditToPost=()=>{
       };
 
       this.bookMarkService.SaveBookmark(newBookMark)
-      .subscribe(
-        ()=> {console.log("Created a bookmark for postId: ",newBookMark)
-      });
+      .subscribe();
     }
 
-  followUser(postAuthorId: number): void {
-    let newFollow: Follow = {
-    followedUser: {
-        userId: postAuthorId
-    },
-    followerUser: {
-        userId: +this.cookieService.get('userId')
+    followUser(postAuthorId: number): void {
+      let newFollow: Follow = {
+      followedUser: {
+          userId: postAuthorId
+      },
+      followerUser: {
+          userId: +this.cookieService.get('userId')
+      }
     }
-  }
 
-  // add following 
-  this.followService.IWillFollow(newFollow)
-  .subscribe(()=> {
-    console.log("new follow: ", newFollow);
-  })
-}
+    // add following 
+    this.followService.IWillFollow(newFollow)
+    .subscribe(()=> {
+      
+    })
+  } 
 }

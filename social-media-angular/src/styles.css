@@ -157,7 +157,7 @@ body.darkMode {
   font-size: 30px;
   margin: 0;
 }
-.login-wrapper .mat-card {
+.login-wrapper .mat-card .mat-list-item{
   padding: 40px 70px 50px;
 }
 .login-wrapper .mat-stroked-button {
@@ -354,8 +354,6 @@ body.darkMode {
 }
 
 .user-stats {
-  padding: 1em;
-  margin-left: 1em;
   position: relative;
 }
 
@@ -398,6 +396,7 @@ body.darkMode {
 .mat-button-color {
   background-color: #F26925;
   color: white;
+
   transition: var(--transition-delay);
 }
 
@@ -487,3 +486,11 @@ button.search-icon {
 .darkMode .mat-form-field-subscript-wrapper {
   display: none;
 }
+
+}
+
+.mat-card-content {
+  word-wrap: break-word;
+}
+
+

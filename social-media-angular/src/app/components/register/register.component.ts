@@ -5,6 +5,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Register } from 'src/app/interfaces/register';
 import { SecurityQuestion } from 'src/app/interfaces/security-question';
 import { SecurityService } from 'src/app/services/security.service';
+import { FollowService } from 'src/app/services/follow.service';
+import { Follow } from 'src/app/interfaces/follow';
 
 @Component({
   selector: 'app-register',
@@ -28,7 +30,8 @@ export class RegisterComponent implements OnInit {
     password:"",
     firstName: "",
     lastName: "",
-    nickname: ""
+    nickname: "",
+    picture: ""
   }
 
   securityQuestion: SecurityQuestion = {
@@ -39,9 +42,19 @@ export class RegisterComponent implements OnInit {
       userId: 0
     }
   }
+
+  follow: Follow = {
+    followedUser: {
+      userId: 0
+    },
+    followerUser: {
+      userId: 0
+    }
+  }
   constructor(
     private authService: AuthService,
     private securityService: SecurityService,
+    private followService: FollowService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -55,10 +68,10 @@ export class RegisterComponent implements OnInit {
         password: this.registerForm.value.password || "",
         firstName: this.registerForm.value.firstName || "",
         lastName: this.registerForm.value.lastName || "",
-        nickname: this.registerForm.value.nickname || ""
+        nickname: this.registerForm.value.nickname || "",
+        picture: "https://images.unsplash.com/photo-1628563694622-5a76957fd09c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aW5zdGFncmFtJTIwcHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
       }
-     
-      this.authService.register(register)
+       this.authService.register(register)
         .subscribe(
           (response) => {
             let security: SecurityQuestion = {
@@ -73,6 +86,10 @@ export class RegisterComponent implements OnInit {
                 this.router.navigate(['login'])
               }
             })
+
+            this.follow.followedUser.userId = response.userId!;
+            this.follow.followerUser.userId = response.userId!;
+            this.followService.IWillFollow(this.follow).subscribe();
           }
         )
     }else {

@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: "register", component: RegisterComponent },
   { path: "post-feed", component: PostFeedPageComponent},
   { path: "bookmark-page", component: BookmarkPageComponent},
-  { path: "follow-page/:userId/:action", component: FollowPageComponent},
+  { path: "follow-page", component: FollowPageComponent},
   { path: "profile", component: UserProfileComponent},
   { path: "edit-profile", component: EditProfileComponent},
   { path: "likes", component: LikesComponent },

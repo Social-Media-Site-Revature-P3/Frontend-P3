@@ -1,8 +1,21 @@
 <!-- Display search bar -->
-<div class="searchbar">
-    <input class="search-input" type="text" placeholder="Find a Friend!" id="myInput" name="searchTerm" [(ngModel)]="searchTerm" (keyup)="searchUser()"/>
+
+<div class="searchbar" [class.active]="showSearch">
+  <input class="input search-input" type="text" placeholder="Find a Friend!" name="searchTerm" [(ngModel)]="searchTerm"
+    (keyup)="searchUser()" (click)="onClickShowSearch()" />
+  <div class="search-result" [class.active]="showSearch">
+    <div class="page-section">
     <ng-container *ngIf="searchTerm.length!=0">
-        <div *ngFor="let user of users; let i = index" id="content" (click)="goToUserProfile(user.userId!);">{{user.firstName}}{{user.lastName}}</div>
+      <mat-nav-list *ngFor="let user of user; let i = index" class="search-hide" (clickoutside)="hideSearch()" [class.active]="showSearch">
+        <a mat-list-item class="loop-search" (click)="goToUserProfile(user.userId!);" [routerLink]="['/user']"
+        [queryParams]="{id: user.userId}">
+        <picture>
+          <img class="search-image" [src]="user.profilePicture">  {{user.firstName}} {{user.lastName}}
+        </picture>
+        </a>
+      </mat-nav-list>
     </ng-container>
-    <button class="search-icon" (click)="searchUser()">Search!</button>
+  </div>
+  </div>
+  <button class="search-icon" (click)="searchUser()">Search!</button>
 </div>

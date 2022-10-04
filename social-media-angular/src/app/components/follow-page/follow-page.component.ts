@@ -1,78 +1,115 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Follow } from '../../interfaces/follow';
 import { AuthService } from '../../services/auth.service';
 import { FollowService } from '../../services/follow.service';
 import { User } from '../../interfaces/user';
 import { UserService } from '../../services/user.service';
+import { MatDialog } from '@angular/material/dialog';
+
+import { FollowDialogComponent } from '../follow-dialog/follow-dialog.component';
+
 
 @Component({
   selector: 'app-follow-page',
   templateUrl: './follow-page.component.html',
   styleUrls: ['./follow-page.component.css']
 })
-export class FollowPageComponent implements OnInit {
+export class FollowPageComponent implements OnInit, OnChanges {
 
+  
+  currentUserDisplay: User = {
+    userId: 0,
+    email: "",
+    nickname: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    aboutMe: "",
+    profilePicture: ""
+  };
   router:ActivatedRoute;
-  followListUsers: User[] = [];
-  followHeader: string = "";
-
-  constructor(router: ActivatedRoute, private authService: AuthService, private followService: FollowService, private userService: UserService) { 
-    this.router = router;
+  followingListUsers: Follow[] = [];
+  followerListUsers: Follow[] = [];
+  followTitle: string = "";
+  
+  constructor(router: ActivatedRoute, private authService: AuthService, private followService: FollowService, private userService: UserService, private dialog: MatDialog) { 
+    
   }
+
+  @Input('userId') userId : number; 
 
   ngOnInit(): void {
-    this.displayFollow();
   }
 
-  displayFollow():void{
-    let action = parseInt(this.router.snapshot.paramMap.get('action')!, 10); 
-    let userId = parseInt(this.router.snapshot.paramMap.get('userId')!, 10); 
-
-    // 1 my followers
-    if(action === 1)
-    {
-      this.followHeader = "My Followers";
-      this.followService.followThemAll(userId)
-      .subscribe(
-        (data : Follow[])=> 
-        {
-          for(var follow of data)
-          {
-            this.userService.GetUser(follow.followerUser.userId)
-            .subscribe
-            (
-              (myFollower: User)=> 
-              {
-                this.followListUsers.push(myFollower)
-              }
-            )
-          }
-        }
-      )
-    }
-
-    // 2 who i am following 
-    else
-    {
-      this.followHeader = "Following";
-      this.followService.TheyAreFollowing(userId)
-      .subscribe(
-        (data : Follow[])=> 
-        {
-          for(var followed of data)
-          {
-            this.userService.GetUser(followed.followedUser.userId)
-            .subscribe(
-              (following: User)=> 
-              {
-                this.followListUsers.push(following)
-              }
-            )
-          }
-        }
-      )
-    }
+  ngOnChanges() {
+    this.displayCount();
   }
+
+  displayCount(): void
+  {
+    this.followService.TheyAreFollowing(this.userId).subscribe((follows: Follow[]) => {
+      this.followingListUsers = follows;
+      console.log(follows)
+    })
+    this.followService.followThemAll(this.userId).subscribe((follows: Follow[]) => {
+      this.followerListUsers = follows;
+    })
+  }
+
+  displayFollowing() {
+    this.userService.GetUser(this.userId)
+      .subscribe(
+        (user: User)=> {
+          this.currentUserDisplay = user;
+          console.log("user profile", this.currentUserDisplay)
+
+          this.followTitle = this.currentUserDisplay.firstName + "'s Following";
+          // the people who this user is following 
+          // need to be with in the display thingy : followHeader: string = ""; 
+          const dialogDisplay = this.dialog.open(FollowDialogComponent, {
+              data: {
+                followTitle: this.followTitle,
+                followUserList: this.followingListUsers,
+                follow: "following"
+              }
+            });
+          dialogDisplay.afterClosed().subscribe()
+        }
+      )
+  }
+
+  displayFollowers(): void
+  {
+    this.userService.GetUser(this.userId)
+    .subscribe(
+      (user: User)=>
+      {
+        this.currentUserDisplay = user;
+        console.log(" user profile", this.currentUserDisplay)
+
+        console.log("this.followTitle",this.followTitle)
+        this.followTitle = this.currentUserDisplay.firstName + "'s Followers";
+        // the people who this user is following 
+        // need to be with in the display thingy : followHeader: string = ""; 
+        const dialogDisplay = this.dialog.open(FollowDialogComponent, 
+          {
+            data: {
+              followTitle: this.followTitle,
+              followUserList: this.followerListUsers,
+              follow: "follower"
+            }
+          });
+
+      dialogDisplay.afterClosed()
+      .subscribe(
+        ()=> 
+        {
+        }
+      )
+      }
+    )
+  }
+
 
 }

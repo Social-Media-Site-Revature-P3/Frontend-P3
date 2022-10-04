@@ -1,15 +1,28 @@
 <div class="post-card">
     <mat-card>
-        <mat-card-header>
-            <!-- <img mat-card-avatar class="header-image" src="{{ user.profilePicture }}"> -->
-            <mat-card-title>{{post.user.firstName}} {{post.user.lastName}}</mat-card-title>
-            <mat-card-subtitle *ngIf="post.user.nickname != null">@{{post.user.nickname}}</mat-card-subtitle>
+        <mat-card-header style="display: flex; justify-content: space-between;">
+            <mat-card-title>
+                <div class="user">
+                    <img mat-card-avatar *ngIf="post.user.profilePicture != null && post.user.profilePicture!=''" style="margin-right: 15px;" class="header-image"  src="{{ post.user.profilePicture }}">
+                </div>
+                <div class="user" style="position: absolute; top: 25px">                   
+                    {{post.user.firstName}} {{post.user.lastName}}
+                    <mat-card-subtitle *ngIf="post.user.nickname != null">@{{post.user.nickname}}</mat-card-subtitle>
+                </div> 
+            </mat-card-title>
+            <app-bookmark [post]="post"></app-bookmark>
+
         </mat-card-header>
-        <img mat-card-image *ngIf="post.imageUrl != ''" src="{{ post.imageUrl }}" alt="Post Image">
-        <button class="btn-follow" (click)="followUser(post.user.userId)"> follow</button>
+        
         <mat-card-content>
-            <h3>{{post.title}}</h3>
-            <p>{{post.text}}</p>  
+            <div style="border: black 1px solid; border-radius: 5px;">
+                <mat-card-title *ngIf="post.title != null" align="center" style="margin-top: 5px;">{{post.title}}</mat-card-title>
+                <br>
+                <p style="margin-left: 10px">{{post.text}}</p> 
+            </div><br>
+
+            <img mat-card-image *ngIf="post.imageUrl != ''" src="{{ post.imageUrl }}" alt="Post Image">
+             
             <div class="comment-reply" align="right" *ngIf="creatorUser">
                 <form class="form" *ngIf="editToPost" [formGroup]="commentForm" (ngSubmit)="editPost($event)">
                   <mat-form-field class="full-width" appearance="fill">
@@ -24,12 +37,19 @@
                       <button mat-raised-button color="warn" (click)="toggleEditToPost()">Cancel</button>
                       <button mat-raised-button color="warn" (click)="deletePost()">Delete</button>
                       <button mat-raised-button color="primary" type="submit">Edit</button>
-                    </div></form></div>
+                    </div>
+                </form>
+            </div>
         </mat-card-content>
         <mat-card-actions align="end">
+
+            <app-likes [postId]="post.postId"></app-likes>
             <button mat-raised-button *ngIf="creatorUser" color="primary" (click)="toggleEditToPost()">Edit</button>
-            <button mat-raised-button color="primary" (click)="bookmarkPosts(post.postId || 0)"> bookmark</button>
             <button mat-raised-button color="primary" (click)="toggleReplyToPost()">Reply</button>
+        </mat-card-actions>
+        <mat-card-actions align="end">
+            <button mat-raised-button color="primary" *ngIf="showComments==true" (click)="toggleComments()" >Hide Comments</button>
+            <button mat-raised-button color="primary" *ngIf="showComments==false" (click)="toggleComments()">Show Comments</button>
         </mat-card-actions>
         <form class="form" *ngIf="replyToPost" [formGroup]="commentForm" (ngSubmit)="submitReply($event)">
             <mat-form-field class="full-width" appearance="fill">
@@ -45,9 +65,13 @@
                 <button mat-raised-button color="primary" type="submit">Post</button>
             </div>
         </form>
+        <div *ngIf="showComments ==true">
         <div *ngFor="let comment of comments" class="comment-container">
             <mat-divider></mat-divider>
             <app-comment [comment]="comment" (delete)="deleteComment($event)"></app-comment>
-        </div>  
+        </div>  </div>
+        <mat-card-actions align="end">
+            <button mat-raised-button color="primary" *ngIf="showComments==true" (click)="toggleComments()" >Hide Comments</button>
+        </mat-card-actions>
     </mat-card>
 </div>

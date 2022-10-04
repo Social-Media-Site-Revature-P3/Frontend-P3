@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
         .subscribe( {next: (response) => {
               this.emailPasswordError = false;
               this.authService.currentUser = response
+              console.log(response)
               this.cookieService.set('userId', response.userId!.toString(), 365, '/', 'localhost')
               this.localService.saveData('firstName', response.firstName);
               this.localService.saveData('lastName', response.lastName);
