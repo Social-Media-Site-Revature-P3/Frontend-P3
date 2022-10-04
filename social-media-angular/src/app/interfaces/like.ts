@@ -1,6 +1,6 @@
 export interface Like {
-    likedId?: number;
-    liked: boolean;
+    likeId?: number;
+    liked?: boolean;
     post: {
         postId: number
     };

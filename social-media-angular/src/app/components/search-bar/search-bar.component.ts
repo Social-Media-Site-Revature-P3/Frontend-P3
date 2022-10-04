@@ -13,8 +13,9 @@ export class SearchBarComponent implements OnInit {
 
 
   searchTerm: string = "";
-  userId : number = 0
-  users : User[] = [{
+  userId : number = 0;
+  showSearch : boolean = false;
+  user : User[] = [{
     userId : 0,
     email: '',
     nickname: '',
@@ -22,15 +23,16 @@ export class SearchBarComponent implements OnInit {
     firstName: '',
     lastName: '',
     aboutMe: '',
-  }]
-  name : Name = {
-    firstName : '',
-    lastName: 'Lash'
-  }
-  fullName : Name = {
-    firstName : '',
-    lastName : ''
-  }
+    profilePicture: ''
+}]
+name : Name = {
+  firstName : '',
+  lastName: 'Lash'
+}
+fullName : Name = {
+  firstName : '',
+  lastName : ''
+}
 
   constructor(private cookieService: CookieService, private userService: UserService) { }
 
@@ -38,26 +40,36 @@ export class SearchBarComponent implements OnInit {
     this.userId = +this.cookieService.get('userId');
   }
 
+
+  hideSearch() {
+    this.showSearch = false
+  }
+
   searchUser() {
     let searchTerm = this.searchTerm.split(' ');
-  
+
     if(searchTerm.length > 0 && searchTerm.length < 3) {
       if(searchTerm.length == 1){
         this.name.firstName = searchTerm.toString();
         this.userService.GetUsersByName(this.name).subscribe((users : User[]) => {
-          this.users = users;
+          this.user = users;
         })
       }else if(searchTerm.length == 2){
         this.fullName.firstName = searchTerm.slice(0, 1).toString();
         this.fullName.lastName = searchTerm.slice(1, 1).toString();
         this.userService.GetUsersByFullName(this.fullName).subscribe((name:User[]) => {
-          this.users = name;
+          this.user = name;
+          console.log(name)
         })
       }
     }
   }
 
+  onClickShowSearch(){
+    this.showSearch = true;
+  }
+
   goToUserProfile(i: number){
-    
+
   }
 }

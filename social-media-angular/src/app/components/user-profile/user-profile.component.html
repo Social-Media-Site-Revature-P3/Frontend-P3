@@ -8,10 +8,10 @@
                 <div class="user-circle"></div>
             </ng-template>
             <mat-divider></mat-divider>
-            <p style="padding-top: 1em; font-weight: bold;">
+            <p class="profile-card-text" style="padding-top: 1em; font-weight: bold;">
                 {{user.firstName}} {{user.lastName}}
             </p>
-            <p>
+            <p class="profile-card-text">
                 {{user.email}}
             </p>
             
@@ -24,7 +24,6 @@
         <div class="user-bio">{{user.aboutMe}}
         </div>
     </div>
-
     <div style="padding: 1em" [ngClass]="['sidebyside', 'user-stats']">
         <p>{{posts.length}} Posts</p>
     </div>
@@ -46,17 +45,16 @@
         <p> {{following.length}} following</p>
     </div> -->
 
-
-
     <div [ngClass]="['sidebyside', 'follow-button']" *ngIf="userId != pageUserId">
         <app-follow-button [userId]="pageUserId"></app-follow-button>
+
     </div>
 
     <div class="follow-button">
         <button mat-raised-button color="primary" [routerLink]="['/edit-profile']" *ngIf="userId == pageUserId">Edit Profile</button>
     </div>
-<body>
-        
+
+<body class="user-profile-body">
        <!-- <mat-form-field appearance="fill" class="width-800; margin:0 auto;">
         <mat-label>Post Text</mat-label>
         <div class="background"><span><h2> {{user.firstName}} {{user.lastName}}</h2></span></div>
@@ -87,6 +85,4 @@
 </div>
 
     </body>
-
-
 </div>
