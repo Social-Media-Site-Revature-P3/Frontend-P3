@@ -1,0 +1,7 @@
+.popupmsg{
+    position: absolute;
+    left: 50px;
+    bottom: 50px;
+    padding: 20px;
+    background-color: dimgrey;
+}
