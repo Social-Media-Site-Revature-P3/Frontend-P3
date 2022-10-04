@@ -7,8 +7,10 @@
     <div class="page-section">
     <ng-container *ngIf="searchTerm.length!=0">
       <mat-nav-list *ngFor="let user of user; let i = index" class="search-hide" (clickoutside)="hideSearch()" [class.active]="showSearch">
-        <a mat-list-item class="loop-search" (click)="goToUserProfile(user.userId!);" [routerLink]="['/user']"
-        [queryParams]="{id: user.userId}">
+        <!-- <a mat-list-item class="loop-search" (click)="goToUserProfile(user.userId!);" [routerLink]="['/profile', user.userId]"
+        [queryParams]="{id: user.userId}"> -->
+        <a mat-list-item class="loop-search" [routerLink]="['/profile', user.userId]" >
+        <!-- [queryParams]="{userId: user.userId}"> -->
         <picture>
           <img class="search-image" [src]="user.profilePicture">  {{user.firstName}} {{user.lastName}}
         </picture>

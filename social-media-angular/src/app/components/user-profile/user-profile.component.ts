@@ -10,6 +10,7 @@ import { Follow } from 'src/app/interfaces/follow';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { FollowService } from 'src/app/services/follow.service';
+import { LocalService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -23,17 +24,19 @@ export class UserProfileComponent implements OnInit {
   _router: Router;
   _postService: PostService;
   _followService: FollowService;
+  _localstorage: LocalService;
   currentUserId: number;  
 
   // constructor(private authService: AuthService, private dialog: MatDialog) { }
   constructor(private authService: AuthService, public service: UserService, router: Router,
      public postService: PostService, public followService: FollowService, private cookieService: CookieService, 
-     private activatedRouter: ActivatedRoute) {
+     private activatedRouter: ActivatedRoute, private localService: LocalService) {
     this._authService = authService;
     this._userService = service;
     this._router = router;
     this._postService = postService;
     this._followService = followService;
+    this._localstorage = localService;
     }
 
   
@@ -91,12 +94,42 @@ export class UserProfileComponent implements OnInit {
     //How are we storing userId? If storing the userId in local storage:
     //this.currentUserId = Number(localStorage.getItem("currentUserId"));
     let userId: number = this.activatedRouter.snapshot.params['userId'];
+
+    // this.activatedRouter.queryParamMap.subscribe(params => {
+    //   const userId : any = params.get('userId')
+    //   console.log(params);
+
+    //   this.service.GetUser(userId).subscribe(data => {
+    //     this.user = data;
+    //     let newUserId = data.userId ? data.userId : this.userId;
+    //     this.userId = newUserId;
+    //   })
+  
+    //   this._postService.getByOriginalPost(userId).subscribe(data => {
+    //     this.posts = data;
+    //     this.posts.sort((a,b) => {
+    //       return <any>new Date(b.createDateTime!) - <any>new Date(a.createDateTime!)
+    //     })
+  
+    //     this._followService.TheyAreFollowing(this.userId).subscribe(data =>{
+    //       this.follower = data;
+    //     })
+  
+    //     this._followService.followThemAll(this.userId).subscribe(data => {
+    //       this.following = data;
+    //     })
+    //   // })
+
+    // });
+    console.log(userId);
     // this.service.setPageUser(userId);
     this.service.GetUser(userId).subscribe(data => {
       this.user = data;
+      let newUserId = data.userId ? data.userId : this.userId;
+      this.userId = newUserId;
     })
 
-    this._postService.getByOriginalPost(this.userId).subscribe(data => {
+    this._postService.getByOriginalPost(userId).subscribe(data => {
       this.posts = data;
       this.posts.sort((a,b) => {
         return <any>new Date(b.createDateTime!) - <any>new Date(a.createDateTime!)
