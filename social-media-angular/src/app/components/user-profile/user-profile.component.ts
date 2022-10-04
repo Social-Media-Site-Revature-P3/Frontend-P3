@@ -72,7 +72,6 @@ export class UserProfileComponent implements OnInit {
   posts: Post[] = [];
   follower: Follow[] = [];
   following: Follow[] = [];
-  userId: number;
   nowFollowing: Follow;
   postInput = new FormGroup({
     title: new FormControl('', [Validators.required]),
@@ -80,26 +79,26 @@ export class UserProfileComponent implements OnInit {
     imageUrl: new FormControl('', [Validators.required])
   });
   createPost: Post;
+  userId: number = +this.cookieService.get('userId')
 
   dialog: MatDialog;
 
   ngOnInit(): void {
-    let userId: number = +this.cookieService.get('userId');
-    this.service.GetUser(userId).subscribe(data => {
+    this.service.GetUser(this.userId).subscribe(data => {
       this.user = data;
     })
 
-    this._postService.getByOriginalPost(userId).subscribe(data => {
+    this._postService.getByOriginalPost(this.userId).subscribe(data => {
       this.posts = data;
       this.posts.sort((a,b) => {
         return <any>new Date(b.createDateTime!) - <any>new Date(a.createDateTime!)
       })
 
-      this._followService.TheyAreFollowing(userId).subscribe(data =>{
+      this._followService.TheyAreFollowing(this.userId).subscribe(data =>{
         this.follower = data;
       })
 
-      this._followService.followThemAll(userId).subscribe(data => {
+      this._followService.followThemAll(this.userId).subscribe(data => {
         this.following = data;
       })
     })
@@ -113,7 +112,6 @@ export class UserProfileComponent implements OnInit {
 
     this.service.GetUser(searchedUserId).subscribe(data => {
       this.user = data;
-      console.log("Get Request working for user with user ID of:" + data.userId)
     })
 
     this._postService.getByOriginalPost(searchedUserId).subscribe(data => {
