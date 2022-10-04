@@ -1,10 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup} from '@angular/forms';
 import { Follow } from 'src/app/interfaces/follow';
 import { Post } from 'src/app/interfaces/post';
-import { User } from 'src/app/interfaces/user';
 import { Comment } from 'src/app/interfaces/comment';
-import { AuthService } from 'src/app/services/auth.service';
 import { PostService } from 'src/app/services/post.service';
 import { Bookmark } from 'src/app/interfaces/bookmark';
 import { BookmarkService } from 'src/app/services/bookmark.service';
@@ -98,7 +96,7 @@ export class PostComponent implements OnInit {
     })
 
   }
-
+// 
   submitReply = (e: any) => {
     e.preventDefault()
     this.newPost.text = this.commentForm.value.text || "";
@@ -106,12 +104,17 @@ export class PostComponent implements OnInit {
     this.newPost.imageUrl= this.commentForm.value.imageUrl||"";
     this.newPost.user.userId = +this.cookieService.get('userId');
     this.newPost.comment = true;
+    this.commentForm.reset();
     this.postService.postPost(this.newPost).subscribe((response) => {
       this.newPost = response
       this.commentConnect.commentId = this.newPost.postId||0
       this.commentConnect.postId = this.post.postId||0
-      this.postService.postComment(this.commentConnect).subscribe( (response) => {this.getComments()})
+      this.postService.postComment(this.commentConnect).subscribe( (response) => {
+        this.newPost.postId = undefined
+        this.getComments()})
       this.toggleReplyToPost()
+
+      
     })
   }   
 

@@ -93,7 +93,7 @@ export class FollowButtonComponent implements OnInit {
           //this.follow = follow;
 
         }
-      }
+      
     })
   }
 
