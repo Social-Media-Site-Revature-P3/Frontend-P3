@@ -85,64 +85,49 @@ export class UserProfileComponent implements OnInit {
   createPost: Post;
   userId: number = +this.cookieService.get('userId')
   pageUserId = 9
+  showForm = false;
 
   dialog: MatDialog;
 
   ngOnInit(): void {
-    // this.postInput = new FormControl()
-
-    //How are we storing userId? If storing the userId in local storage:
-    //this.currentUserId = Number(localStorage.getItem("currentUserId"));
+    
     let userId: number = this.activatedRouter.snapshot.params['userId'];
 
-    // this.activatedRouter.queryParamMap.subscribe(params => {
-    //   const userId : any = params.get('userId')
-    //   console.log(params);
+    this.activatedRouter.params.subscribe(params => {
+      console.log(params);
+      let userId = params['userId']
+      if (userId == this.userId){
+        this.showForm = true;
+      }else {
+        this.showForm = false;
+      }
+      console.log(userId) 
 
-    //   this.service.GetUser(userId).subscribe(data => {
-    //     this.user = data;
-    //     let newUserId = data.userId ? data.userId : this.userId;
-    //     this.userId = newUserId;
-    //   })
-  
-    //   this._postService.getByOriginalPost(userId).subscribe(data => {
-    //     this.posts = data;
-    //     this.posts.sort((a,b) => {
-    //       return <any>new Date(b.createDateTime!) - <any>new Date(a.createDateTime!)
-    //     })
-  
-    //     this._followService.TheyAreFollowing(this.userId).subscribe(data =>{
-    //       this.follower = data;
-    //     })
-  
-    //     this._followService.followThemAll(this.userId).subscribe(data => {
-    //       this.following = data;
-    //     })
-    //   // })
 
-    // });
-    console.log(userId);
-    // this.service.setPageUser(userId);
-    this.service.GetUser(userId).subscribe(data => {
-      this.user = data;
-      let newUserId = data.userId ? data.userId : this.userId;
-      this.userId = newUserId;
+      this.service.GetUser(userId).subscribe(data => {
+        this.user = data;
+        let newUserId = data.userId ? data.userId : this.userId;
+        this.userId = newUserId;
+      })
+  
+      this._postService.getByOriginalPost(userId).subscribe(data => {
+        this.posts = data;
+        this.posts.sort((a,b) => {
+          return <any>new Date(b.createDateTime!) - <any>new Date(a.createDateTime!)
+        })
+  
+        this._followService.TheyAreFollowing(this.userId).subscribe(data =>{
+          this.follower = data;
+        })
+  
+        this._followService.followThemAll(this.userId).subscribe(data => {
+          this.following = data;
+        })
+      })
+
+
     })
 
-    this._postService.getByOriginalPost(userId).subscribe(data => {
-      this.posts = data;
-      this.posts.sort((a,b) => {
-        return <any>new Date(b.createDateTime!) - <any>new Date(a.createDateTime!)
-      })
-
-      this._followService.TheyAreFollowing(this.userId).subscribe(data =>{
-        this.follower = data;
-      })
-
-      this._followService.followThemAll(this.userId).subscribe(data => {
-        this.following = data;
-      })
-    })
   }
 
 
