@@ -8,6 +8,8 @@ import { Name } from 'src/app/interfaces/name';
 import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-search-feed',
@@ -15,8 +17,7 @@ import { SearchBarComponent } from '../../components/search-bar/search-bar.compo
   styleUrls: ['./search-feed.component.css']
 })
 export class SearchFeedComponent implements OnInit {
-
-  @Input('user') user: User[]
+user$: Observable<User>;
 
 name : Name = {
   firstName : '',
@@ -28,10 +29,12 @@ fullName : Name = {
 }
   userId: number = 0;
 
-  constructor(private cookieService: CookieService, private userService: UserService) { }
+  constructor(private cookieService: CookieService, private userService: UserService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.userId = +this.cookieService.get('userId');
+    const searchTerm = this.route.snapshot.paramMap.get('name');
+    this.user$ = this.userService.()
   }
 
   goToUserProfile(i: number){

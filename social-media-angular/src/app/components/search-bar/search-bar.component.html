@@ -8,7 +8,7 @@
       <ng-container *ngIf="searchTerm.length!=0">
         <mat-nav-list *ngFor="let user of user; let i = index">
            <a  (click)="goToUserProfile(user.userId!);" [routerLink]="['/user']"
-            [queryParams]="{id: user.userId}">
+            [queryParams]="{id: user.userId}" (click)="hideSearch()">
             <mat-card>
             <picture> <img class="search-image" [src]="user.profilePicture"><div class="name"> {{user.firstName}} {{user.lastName}}</div>
             </picture>

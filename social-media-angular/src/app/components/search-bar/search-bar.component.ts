@@ -69,34 +69,21 @@ export class SearchBarComponent implements OnInit {
     }
   }
   searchRoute() {
-    let searchTerm = this.searchTerm.split(' ');
 
-    if (searchTerm.length > 0 && searchTerm.length < 3) {
-      if (searchTerm.length == 1) {
         this.users$ = this.route.paramMap.pipe(
           switchMap(params => {
-            this.name.firstName = searchTerm.toString();
             this.searchTerm = String(params.get('name'));
             return this.userService.GetUsersByName(this.name);
-          })
-        )
-      } else if (searchTerm.length == 2) {
-        this.users$ = this.route.paramMap.pipe(
-          switchMap(params => {
-            this.fullName.firstName = searchTerm.slice(0, 1).toString();
-            this.fullName.lastName = searchTerm.slice(1, 1).toString();
-            this.searchTerm = String(params.get('fullName'));
-            return this.userService.GetUsersByName(this.name);
-          })
-        )
-      }
-    }
+          }))
   }
 
   onClickShowSearch(): void {
     this.showSearch = true;
   }
   clickOutside() {
+    this.showSearch = false;
+  }
+  hideSearch(): void{
     this.showSearch = false;
   }
   goToUserProfile(i: number) {
