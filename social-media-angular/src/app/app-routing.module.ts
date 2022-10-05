@@ -9,6 +9,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { FollowPageComponent } from './components/follow-page/follow-page.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { SearchFeedComponent } from './components/search-feed/search-feed.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "/login", pathMatch: "full" },
@@ -16,11 +17,12 @@ const routes: Routes = [
   { path: "register", component: RegisterComponent },
   { path: "post-feed", component: PostFeedPageComponent},
   { path: "bookmark-page", component: BookmarkPageComponent},
-  { path: "follow-page/:userId/:action", component: FollowPageComponent},
-  { path: "profile", component: UserProfileComponent},
+  { path: "follow-page", component: FollowPageComponent},
+  { path: "profile/:userId", component: UserProfileComponent},
   { path: "edit-profile", component: EditProfileComponent},
   { path: "likes", component: LikesComponent },
-  { path: "forgetpassword", component: ChangePasswordComponent}
+  { path: "forgetpassword", component: ChangePasswordComponent},
+  { path: "search-feed", component: SearchFeedComponent}
 ];
 
 @NgModule({

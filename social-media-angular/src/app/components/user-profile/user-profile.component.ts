@@ -1,15 +1,16 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 import { Post } from 'src/app/interfaces/post';
 import { Follow } from 'src/app/interfaces/follow';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { FollowService } from 'src/app/services/follow.service';
+import { LocalService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -23,21 +24,33 @@ export class UserProfileComponent implements OnInit {
   _router: Router;
   _postService: PostService;
   _followService: FollowService;
-  currentUserId: number;
-  
+  _localstorage: LocalService;
+  currentUserId: number;  
 
-  // constructor(private authService: AuthService, private dialog: MatDialog) { }
   constructor(private authService: AuthService, public service: UserService, router: Router,
-     public postService: PostService, public followService: FollowService, private cookieService: CookieService) {
+     public postService: PostService, public followService: FollowService, private cookieService: CookieService, 
+     private activatedRouter: ActivatedRoute, private localService: LocalService) {
     this._authService = authService;
     this._userService = service;
     this._router = router;
     this._postService = postService;
     this._followService = followService;
+    this._localstorage = localService;
     }
 
   
   user: User = {
+    userId: 0,
+    email: "",
+    nickname: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    aboutMe: "",
+    profilePicture: ""
+  }
+
+  userBeingViewed: User = {
     userId: 0,
     email: "",
     nickname: "",
@@ -59,78 +72,74 @@ export class UserProfileComponent implements OnInit {
     profilePicture: ""
   }
 
-  post: Post[] = [];
+  posts: Post[] = [];
   follower: Follow[] = [];
   following: Follow[] = [];
-  userId: number;
   nowFollowing: Follow;
-  postInput: FormControl;
+  postInput = new FormGroup({
+    title: new FormControl('', [Validators.required]),
+    text: new FormControl('', [Validators.required]),
+    imageUrl: new FormControl('', [Validators.required])
+  });
   createPost: Post;
+
+  showForm = false;
+  userId: number = this.activatedRouter.snapshot.params['userId'];
+  pageUserId = +this.cookieService.get('userId');
 
   dialog: MatDialog;
 
   ngOnInit(): void {
-    this.postInput = new FormControl()
-
-    //How are we storing userId? If storing the userId in local storage:
-    //this.currentUserId = Number(localStorage.getItem("currentUserId"));
-    let userId: number = +this.cookieService.get('userId')
-    this.service.GetUser(userId).subscribe(data => {
+    this.service.GetUser(this.userId).subscribe(data => {
       this.user = data;
-      console.log("Get Request working for user with user ID of:" + data.userId)
     })
 
-    this._postService.getByUserId(userId).subscribe(data => {
-      this.post = data;
-      console.log("getByUserId working" + data);
-    })
+    this.activatedRouter.params.subscribe(params => {
+      console.log(params);
+      let userId = params['userId']
+      if (userId == this.userId){
+        this.showForm = true;
+      }else {
+        this.showForm = false;
+      }
+      console.log(userId) 
 
-    this._followService.TheyAreFollowing(userId).subscribe(data =>{
-    this.follower = data;
-    console.log("theyAreFollowing method working" + data);
 
-    })
+      this.service.GetUser(userId).subscribe(data => {
+        this.user = data;
+        let newUserId = data.userId ? data.userId : this.userId;
+        this.userId = newUserId;
+      })
+  
+      this._postService.getByOriginalPost(userId).subscribe(data => {
+        this.posts = data;
+        this.posts.sort((a,b) => {
+          return <any>new Date(b.createDateTime!) - <any>new Date(a.createDateTime!)
+        })
+  
+        this._followService.TheyAreFollowing(this.userId).subscribe(data =>{
+          this.follower = data;
+        })
+  
+        this._followService.followThemAll(this.userId).subscribe(data => {
+          this.following = data;
+        })
+      })
 
-    this._followService.followThemAll(userId).subscribe(data => {
-    this.following = data;
-    console.log("followThemAll method working")
+
     })
 
   }
-
-  followUser() {
-
-    //INCOMPLETE FUNCTION 
-    //how we are storing the viewed user
-    //routing rules - need the search to test it 
-
-    let name = this.authService.currentUser.firstName; 
-    console.log(this.nowFollowing);
-    this._followService.IWillFollow(this.nowFollowing).subscribe(data => {
-      this.nowFollowing = data;
-      console.log("IWillFollow method working");
-    alert("You are now following " + name);
-
-    })
-
-  }
-
 
   submitPost(){
-
-  
     this.createPost ={
-      text:  this.postInput.value || "",
-      title: "",
-      imageUrl: "",
+      title: this.postInput.value.title || "",
+      text:  this.postInput.value.text || "",
+      imageUrl: this.postInput.value.imageUrl || "",
       user: {
-          userId: this.authService.currentUser.userId||0
+          userId: +this.cookieService.get('userId')
     }
   }
     this._postService.postPost(this.createPost).subscribe((res: any)=> {console.log(res)})
-    console.log(this.postInput.value)
-  
-
   }
-
 }

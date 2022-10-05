@@ -5,19 +5,13 @@
     <ng-template #userCircle><div class="user-circle"></div></ng-template>
     
     <mat-divider></mat-divider>
-    <p style="padding-top: 1em; font-weight: bold;">
+    <p style="padding-top: 1em; font-weight: bold; word-wrap: break-word;">
         {{user.firstName}} {{user.lastName}}
     </p>
-    <p>
+    <p style="word-wrap: break-word;">
         {{user.email}}
     </p>
-
-    <button [routerLink]="['/bookmark-page']"> {{user.firstName}}'s bookmarks </button>
-    
+    <!-- <button [routerLink]="['/bookmark-page']"> {{user.firstName}}'s bookmarks </button> -->
 </mat-card>
 
-<mat-card-actions >
-    <!-- can put in the numbers of followers and following  -->
-    <button mat-raised-button color="primary" [routerLink]="['/follow-page', user.userId, 1]"> Followers</button>
-    <button mat-raised-button color="primary" [routerLink]="['/follow-page',user.userId, 2 ]"> Following</button>
-</mat-card-actions>
+

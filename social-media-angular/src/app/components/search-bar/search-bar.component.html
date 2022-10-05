@@ -1,8 +1,23 @@
 <!-- Display search bar -->
-<div class="searchbar">
-    <input class="search-input" type="text" placeholder="Find a Friend!" id="myInput" name="searchTerm" [(ngModel)]="searchTerm" (keyup)="searchUser()"/>
-    <ng-container *ngIf="searchTerm.length!=0">
-        <div *ngFor="let user of users; let i = index" id="content" (click)="goToUserProfile(user.userId!);">{{user.firstName}}{{user.lastName}}</div>
-    </ng-container>
-    <button class="search-icon" (click)="searchUser()">Search!</button>
+<div class="searchbar" clickOutside (clickOutside)="clickOutside()">
+  <button class="search-icon" [routerLink]="['/search-feed']" (click)="searchUser()">Search!</button>
+  <input name="searchTerm" type="text" class="input"placeholder="Find a Friend!" [(ngModel)]="searchTerm"
+    (keyup)="searchUser()" (click)="onClickShowSearch()" />
+  <div class="search-result" *ngIf="showSearch" >
+    <div class="page-section">
+      <ng-container *ngIf="searchTerm.length!=0">
+        <mat-nav-list *ngFor="let user of user; let i = index">
+           <a [routerLink]="['/profile', user.userId]"
+            [queryParams]="{id: user.userId}" (click)="hideSearch()">
+            <mat-card>
+            <picture> <img class="search-image" [src]="user.profilePicture"><div class="name"> {{user.firstName}} {{user.lastName}}</div>
+            </picture>
+            <div class="nickname"> @{{user.nickname}}</div>
+            <div class="aboutMe"> {{user.aboutMe}}</div>
+          </mat-card>
+          </a>
+        </mat-nav-list>
+      </ng-container>
+    </div>
+  </div>
 </div>

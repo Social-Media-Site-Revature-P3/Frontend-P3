@@ -1,23 +1,191 @@
 .searchbar {
-    background : white;
-    height : 40px;
-    width : 1000px;
-    margin : 1vh 1vh 1vh;
-    border-radius: 10px;
-    border : 2px solid #E4E4E4;
-    display : flex;
-    padding : 0.3em;
-    transition : width 0.5s ease-in;
-    float : center;
-    position: relative;
+  background : white;
+  max-height : 40px;
+  max-width : 1000px;
+  height : 40px;
+  width : 75%;
+  margin : 1vh 1vh 1vh;
+  border-radius: 15%;
+  border : .5% solid #E4E4E4;
+  display : flex;
+  padding : 0.3em;
+  transition : width 0.5s ease-in;
+  float : center;
+  position: relative;
 }
 
-.search-input { 
-    width: 1000px;
-    float : right;
-}
-
-#content {
-    display: block;
+::placeholder {
     color: black;
+    opacity: 1;
+}
+
+a{
+color: inherit;
+cursor: pointer;
+}
+
+a:hover{
+  text-decoration: underline;
+}
+
+mat-card:hover{
+  background:rgb(255, 115, 0);
+}
+.page-section:first-child{margin-top:0;}
+
+mat-card{
+  justify-content: center;
+  min-height: 150px;
+  height: 120%
+}
+
+.input{
+  width: 100%;
+}
+
+.page-section{
+      padding: 2;
+      margin-top:8%;
+      position:relative;
+      font-size: 65%;
+      line-height: 2.0;
+      background:rgb(255, 255, 255);
+      z-index: 1000;
+ }
+
+.search-input {
+    width: 100%;
+    float : right;
+    transition : .5s;
+}
+button.search-icon {
+    transition : .5s;
+}
+
+.search-input {
+    width: 100%;
+    float : right;
+    transition : .5s;
+}
+button.search-icon {
+    transition : .5s;
+}
+
+.search-image {
+  position: relative;
+    width: 16%;
+    height: 98%;
+    top: 2.5%;
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.search.active {
+position: fixed;
+top: 0;
+bottom: 0;
+background: #fff;
+left: 0;
+right: 0;
+z-index: 1000;
+}
+
+.search.active{
+max-width: 500px;
+width: 50%;
+margin: 3rem auto;
+display: list-item;
+}
+
+.search-result{
+  position: absolute;
+  max-width: 480px;
+  width: 46%;
+  align-self: flex-start;
+  bottom: 0;
+  top: 110%;
+  left: 54%;
+}
+
+.search-result.active{
+position: relative;
+display: list-item;
+max-width: 4rem;
+max-height: 4000px;
+padding: 3%;
+width: 200%;
+height: 100%;
+}
+
+
+.search-result-content {
+font-size: 4%;
+color: #111;
+padding: 2%;
+width: 200%;
+}
+
+.search-result> div{
+  display: flex;
+  margin-bottom: 3rem;
+  align-items: flex-end;
+  list-style: inside;
+  justify-content: center;
+  z-index: 1000;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: flex-start;
+
+}
+
+mat-nav-list{
+display: inline-table;
+align-items:flex-start;
+background: inherit;
+padding: 2%;
+width: 200%;
+z-index: 1001;
+height: 50%;
+}
+
+.mat-form-field-flex {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1000px;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+}
+
+.nickname{
+  position: absolute;
+  justify-content: center;
+  top: 45%;
+  left: 23%;
+  font-size: 180%;
+  color: rgb(0, 26, 255);
+}
+
+.name{
+  position: absolute;
+  top: 20%;
+  justify-content: center;
+  font-size:250%;
+  left: 20%;
+}
+
+.aboutMe{
+  position: absolute;
+  top: 10%;
+  justify-content: center;
+  font-size: 16px;
+  left: 60%;
+  width: 38%;
+  height: 80%;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-width: 395px;
+  max-height: 110px;
 }

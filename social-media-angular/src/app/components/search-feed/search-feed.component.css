@@ -1,0 +1,97 @@
+
+a{
+color: inherit;
+cursor: pointer;
+}
+
+a:hover{
+  text-decoration: underline;
+}
+
+mat-card:hover{
+  background:rgb(255, 115, 0);
+}
+.page-section:first-child{margin-top:0;}
+
+mat-card{
+  justify-content: center;
+  min-height: 150px;
+  height: 120%
+}
+
+.input{
+  width: 100%;
+}
+
+.page-section{
+  margin-top: 275px;
+  position: relative;
+  font-size: 65%;
+  line-height: 2.0;
+  background: rgb(255, 255, 255);
+  width: 60%;
+}
+
+.search-image {
+  position: relative;
+  width: 16%;
+  height: 98%;
+  top: 2.5%;
+  max-width: 150px;
+  max-height: 150px;
+}
+
+
+mat-nav-list{
+  display: inline-table;
+  align-items: flex-start;
+  background: inherit;
+  padding: .25%;
+  width: 200%;
+  height: 50%;
+  position: relative;
+  top: 10%;
+}
+
+.mat-form-field-flex {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1000px;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+}
+
+.nickname{
+  position: absolute;
+  justify-content: center;
+  top: 54%;
+  left: 22%;
+  font-size: 250%;
+  color: rgb(0, 26, 255);
+}
+
+.name{
+  position: absolute;
+  top: 20%;
+  justify-content: center;
+  font-size:450%;
+  left: 20%;
+  font-weight: bold;
+}
+
+.aboutMe{
+  position: absolute;
+  top: 10%;
+  justify-content: center;
+  font-size: 200%;
+  left: 55%;
+  width: 38%;
+  height: 80%;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-width: 395px;
+  max-height: 110px;
+}
