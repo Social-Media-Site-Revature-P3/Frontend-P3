@@ -37,6 +37,7 @@ import { GroupButtonComponent } from './components/group-components/group-button
 import { GroupPageComponent } from './components/group-components/group-page/group-page.component';
 import { GroupListComponent } from './components/group-components/group-list/group-list.component';
 import { EventRequestComponent } from './components/event-components/event-request/event-request.component';
+import { GroupRequestComponent } from './components/group-components/group-request/group-request.component';
 
 
 @NgModule({
@@ -71,6 +72,7 @@ import { EventRequestComponent } from './components/event-components/event-reque
     GroupPageComponent,
     GroupListComponent,
     EventRequestComponent,
+    GroupRequestComponent,
   ],
   entryComponents: [FollowDialogComponent],
   imports: [
