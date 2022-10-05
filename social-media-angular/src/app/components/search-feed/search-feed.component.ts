@@ -16,9 +16,19 @@ import { Observable } from 'rxjs';
   templateUrl: './search-feed.component.html',
   styleUrls: ['./search-feed.component.css']
 })
-export class SearchFeedComponent implements OnInit {
-user$: Observable<User>;
+export class SearchFeedComponent implements OnInit{
 
+  users: User[] = [{
+    userId: 0,
+    email: '',
+    nickname: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+    aboutMe: '',
+    profilePicture: ''
+  }]
+searchTerm: string = "";
 name : Name = {
   firstName : '',
   lastName: ''
@@ -29,13 +39,17 @@ fullName : Name = {
 }
   userId: number = 0;
 
-  constructor(private cookieService: CookieService, private userService: UserService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private cookieService: CookieService, private userService: UserService, private route: ActivatedRoute, private router: Router) {
+    this.userService.userList.subscribe(
+      (users: User[]) => {this.users = users}
+    );
+  }
 
   ngOnInit(): void {
     this.userId = +this.cookieService.get('userId');
-    // 
-    // 
+
   }
+
 
   goToUserProfile(i: number){
 
