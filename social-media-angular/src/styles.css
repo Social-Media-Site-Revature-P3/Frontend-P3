@@ -452,17 +452,7 @@ button.search-icon {
 
 /* stlye for post on profile page */
 /* styling for text areas */
-.darkMode .ng-untouched.ng-pristine.ng-valid {
-  background-color: #a5a4ac;
-  transition: var(--transition-delay);
-}
-
-.darkMode .ng-untouched.ng-dirty.ng-valid {
-  background-color: #a5a4ac;
-  transition: var(--transition-delay);
-}
-
-.darkMode textarea.ng-valid.ng-dirty.ng-touched {
+.darkMode .profile-textArea {
   background-color: #a5a4ac;
   transition: var(--transition-delay);
 }
@@ -503,7 +493,7 @@ button.search-icon {
 
 .darkMode .submitButton{
   text-align: right;
-  background-color: #4c2c1d;
+  background-color: #b14b0700;
   display: block;
   transition: var(--transition-delay);
 }
@@ -527,4 +517,10 @@ button.search-icon {
 
 .mat-card-content {
   word-wrap: break-word;
+}
+
+/* search bar input */
+.darkMode .input {
+  background-color: #a5a4ac;
+  transition: var(--transition-delay);
 }
