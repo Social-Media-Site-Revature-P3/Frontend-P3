@@ -88,7 +88,9 @@ export class PostComponent implements OnInit {
 
 
   deleteComment = (comment: Post) => {
-    this.comments = this.comments.filter(x => x.postId !== comment.postId);}
+    this.comments = this.comments.filter(x => x.postId !== comment.postId);
+    this.editToPost = false;
+  }
 
   getComments=()=>{
     this.postService.getByComments(this.post.postId||1).subscribe((post)=> {
@@ -130,17 +132,19 @@ export class PostComponent implements OnInit {
       this.toggleEditToPost()
 
     })
+    
 
   }
 
   deletePost=()=>{
     this.postService.deletePost(this.post.postId).subscribe({
       next: data =>{
-      this.toggleEditToPost();
-      this.getComments();
-      this.commentForm.get('text')?.patchValue('')
-    },
-  })
+        this.toggleEditToPost();
+        this.getComments();
+        this.commentForm.get('text')?.patchValue('');
+        this.editToPost = false;
+      },
+    })
   }
 
   bookmarkPosts(bookmarkPostId: number): void

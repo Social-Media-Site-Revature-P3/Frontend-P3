@@ -3,6 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Name } from 'src/app/interfaces/name';
 import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-bar',
@@ -15,6 +16,7 @@ export class SearchBarComponent implements OnInit {
   searchTerm: string = "";
   userId : number = 0;
   showSearch : boolean = false;
+
   user : User[] = [{
     userId : 0,
     email: '',
@@ -34,7 +36,9 @@ fullName : Name = {
   lastName : ''
 }
 
-  constructor(private cookieService: CookieService, private userService: UserService) { }
+  constructor(private cookieService: CookieService, private userService: UserService, public router: Router) {
+
+   }
 
   ngOnInit(): void {
     this.userId = +this.cookieService.get('userId');
@@ -51,6 +55,7 @@ fullName : Name = {
         this.name.firstName = searchTerm.toString();
         this.userService.GetUsersByName(this.name).subscribe((users : User[]) => {
           this.user = users;
+          console.log(users)
         })
       }else if(searchTerm.length == 2){
         this.fullName.firstName = searchTerm.slice(0, 1).toString();
@@ -70,6 +75,6 @@ fullName : Name = {
     this.showSearch = false;
   }
   goToUserProfile(i: number){
-
+    
   }
 }

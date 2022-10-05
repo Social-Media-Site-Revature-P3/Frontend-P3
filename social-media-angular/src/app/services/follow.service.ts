@@ -68,14 +68,6 @@ export class FollowService {
     );
   }
 
-  //Deletes a follow based on followedId and followerId
-  deleteFollow(followedId: number, followerId: number) {
-    return this.http.delete<Follow>(`${this.baseurl}` + 'followedId/' + followedId + '/followerId/' + followerId, this.httpOptions).pipe(
-      retry(1),
-      catchError(this.errorHandl)
-    )
-  }
-
     // Error handling
     errorHandl(error: any) {
       let errorMessage = '';

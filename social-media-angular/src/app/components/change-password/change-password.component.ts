@@ -65,7 +65,7 @@ export class ChangePasswordComponent implements OnInit {
                   if (
                     (this.emailForm.get('securityQestion')?.value ==
                       this.securityQuestion[0].question,
-                    this.emailForm.get('securityAnswer')?.value ==
+                      this.emailForm.get('securityAnswer')?.value ==
                       this.securityQuestion[0].answer)
                   ) {
                     console.log('correct');
