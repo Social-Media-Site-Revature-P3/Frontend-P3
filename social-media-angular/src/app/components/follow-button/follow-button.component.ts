@@ -81,15 +81,12 @@ export class FollowButtonComponent implements OnInit {
             this.follow = follow;
             this.followeduser = true;
           }
-
             //this.followService.TheyAreFollowing(this.currentUserId).subscribe((follows: Follow[]) => {
             //for(let follow of follows) {
               //if(follow.followedUser.userId == this.followthisUser) {
                 //this.followeduser = true;
                 //this.follow = follow; that aint right, its not putting in the right user for the followed
-
-            //} so what happening is its using the currentUserId for both the following and followed Id's. not sure why just yet
-        }   
+        }
     })
   
   }
