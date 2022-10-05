@@ -29,15 +29,21 @@
     </div>
 
     <div style="padding: 1em" [ngClass]="['sidebyside', 'user-stats']">
-        <app-follow-page [userId]="this.user.userId!"> </app-follow-page>
+        <app-follow-page [userId]="this.user.userId!"></app-follow-page>
     </div>
 
-    <div [ngClass]="['sidebyside', 'follow-button']" *ngIf="userId != pageUserId">
-        <app-follow-button [userId]="userId"></app-follow-button>
+    <div [ngClass]="['sidebyside', 'follow-button']" >
+        <ng-container *ngIf="userId != pageUserId">
+            <app-follow-button [userId]="userId"></app-follow-button>
+        </ng-container>
     </div>
-
+    
     <div class="follow-button">
         <button mat-raised-button color="primary" [routerLink]="['/edit-profile']" *ngIf="userId == pageUserId">Edit Profile</button>
+    </div>
+    
+    <div [ngClass]="['sidebyside', 'follow-button']">
+        <app-event-button [userId]="userId"></app-event-button>
     </div>
 
     <body class="user-profile-body">

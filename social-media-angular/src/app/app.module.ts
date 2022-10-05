@@ -30,6 +30,12 @@ import { FollowDialogComponent } from './components/follow-dialog/follow-dialog.
 import { FollowButtonComponent } from './components/follow-button/follow-button.component';
 import { PostComponent } from './components/post/post.component';
 import { SearchFeedComponent } from './components/search-feed/search-feed.component';
+import { EventButtonComponent } from './components/event-components/event-button/event-button.component';
+import { EventPageComponent } from './components/event-components/event-page/event-page.component';
+import { EventListComponent } from './components/event-components/event-list/event-list.component';
+import { GroupButtonComponent } from './components/group-components/group-button/group-button.component';
+import { GroupPageComponent } from './components/group-components/group-page/group-page.component';
+import { GroupListComponent } from './components/group-components/group-list/group-list.component';
 
 
 @NgModule({
@@ -57,6 +63,12 @@ import { SearchFeedComponent } from './components/search-feed/search-feed.compon
     FollowButtonComponent,
     ClickOutsideDirective,
     SearchFeedComponent,
+    EventButtonComponent,
+    EventPageComponent,
+    EventListComponent,
+    GroupButtonComponent,
+    GroupPageComponent,
+    GroupListComponent,
   ],
   entryComponents: [FollowDialogComponent],
   imports: [
