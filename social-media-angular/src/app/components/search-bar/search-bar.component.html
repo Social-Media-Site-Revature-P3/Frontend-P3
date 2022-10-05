@@ -1,21 +1,23 @@
 <!-- Display search bar -->
 <div class="searchbar" clickOutside (clickOutside)="clickOutside()">
-  <button class="search-icon" (click)="searchUser()">Search!</button>
-  <input name="searchTerm" type="text" class="input"placeholder="Find a Friend!" size ="135px" [(ngModel)]="searchTerm"
+  <button class="search-icon" (click)="searchUser()" [routerLink]="['/search-feed']">Search!</button>
+  <input name="searchTerm" type="text" class="input"placeholder="Find a Friend!" [(ngModel)]="searchTerm"
     (keyup)="searchUser()" (click)="onClickShowSearch()" />
   <div class="search-result" *ngIf="showSearch" >
     <div class="page-section">
-    <ng-container *ngIf="searchTerm.length!=0">
-      <mat-nav-list *ngFor="let user of user; let i = index" class="search-hide" [class.active]="showSearch">
-        <!-- <a mat-list-item class="loop-search" (click)="goToUserProfile(user.userId!);" [routerLink]="['/profile', user.userId]"
-        [queryParams]="{id: user.userId}"> -->
-        <a mat-list-item class="loop-search" [routerLink]="['/profile', user.userId]" >
-        <!-- [queryParams]="{userId: user.userId}"> -->
-        <picture>
-          <img class="search-image" [src]="user.profilePicture">  {{user.firstName}} {{user.lastName}}
-        </picture>
-        </a>
-      </mat-nav-list>
-    </ng-container>
+      <ng-container *ngIf="searchTerm.length!=0">
+        <mat-nav-list *ngFor="let user of user; let i = index">
+           <a  (click)="goToUserProfile(user.userId!);" [routerLink]="['/user']"
+            [queryParams]="{id: user.userId}" (click)="hideSearch()">
+            <mat-card>
+            <picture> <img class="search-image" [src]="user.profilePicture"><div class="name"> {{user.firstName}} {{user.lastName}}</div>
+            </picture>
+            <div class="nickname"> {{user.nickname}}</div>
+            <div class="aboutMe"> {{user.aboutMe}}</div>
+          </mat-card>
+          </a>
+        </mat-nav-list>
+      </ng-container>
+    </div>
   </div>
-</div>
+</div> 
