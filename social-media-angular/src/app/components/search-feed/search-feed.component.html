@@ -4,7 +4,8 @@
 </div>
 <div class="page-section">
   <mat-nav-list *ngFor="let user of feedUsers; let i = index">
-    <a (click)="goToUserProfile(user.userId!);" [routerLink]="['/user']" [queryParams]="{id: user.userId}">
+    <a (click)="goToUserProfile(user.userId!);" [routerLink]="['/profile', user.userId]"
+    [queryParams]="{id: user.userId}">
       <mat-card>
         <picture> <img class="search-image" [src]="user.profilePicture">
           <div class="name"> {{user.firstName}} {{user.lastName}}</div>
