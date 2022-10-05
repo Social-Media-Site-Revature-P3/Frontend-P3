@@ -15,6 +15,7 @@ export class UserService {
 
   //baseurl = 'http://localhost:8080/users';
   baseurl = `${environment.baseUrl}/users`;
+
   userList = new EventEmitter<User[]>();
 
   userResult: any;

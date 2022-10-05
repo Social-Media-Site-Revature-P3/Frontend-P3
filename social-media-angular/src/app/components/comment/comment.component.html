@@ -3,7 +3,8 @@
   <mat-card-header>
     <div mat-card-avatar class="header-image"  *ngIf="inputComment.user.profilePicture == null || inputComment.user.profilePicture==''" ></div>
     <img mat-card-avatar *ngIf="inputComment.user.profilePicture != null && inputComment.user.profilePicture!=''" class="header-image"  src="{{ inputComment.user.profilePicture }}">
-    <mat-card-title>{{user.firstName}} {{user.lastName}}</mat-card-title>
+    <mat-card-title class="name" [routerLink]="['/profile', this.inputComment.user.userId]"
+    [queryParams]="{id: this.inputComment.user.userId}">{{user.firstName}} {{user.lastName}} </mat-card-title>
     <mat-card-subtitle *ngIf="user.nickname != null">@{{user.nickname}}</mat-card-subtitle>
   </mat-card-header>
 

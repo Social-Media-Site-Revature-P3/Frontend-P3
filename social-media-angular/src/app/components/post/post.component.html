@@ -5,27 +5,29 @@
                 <div class="user">
                     <img mat-card-avatar *ngIf="post.user.profilePicture != null && post.user.profilePicture!=''" style="margin-right: 15px;" class="header-image"  src="{{ post.user.profilePicture }}">
                 </div>
-                <div class="user" style="position: absolute; top: 25px">                   
+                <div class="user name"  style="position: absolute; top: 25px"
+                  [routerLink]="['/profile', this.post.user.userId]"
+                  [queryParams]="{id: this.post.user.userId}">
                     {{post.user.firstName}} {{post.user.lastName}}
                     <mat-card-subtitle *ngIf="post.user.nickname != null">@{{post.user.nickname}}</mat-card-subtitle>
-                </div> 
+                </div>
             </mat-card-title>
             <app-bookmark [post]="post"></app-bookmark>
 
         </mat-card-header>
-        
+
         <mat-card-content>
             <mat-card>
                 <mat-card-title *ngIf="post.title != null" align="center" >{{post.title}}</mat-card-title>
                 <mat-divider></mat-divider>
                 <br>
-                <p style="margin-left: 10px; margin-right: 10px;">{{post.text}}</p> 
+                <p style="margin-left: 10px; margin-right: 10px;">{{post.text}}</p>
             </mat-card><br>
             <div align="center">
                 <img class="post-image" mat-card-image *ngIf="post.imageUrl != ''" src="{{ post.imageUrl }}" alt="Post Image">
             </div>
-            
-             
+
+
             <div class="comment-reply" align="right" *ngIf="creatorUser">
                 <form class="form" *ngIf="editToPost" [formGroup]="commentForm" (ngSubmit)="editPost($event)">
                   <mat-form-field class="full-width" appearance="fill">

@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Name } from 'src/app/interfaces/name';
 import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.css']
 })
-export class SearchBarComponent implements OnInit{
+export class SearchBarComponent implements OnInit, OnChanges {
 
 
   searchTerm: string = "";
@@ -35,13 +34,14 @@ export class SearchBarComponent implements OnInit{
     lastName: ''
   }
 
-  users$: Observable<User[]>
-
 
   constructor(private cookieService: CookieService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.userId = +this.cookieService.get('userId');
+  }
+
+  ngOnChanges(): void {
   }
 
   searchUser() {
@@ -76,5 +76,6 @@ export class SearchBarComponent implements OnInit{
     this.showSearch = false;
   }
   goToUserProfile(i: number) {
+
   }
 }
