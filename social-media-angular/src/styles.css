@@ -249,11 +249,11 @@ body.darkMode {
 }
 
 .full-width {
-  width: 100%
+  width: 75%
 }
 
 .darkMode .full-width {
-  width: 100%;
+  width: 75%;
 }
 
 .header-image {
@@ -528,6 +528,3 @@ button.search-icon {
 .mat-card-content {
   word-wrap: break-word;
 }
-
-
-

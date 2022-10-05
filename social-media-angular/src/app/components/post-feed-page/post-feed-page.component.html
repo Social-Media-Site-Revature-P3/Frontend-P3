@@ -5,8 +5,8 @@
 </div>
 
 <div [ngClass]="['sidebyside', 'post-feed-container']" style="margin-left: 200px;">
-    <form class="form" *ngIf="!createPost; else createPostTemplate">
-        <mat-form-field class="full-width" appearance="fill">
+    <form class="form" *ngIf="!createPost; else createPostTemplate" style="width: 75%;">
+        <mat-form-field class="full-width" appearance="fill" style="width: 100%">
             <mat-label>Something on your mind?</mat-label>
             <input matInput (focus)="toggleCreatePost()">
         </mat-form-field>
@@ -29,15 +29,14 @@
                 <input matInput formControlName="imageUrl">
             </mat-form-field>
 
-          <input type="file" formControlName="imageUrl" (change)="onFileSelected($event)">
-            <div align="end">
+            <div align="end" style="width: 75%">
                 <button mat-raised-button color="warn" (click)="toggleCreatePost()">Cancel</button>
-                <button mat-raised-button color="primary" (click)="submitPost($event)">Post</button>
+                <button mat-raised-button color="primary" (click)="submitPost($event)" style="margin-left: 7px;">Post</button>
             </div>
         </form>
     </ng-template>
     
-    <div id="post-feed" *ngFor="let post of posts">
+    <div id="post-feed" *ngFor="let post of posts" style="width: 75%;">
         <app-post [post]="post"></app-post>
     </div>
 </div>

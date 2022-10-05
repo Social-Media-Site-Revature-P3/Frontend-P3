@@ -23,11 +23,13 @@ import { LikesComponent } from './components/likes/likes.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { PopupMsgComponent } from './components/popup-msg/popup-msg.component';
 import { CookieService } from 'ngx-cookie-service';
+import { ClickOutsideDirective } from './clickOutside.directive'
 import { BookmarkComponent } from './components/bookmark/bookmark.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FollowDialogComponent } from './components/follow-dialog/follow-dialog.component';
 import { FollowButtonComponent } from './components/follow-button/follow-button.component';
 import { PostComponent } from './components/post/post.component';
+import { SearchFeedComponent } from './components/search-feed/search-feed.component';
 
 
 @NgModule({
@@ -52,7 +54,9 @@ import { PostComponent } from './components/post/post.component';
     LikesComponent,
     BookmarkComponent,
     FollowDialogComponent,
-    FollowButtonComponent
+    FollowButtonComponent,
+    ClickOutsideDirective,
+    SearchFeedComponent,
   ],
   entryComponents: [FollowDialogComponent],
   imports: [

@@ -3,13 +3,19 @@
   <mat-card-header>
     <div mat-card-avatar class="header-image"  *ngIf="inputComment.user.profilePicture == null || inputComment.user.profilePicture==''" ></div>
     <img mat-card-avatar *ngIf="inputComment.user.profilePicture != null && inputComment.user.profilePicture!=''" class="header-image"  src="{{ inputComment.user.profilePicture }}">
-    <mat-card-title>{{user.firstName}} {{user.lastName}}</mat-card-title>
+    <mat-card-title class="name" [routerLink]="['/profile', this.inputComment.user.userId]"
+    [queryParams]="{id: this.inputComment.user.userId}">{{user.firstName}} {{user.lastName}} </mat-card-title>
     <mat-card-subtitle *ngIf="user.nickname != null">@{{user.nickname}}</mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content>
-    <p *ngIf="!editToComment">{{inputComment.text}}</p>
-    <img mat-card-image *ngIf="inputComment.imageUrl!=''" src="{{ inputComment.imageUrl }}" alt="Post Image">
+    <mat-card>
+      <p *ngIf="!editToComment">{{inputComment.text}}</p>
+    </mat-card>
+    <br><br>
+    <div align="center">
+      <img class="comment-picture" mat-card-image *ngIf="inputComment.imageUrl!=''" src="{{ inputComment.imageUrl }}" alt="Post Image">
+    </div>
     <div class="comment-reply" align="right" *ngIf="creatorUser">
       <form class="form" *ngIf="editToComment" [formGroup]="commentForm" (ngSubmit)="editReply($event)">
         <mat-form-field class="full-width" appearance="fill">
