@@ -36,6 +36,7 @@ export class PostFeedPageComponent implements OnInit {
       for(let follow of follows){
         this.postService.getByOriginalPost(follow.followedUser.userId).subscribe(response =>{
           this.posts = this.posts.concat(response)
+          console.log(response)
           this.posts.sort((a,b) => {
             return <any>new Date(b.createDateTime!) - <any>new Date(a.createDateTime!)
           })
