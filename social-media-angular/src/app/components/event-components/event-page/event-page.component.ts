@@ -1,7 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CookieService } from 'ngx-cookie-service';
-import { UserEvent } from 'src/app/interfaces/user-event';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Event } from 'src/app/interfaces/event';
+import { Post } from 'src/app/interfaces/post';
+import { EventService } from 'src/app/services/event.service';
+import { PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-event-page',
@@ -10,36 +12,38 @@ import { UserEvent } from 'src/app/interfaces/user-event';
 })
 export class EventPageComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<EventPageComponent>, private dialog: MatDialog, private cookieService: CookieService) { }
+  constructor(private activatedRouter: ActivatedRoute, private eventService: EventService, private postService: PostService) { }
+  eventId: number
 
-  userEvents: UserEvent[] = [{
-    user: {
-      userId: 0,
-      firstName: undefined,
-      lastName: undefined,
-      nickname: undefined,
-      profilePicture: undefined,
-      email: undefined
-    },
-    event: {
-      eventId: 0,
-      date: undefined,
-      group: undefined,
-      info: undefined,
-      inviteOnly: undefined,
-      name: undefined,
-      request: undefined,
-      time: undefined,
-      picture: undefined
-    },
-    creator: false,
-    admin: false
-  }]
-  //
-
-  ngOnInit(): void {
-    console.log(this.data.userEvents.user)
-    console.log(this.userEvents)
+  event: Event = {
+    picture: '',
+    date: '',
+    time: '',
+    info: '',
+    name: '',
+    inviteOnly: false,
+    request: false
   }
 
+  posts: Post[] = [{
+    text: '',
+    title: '',
+    imageUrl: '',
+    user: {
+      userId: 0
+    }
+  }]
+  
+  ngOnInit(): void {
+    this.eventId = this.activatedRouter.snapshot.params['eventId']
+    
+    this.eventService.getByEventId(this.eventId).subscribe((event) => {
+      this.event = event;
+    })
+
+    this.postService.getByEventId(this.eventId).subscribe((posts: Post[]) => {
+      this.posts = posts;
+      console.log(this.posts)
+    })
+  }
 }
