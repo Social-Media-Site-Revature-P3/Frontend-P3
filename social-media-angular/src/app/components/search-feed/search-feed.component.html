@@ -3,7 +3,7 @@
   <app-user-card style="position: fixed;"></app-user-card>
 </div>
 <div class="page-section">
-  <mat-nav-list *ngFor="let user of user; let i = index">
+  <mat-nav-list *ngFor="let user of users; let i = index">
     <a (click)="goToUserProfile(user.userId!);" [routerLink]="['/user']" [queryParams]="{id: user.userId}">
       <mat-card>
         <picture> <img class="search-image" [src]="user.profilePicture">
