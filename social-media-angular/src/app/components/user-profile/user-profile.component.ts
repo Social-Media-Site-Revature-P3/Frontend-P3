@@ -81,7 +81,7 @@ export class UserProfileComponent implements OnInit {
   });
   createPost: Post;
   userId: number = +this.cookieService.get('userId')
-  pageUserId = 9
+  pageUserId = 32
 
   dialog: MatDialog;
 
