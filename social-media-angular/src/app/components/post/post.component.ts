@@ -1,10 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup} from '@angular/forms';
 import { Follow } from 'src/app/interfaces/follow';
 import { Post } from 'src/app/interfaces/post';
-import { User } from 'src/app/interfaces/user';
 import { Comment } from 'src/app/interfaces/comment';
-import { AuthService } from 'src/app/services/auth.service';
 import { PostService } from 'src/app/services/post.service';
 import { Bookmark } from 'src/app/interfaces/bookmark';
 import { BookmarkService } from 'src/app/services/bookmark.service';
@@ -33,7 +31,6 @@ export class PostComponent implements OnInit {
  
   constructor(private cookieService: CookieService,
               private postService: PostService,
-              private authService: AuthService,
               private userService: UserService,
               private followService: FollowService,
               private bookMarkService: BookmarkService) {}
@@ -91,7 +88,9 @@ export class PostComponent implements OnInit {
 
 
   deleteComment = (comment: Post) => {
-    this.comments = this.comments.filter(x => x.postId !== comment.postId);}
+    this.comments = this.comments.filter(x => x.postId !== comment.postId);
+    this.editToPost = false;
+  }
 
   getComments=()=>{
     this.postService.getByComments(this.post.postId||1).subscribe((post)=> {
@@ -99,7 +98,7 @@ export class PostComponent implements OnInit {
     })
 
   }
-
+// 
   submitReply = (e: any) => {
     e.preventDefault()
     this.newPost.text = this.commentForm.value.text || "";
@@ -107,12 +106,17 @@ export class PostComponent implements OnInit {
     this.newPost.imageUrl= this.commentForm.value.imageUrl||"";
     this.newPost.user.userId = +this.cookieService.get('userId');
     this.newPost.comment = true;
+    this.commentForm.reset();
     this.postService.postPost(this.newPost).subscribe((response) => {
       this.newPost = response
       this.commentConnect.commentId = this.newPost.postId||0
       this.commentConnect.postId = this.post.postId||0
-      this.postService.postComment(this.commentConnect).subscribe( (response) => {this.getComments()})
+      this.postService.postComment(this.commentConnect).subscribe( (response) => {
+        this.newPost.postId = undefined
+        this.getComments()})
       this.toggleReplyToPost()
+
+      
     })
   }   
 
@@ -124,20 +128,23 @@ export class PostComponent implements OnInit {
     this.newPost.comment = false
     this.postService.updatePost(this.newPost, this.post.postId).subscribe((response) => {
       this.post.text = this.newPost.text
+      this.newPost.postId= undefined
       this.toggleEditToPost()
 
     })
+    
 
   }
 
   deletePost=()=>{
     this.postService.deletePost(this.post.postId).subscribe({
       next: data =>{
-      this.toggleEditToPost();
-      this.getComments();
-      this.commentForm.get('text')?.patchValue('')
-    },
-  })
+        this.toggleEditToPost();
+        this.getComments();
+        this.commentForm.get('text')?.patchValue('');
+        this.editToPost = false;
+      },
+    })
   }
 
   bookmarkPosts(bookmarkPostId: number): void

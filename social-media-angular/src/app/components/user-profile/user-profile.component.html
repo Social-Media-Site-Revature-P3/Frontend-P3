@@ -33,27 +33,42 @@
     </div>
 
     <div [ngClass]="['sidebyside', 'follow-button']" *ngIf="userId != pageUserId">
-        <app-follow-button [userId]="pageUserId" ></app-follow-button>
+        <app-follow-button [userId]="userId"></app-follow-button>
     </div>
 
     <div class="follow-button">
         <button mat-raised-button color="primary" [routerLink]="['/edit-profile']" *ngIf="userId == pageUserId">Edit Profile</button>
     </div>
 
-    <body class="user-profile-body">
+<body class="user-profile-body">
+ 
 
-        <div style="width: 800px; margin: 0 auto;" img class="postTextBox" *ngIf="userId == pageUserId">
-            <div class="background"><span><h2> {{user.firstName}} {{user.lastName}}</h2></span>
-                <form class="form" [formGroup]="postInput">
-                    <textarea #input name="postTitleTextBox" placeholder="Add a title to your post" cols="106" rows="2" maxlength="100" formControlName="title"></textarea>
-                    <div>{{input.value.length || 0}}/100</div>
+    <div style="width: 800px; margin: 0 auto;" *ngIf="showForm" img class="postTextBox">
+        <div class="background"><span><h2> {{user.firstName}} {{user.lastName}}</h2></span>
+        <form class="form" [formGroup]="postInput">
+        <textarea #input name="postTitleTextBox" placeholder="Add a title to your post" cols="106" rows="2" maxlength="100" formControlName="title"></textarea>
+        <div>{{input.value.length || 0}}/100</div>
+        <textarea #input2 name="postTextBox" placeholder="What's on your mind?" cols="106" rows="8" maxlength="255" formControlName="text"></textarea>
+        <div>{{input2.value.length || 0}}/255</div>
+        <textarea #input3 name="imageURLTextBox" placeholder="Add Image URL here" cols="106" rows="2" formControlName="imageUrl"></textarea>
+        <div class="submitButton"><button mat-raised-button color="button-color" (click)="submitPost()">Submit Your Post</button></div>
+    </form> 
 
-                    <textarea #input2 name="postTextBox" placeholder="What's on your mind?" cols="106" rows="8" maxlength="255" formControlName="text"></textarea>
-                    <div>{{input2.value.length || 0}}/255</div>
+    //<body class="user-profile-body">
 
-                    <textarea #input3 name="imageURLTextBox" placeholder="Add Image URL here" cols="106" rows="2" formControlName="imageUrl"></textarea>
-                    <div class="submitButton"><button mat-raised-button color="button-color" (click)="submitPost()">Submit Your Post</button></div>
-                </form> 
+        //<div style="width: 800px; margin: 0 auto;" img class="postTextBox" *ngIf="userId == pageUserId">
+            //<div class="background"><span><h2> {{user.firstName}} {{user.lastName}}</h2></span>
+                //<form class="form" [formGroup]="postInput">
+                    //<textarea #input name="postTitleTextBox" placeholder="Add a title to your post" cols="106" rows="2" maxlength="100" formControlName="title"></textarea>
+                    //<div>{{input.value.length || 0}}/100</div>
+
+                    //<textarea #input2 name="postTextBox" placeholder="What's on your mind?" cols="106" rows="8" maxlength="255" formControlName="text"></textarea>
+                    //<div>{{input2.value.length || 0}}/255</div>
+
+                    //<textarea #input3 name="imageURLTextBox" placeholder="Add Image URL here" cols="106" rows="2" formControlName="imageUrl"></textarea>
+                  //  <div class="submitButton"><button mat-raised-button color="button-color" (click)="submitPost()">Submit Your Post</button></div>
+                //</form> 
+
             </div>
         </div>
 

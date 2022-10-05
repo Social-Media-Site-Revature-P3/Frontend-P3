@@ -6,6 +6,7 @@ import { UserService } from 'src/app/services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-bar',
@@ -42,13 +43,9 @@ export class SearchBarComponent implements OnInit {
 
   constructor(private cookieService: CookieService, private userService: UserService, private route: ActivatedRoute) { }
 
-
   ngOnInit(): void {
     this.userId = +this.cookieService.get('userId');
   }
-
-
-
 
   searchUser() {
     let searchTerm = this.searchTerm.split(' ');
@@ -58,6 +55,7 @@ export class SearchBarComponent implements OnInit {
         this.name.firstName = searchTerm.toString();
         this.userService.GetUsersByName(this.name).subscribe((users: User[]) => {
           this.user = users;
+          console.log(users)
         })
       } else if (searchTerm.length == 2) {
         this.fullName.firstName = searchTerm.slice(0, 1).toString();
@@ -68,8 +66,8 @@ export class SearchBarComponent implements OnInit {
       }
     }
   }
+  
   searchRoute() {
-
         this.users$ = this.route.paramMap.pipe(
           switchMap(params => {
             this.searchTerm = String(params.get('name'));
@@ -83,10 +81,10 @@ export class SearchBarComponent implements OnInit {
   clickOutside() {
     this.showSearch = false;
   }
+
   hideSearch(): void{
     this.showSearch = false;
   }
   goToUserProfile(i: number) {
-
   }
 }

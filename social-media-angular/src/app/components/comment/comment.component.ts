@@ -7,7 +7,7 @@ import { UserService } from "../../services/user.service";
 import { Comment } from 'src/app/interfaces/comment';
 import { User } from 'src/app/interfaces/user';
 import { CookieService } from 'ngx-cookie-service';
-import { LocalService } from 'src/app/services/local-storage.service';
+
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
@@ -37,7 +37,6 @@ export class CommentComponent implements OnInit {
   @Output() delete: EventEmitter<Post> = new EventEmitter();
 
   constructor(private postService: PostService,
-              private authService: AuthService,
               private userService: UserService,
               private cookieService: CookieService) {
   }
@@ -134,7 +133,9 @@ export class CommentComponent implements OnInit {
           this.newPost = response
           this.commentConnect.commentId = this.newPost.postId||0
           this.commentConnect.postId = this.inputComment.postId||0
-          this.postService.postComment(this.commentConnect).subscribe( (response) => {this.getComments()})
+          this.postService.postComment(this.commentConnect).subscribe( (response) => {
+            this.newPost.postId= undefined
+            this.getComments()})
           this.toggleReplyToComment()
         }
       )
@@ -150,6 +151,7 @@ export class CommentComponent implements OnInit {
       this.newPost.user.userId = +this.cookieService.get('userId')
       this.postService.updatePost(this.newPost, this.inputComment.postId )
         .subscribe((response)=>{
+          this.newPost.postId= undefined
           this.toggleEditToComment()
         })
   }
