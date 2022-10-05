@@ -24,21 +24,21 @@ mat-card{
 }
 
 .page-section{
-  margin-top: 16%;
-    position: relative;
-    font-size: 65%;
-    line-height: 2.0;
-    background: rgb(255, 255, 255);
-    width: 60%;
+  margin-top: 275px;
+  position: relative;
+  font-size: 65%;
+  line-height: 2.0;
+  background: rgb(255, 255, 255);
+  width: 60%;
 }
 
 .search-image {
   position: relative;
-    width: 16%;
-    height: 98%;
-    top: 2.5%;
-    max-width: 150px;
-    max-height: 150px;
+  width: 16%;
+  height: 98%;
+  top: 2.5%;
+  max-width: 150px;
+  max-height: 150px;
 }
 
 
