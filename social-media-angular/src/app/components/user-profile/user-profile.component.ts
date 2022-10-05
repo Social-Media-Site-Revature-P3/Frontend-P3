@@ -10,6 +10,7 @@ import { Follow } from 'src/app/interfaces/follow';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { FollowService } from 'src/app/services/follow.service';
+import { LocalService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -23,16 +24,18 @@ export class UserProfileComponent implements OnInit {
   _router: Router;
   _postService: PostService;
   _followService: FollowService;
+  _localstorage: LocalService;
   currentUserId: number;  
 
   constructor(private authService: AuthService, public service: UserService, router: Router,
      public postService: PostService, public followService: FollowService, private cookieService: CookieService, 
-     private activatedRouter: ActivatedRoute) {
+     private activatedRouter: ActivatedRoute, private localService: LocalService) {
     this._authService = authService;
     this._userService = service;
     this._router = router;
     this._postService = postService;
     this._followService = followService;
+    this._localstorage = localService;
     }
 
   
@@ -79,33 +82,53 @@ export class UserProfileComponent implements OnInit {
     imageUrl: new FormControl('', [Validators.required])
   });
   createPost: Post;
-  userId: number;
-  pageUserId: number;
+
+  showForm = false;
+  userId: number = this.activatedRouter.snapshot.params['userId'];
+  pageUserId = +this.cookieService.get('userId');
 
   dialog: MatDialog;
 
   ngOnInit(): void {
-    this.userId = +this.cookieService.get('userId')
-    this.pageUserId = this.activatedRouter.snapshot.params['userId'];
-    // this.service.setPageUser(userId);
-    this.service.GetUser(this.pageUserId).subscribe(data => {
+    this.service.GetUser(this.userId).subscribe(data => {
       this.user = data;
     })
 
-    this._postService.getByOriginalPost(this.pageUserId).subscribe(data => {
-      this.posts = data;
-      this.posts.sort((a,b) => {
-        return <any>new Date(b.createDateTime!) - <any>new Date(a.createDateTime!)
+    this.activatedRouter.params.subscribe(params => {
+      console.log(params);
+      let userId = params['userId']
+      if (userId == this.userId){
+        this.showForm = true;
+      }else {
+        this.showForm = false;
+      }
+      console.log(userId) 
+
+
+      this.service.GetUser(userId).subscribe(data => {
+        this.user = data;
+        let newUserId = data.userId ? data.userId : this.userId;
+        this.userId = newUserId;
+      })
+  
+      this._postService.getByOriginalPost(userId).subscribe(data => {
+        this.posts = data;
+        this.posts.sort((a,b) => {
+          return <any>new Date(b.createDateTime!) - <any>new Date(a.createDateTime!)
+        })
+  
+        this._followService.TheyAreFollowing(this.userId).subscribe(data =>{
+          this.follower = data;
+        })
+  
+        this._followService.followThemAll(this.userId).subscribe(data => {
+          this.following = data;
+        })
       })
 
-      this._followService.TheyAreFollowing(this.pageUserId).subscribe(data =>{
-        this.follower = data;
-      })
 
-      this._followService.followThemAll(this.pageUserId).subscribe(data => {
-        this.following = data;
-      })
     })
+
   }
 
   submitPost(){

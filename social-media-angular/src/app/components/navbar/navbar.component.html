@@ -3,7 +3,7 @@
         <span [routerLink]="['/post-feed']" style="cursor: pointer;">Revvi</span> 
         <app-search-bar class="search-bar"></app-search-bar>
         <span class="spacer"></span>
-        <button mat-icon-button routerLink="/profile/{{userId}}" ><mat-icon>account_circle</mat-icon></button>
+        <button mat-icon-button (click)="reroute(userId)"><mat-icon>account_circle</mat-icon></button>
         <button mat-icon-button [routerLink]="['/bookmark-page']"><mat-icon>bookmark</mat-icon></button>
         <!-- theme swapper -->
         <button mat-icon-button (click)="swapTheme()">

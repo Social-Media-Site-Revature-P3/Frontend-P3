@@ -40,7 +40,6 @@ export class SearchBarComponent implements OnInit{
 
   constructor(private cookieService: CookieService, private userService: UserService) { }
 
-
   ngOnInit(): void {
     this.userId = +this.cookieService.get('userId');
   }
@@ -65,9 +64,6 @@ export class SearchBarComponent implements OnInit{
       }
     }
   }
-  searchRoute() {
-
-  }
 
   onClickShowSearch(): void {
     this.showSearch = true;
@@ -75,10 +71,10 @@ export class SearchBarComponent implements OnInit{
   clickOutside() {
     this.showSearch = false;
   }
+
   hideSearch(): void{
     this.showSearch = false;
   }
   goToUserProfile(i: number) {
-
   }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild,Input } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild,Input, } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { Follow } from 'src/app/interfaces/follow';
