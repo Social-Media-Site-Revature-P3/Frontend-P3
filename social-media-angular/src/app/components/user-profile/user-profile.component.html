@@ -47,8 +47,12 @@
     </div>
 
     <div [ngClass]="['sidebyside', 'follow-button']">
-      <app-group-button [userId]="userId" [firstName]="user.firstName"></app-group-button>
-  </div>
+        <app-group-button [userId]="userId" [firstName]="user.firstName"></app-group-button>
+    </div>
+
+    <div [ngClass]="['sidebyside', 'follow-button']" *ngIf="userId == pageUserId">
+        <app-invite-button [userId]="userId" [firstName]="user.firstName"></app-invite-button>
+    </div>
 
     <body class="user-profile-body">
         <div style="width: 800px; margin: 0 auto;" img class="postTextBox" *ngIf="userId == pageUserId">

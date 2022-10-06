@@ -43,7 +43,8 @@ import { EventMembersDialogComponent } from './components/event-components/event
 import { GroupRequestComponent } from './components/group-components/group-request/group-request.component';
 import { EventInviteComponent } from './components/event-components/event-invite/event-invite.component';
 import { EventFollowsComponent } from './components/event-components/event-follows/event-follows.component';
-
+import { InviteListComponent } from './components/invite-list/invite-list.component';
+import { InviteButtonComponent } from './components/invite-button/invite-button.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,8 @@ import { EventFollowsComponent } from './components/event-components/event-follo
     GroupRequestComponent,
     EventInviteComponent,
     EventFollowsComponent,
+    InviteListComponent,
+    InviteButtonComponent,
   ],
   entryComponents: [FollowDialogComponent],
   imports: [
