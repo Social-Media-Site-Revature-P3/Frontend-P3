@@ -1,19 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Name } from 'src/app/interfaces/name';
 import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.css']
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent implements OnInit, OnChanges {
 
 
   searchTerm: string = "";
@@ -38,13 +34,14 @@ export class SearchBarComponent implements OnInit {
     lastName: ''
   }
 
-  users$: Observable<User[]>
 
-
-  constructor(private cookieService: CookieService, private userService: UserService, private route: ActivatedRoute) { }
+  constructor(private cookieService: CookieService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.userId = +this.cookieService.get('userId');
+  }
+
+  ngOnChanges(): void {
   }
 
   searchUser() {
@@ -55,24 +52,17 @@ export class SearchBarComponent implements OnInit {
         this.name.firstName = searchTerm.toString();
         this.userService.GetUsersByName(this.name).subscribe((users: User[]) => {
           this.user = users;
-          console.log(users)
+          this.userService.userList.emit(this.user)
         })
       } else if (searchTerm.length == 2) {
         this.fullName.firstName = searchTerm.slice(0, 1).toString();
         this.fullName.lastName = searchTerm.slice(1, 1).toString();
         this.userService.GetUsersByFullName(this.fullName).subscribe((name: User[]) => {
           this.user = name;
+          this.userService.userList.emit(this.user)
         })
       }
     }
-  }
-  
-  searchRoute() {
-        this.users$ = this.route.paramMap.pipe(
-          switchMap(params => {
-            this.searchTerm = String(params.get('name'));
-            return this.userService.GetUsersByName(this.name);
-          }))
   }
 
   onClickShowSearch(): void {
@@ -86,5 +76,6 @@ export class SearchBarComponent implements OnInit {
     this.showSearch = false;
   }
   goToUserProfile(i: number) {
+
   }
 }

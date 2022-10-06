@@ -9,3 +9,8 @@
     max-height: 600px;
     align-items: center;
 }
+.name:hover{
+  text-decoration: underline;
+  color:rgb(255, 115, 0);
+  cursor: pointer;
+}
