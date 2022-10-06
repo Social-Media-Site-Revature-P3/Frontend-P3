@@ -1,0 +1,19 @@
+<app-navbar></app-navbar>
+<div class="sidebyside">
+  <app-user-card style="position: fixed;"></app-user-card>
+</div>
+<div class="page-section">
+  <mat-nav-list *ngFor="let user of feedUsers; let i = index">
+    <a (click)="goToUserProfile(user.userId!);" [routerLink]="['/profile', user.userId]"
+    [queryParams]="{id: user.userId}">
+      <mat-card>
+        <picture> <img class="search-image" [src]="user.profilePicture">
+          <div class="name"> {{user.firstName}} {{user.lastName}}</div>
+        </picture>
+        <app-follow-button class="follow-button"></app-follow-button>
+        <div class="nickname"> {{user.nickname}}</div>
+        <div class="aboutMe"> {{user.aboutMe}}</div>
+      </mat-card>
+    </a>
+  </mat-nav-list>
+</div>

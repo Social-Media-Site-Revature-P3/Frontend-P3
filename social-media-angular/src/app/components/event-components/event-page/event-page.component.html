@@ -1,0 +1,81 @@
+<app-navbar></app-navbar>
+<div class="user-profile-container">
+    <div class="sidebyside">
+        <mat-card class="user-profile-card">
+            <div *ngIf="event.picture; else userCircle"><img class="profilePicture" src="{{event.picture}}">
+            </div>
+            <ng-template #userCircle>
+                <div class="user-circle"></div>
+            </ng-template>
+            <mat-divider></mat-divider>
+            <p class="profile-card-text" style="padding-top: 1em; font-weight: bold; word-wrap: break-word;">
+                {{event.name}}
+            </p>            
+        </mat-card>
+    </div>
+
+    <div [ngClass]="['sidebyside', 'user-info-container']">
+        <div class="user-info-text">{{event.name}}</div>
+        <br>
+        <p style="text-decoration: underline;">Event Info</p>
+        
+        <div class="user-bio">
+            {{event.info}}
+        </div>
+        <br>
+        <p style="text-decoration: underline;">Our Glorious Leader:</p>
+        <div> 
+            {{userEvent.user.firstName}} {{userEvent.user.lastName}}
+        </div>
+    </div>
+    <div style="padding: 1em" [ngClass]="['sidebyside', 'user-stats']">
+        <p>{{posts.length}} Posts</p>
+    </div>
+    <div style="padding: 1em" [ngClass]="['sidebyside', 'user-stats']">
+        <app-event-members [eventId]="eventId"></app-event-members>
+    </div>
+   
+    <ng-container *ngIf="userEvent.user.userId != userId">
+        <div [ngClass]="['sidebyside', 'follow-button']" >
+                <app-event-request [event]="event"></app-event-request>
+        </div>
+    </ng-container>
+
+    <div [ngClass]="['sidebyside', 'follow-button']" >
+            <app-event-invite ></app-event-invite>
+    </div>
+       
+    <body class="user-profile-body">
+        <div style="width: 800px; margin: 0 auto;" img class="postTextBox">
+            <div class="background">
+                <span>
+                    <h2 class="name"> {{user.firstName}} {{user.lastName}}</h2>
+                </span>
+
+                <form class="form" [formGroup]="postInput">
+                    <textarea #input name="postTitleTextBox" placeholder="Add a title to your post" cols="106" rows="2" maxlength="100" formControlName="title"></textarea>
+                    <div>
+                        {{input.value.length || 0}}/100
+                    </div>
+
+                    <textarea #input2 name="postTextBox" placeholder="What's on your mind?" cols="106" rows="8" maxlength="255" formControlName="text"></textarea>
+
+                    <div>
+                        {{input2.value.length || 0}}/255
+                    </div>
+
+                    <textarea #input3 name="imageURLTextBox" placeholder="Add Image URL here" cols="106" rows="2" formControlName="imageUrl"></textarea>
+                    <div class="submitButton">
+                        <button mat-raised-button color="button-color" (click)="submitPost()">Submit Your Post</button>
+                    </div>
+                </form> 
+            </div>
+        </div>
+
+        <div style="margin: auto; "id="post-feed" *ngFor="let subPost of posts">
+            <ng-container *ngIf="subPost.event != null">
+                <app-post [post]="subPost"></app-post>
+            </ng-container>
+        </div>
+    </body> 
+</div>

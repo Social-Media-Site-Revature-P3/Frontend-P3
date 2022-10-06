@@ -3,6 +3,10 @@ import {FormControl, FormGroup, Validator, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { Register } from 'src/app/interfaces/register';
+import { SecurityQuestion } from 'src/app/interfaces/security-question';
+import { SecurityService } from 'src/app/services/security.service';
+import { FollowService } from 'src/app/services/follow.service';
+import { Follow } from 'src/app/interfaces/follow';
 
 @Component({
   selector: 'app-register',
@@ -15,17 +19,43 @@ export class RegisterComponent implements OnInit {
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)])
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    nickname: new FormControl(''),
+    securityQuestion: new FormControl('', [Validators.required]),
+    securityAnswer: new FormControl('', [Validators.required])
   })
 
   register: Register= {
     email:"",
     password:"",
     firstName: "",
-    lastName: ""
+    lastName: "",
+    nickname: "",
+    picture: ""
   }
 
-  constructor(private authService: AuthService, private router: Router) { }
+  securityQuestion: SecurityQuestion = {
+    questionId : undefined,
+    question : "",
+    answer : "",
+    user : {
+      userId: 0
+    }
+  }
+
+  follow: Follow = {
+    followedUser: {
+      userId: 0
+    },
+    followerUser: {
+      userId: 0
+    }
+  }
+  constructor(
+    private authService: AuthService,
+    private securityService: SecurityService,
+    private followService: FollowService,
+    private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -37,25 +67,33 @@ export class RegisterComponent implements OnInit {
         email: this.registerForm.value.email || "",
         password: this.registerForm.value.password || "",
         firstName: this.registerForm.value.firstName || "",
-        lastName: this.registerForm.value.lastName || ""
+        lastName: this.registerForm.value.lastName || "",
+        nickname: this.registerForm.value.nickname || "",
+        picture: "https://images.unsplash.com/photo-1628563694622-5a76957fd09c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aW5zdGFncmFtJTIwcHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
       }
-      this.authService.register(register)
+       this.authService.register(register)
         .subscribe(
           (response) => {
-            this.router.navigate(['login'])
+            let security: SecurityQuestion = {
+              question : this.registerForm.value.securityQuestion || "",
+              answer : this.registerForm.value.securityAnswer || "",
+              user : {
+                userId: response.userId || 0
+              }
+            }
+            this.securityService.createSecurityQuestion(security).subscribe({
+              next: data => { 
+                this.router.navigate(['login'])
+              }
+            })
+
+            this.follow.followedUser.userId = response.userId!;
+            this.follow.followerUser.userId = response.userId!;
+            this.followService.IWillFollow(this.follow).subscribe();
           }
         )
     }else {
       this.registerForm.markAllAsTouched();
     }
-
-//    e.preventDefault()
-//    this.authService.register(this.register)
-//      .subscribe(
-//        (response) => {
-//          this.router.navigate(['login'])
-//        }
-//      )
   }
-
 }

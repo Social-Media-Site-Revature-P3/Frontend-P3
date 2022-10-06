@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Post } from 'src/app/interfaces/post';
 import { PostService } from 'src/app/services/post.service';
 import { User } from 'src/app/interfaces/user';
 import { Like } from '../../interfaces/like'
 import {LikesService } from '../../services/likes.service'
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-likes',
@@ -13,14 +14,20 @@ import {LikesService } from '../../services/likes.service'
 })
 export class LikesComponent implements OnInit {
 
-  user: User =this.authService.currentUser;
+  foundIt: String = "false"
+  likePost : boolean = false
+  dislikePost : boolean = false
+  @Input('postId') postId : number 
 
-  likePost: boolean = false
-
-  constructor(private authService: AuthService, private likesService: LikesService, private postService: PostService) { }
+  constructor(private authService: AuthService, private likesService: LikesService, private postService: PostService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
+    this.foundIt= "false"
     this.getLikes()
+    if(this.foundIt!="false"){
+    if(this.foundIt=="like"){
+      this.toggleLikeComment()
+    }else{this.toggleDislikeComment()}}
   }
 
   newLike: Like = {
@@ -29,67 +36,122 @@ export class LikesComponent implements OnInit {
       postId: 0
     },
     user:{
-      userId: this.authService.currentUser.userId||0
+      userId: +this.cookieService.get('userId')
     }
   }
 
-  like: Like[] = [{
+  likes: Like[] = [{
     liked: true,
     post:{
       postId: 0
     },
     user: {
-      userId:  this.authService.currentUser.userId||0
+      userId:  +this.cookieService.get('userId')
   }
   }]
 
   dislikes: Like[] = [{
-    liked: true,
+    liked: false,
     post:{
       postId: 0
     },
     user: {
-      userId:  this.authService.currentUser.userId||0
+      userId:  +this.cookieService.get('userId')
   }
   }]
 
-  toggleLikeComment = () => {
-    this.likePost = true
+  toggleLikeComment  ()  {
+    if(this.dislikePost) {
+      this.toggleDislikeComment()
+    }
+    this.likePost = !this.likePost
+    console.log("DEBUG-LIKE", this.likePost)
   }
 
-  //getLikes=()=>{
-    //this.likesService.GetByPostId(this.postService.currentPost.postId || 0).subscribe((likes: Array<Like[]>)=>{
-      //for(let newLike of likes){
-        //if(this.newLike.liked){
-          //this.like = newLike
-        //}else{
-          //this.dislikes = newLike
-        //}
+  toggleDislikeComment  ()  {
+    if(this.likePost) {
+      this.toggleLikeComment()
+    }
+    this.dislikePost = !this.dislikePost
+    console.log("DEBUG-DISLIKE", this.likePost)
+  }
 
-    this.likesService.GetByPostId(8).subscribe((allLikesAndDislikes: Array<Like[]>)=>{
+  getLikes=()=>{
+    this.likesService.GetByPostId(this.postId).subscribe((allLikesAndDislikes: Array<Like[]>)=>{
       let allLikes = allLikesAndDislikes.slice(0, 1);
       let allDislikes = allLikesAndDislikes.slice(1);
       for(let likes of allLikes) {
         this.likes = likes;
+        for(let like of likes) {
+          if(like.user.userId == this.newLike.user.userId) {
+            this.newLike = like
+            this.foundIt="like"
+            // this.toggleLikeComment()
+          }
+        }
       }
       for(let dislikes of allDislikes){
+        for(let dislike of dislikes) {
+          if(dislike.user.userId == this.newLike.user.userId) {
+            this.newLike = dislike
+            this.foundIt="dislike"
+            // this.toggleDislikeComment()
+          }
+        }
         this.dislikes = dislikes;
       }
     })
   }
   
 //this.postService.currentPost.postId || 0
-  submitLike =(e:any) => {
-    this.newLike.liked = true;
-    this.newLike.post.postId = this.postService.currentPost.postId || 0
-    this.newLike.user.userId = this.authService.currentUser.userId || 0
-    this.likesService.CreateLike(this.newLike)
-    .subscribe(
-      (response) => {
-        this.newLike = response
-        this.likesService.CreateLike(this.newLike).subscribe((response)=> {this.getLikes()})
+  submitLike = (e : any) => {
+    if( this.likePost==false) {
+      this.newLike.liked = true;
+      this.newLike.post.postId = this.postId || 0
+      this.newLike.user.userId = + this.cookieService.get('userId')
+      this.likesService.CreateLike(this.newLike)
+      .subscribe(
+        (response) => {
+          this.newLike = response
+          //this.likesService.CreateLike(this.newLike).subscribe((response)=> {this.getLikes()})
+          this.getLikes()
+          this.toggleLikeComment()
+        }
+      )
+    } else if(this.likePost==true) {
+      this.deleteLike()
+    }
+  }
+
+  submitDislike = (e : any) => {
+    if(this.dislikePost ==false) {
+      this.newLike.liked = false;
+      this.newLike.post.postId = this.postId || 0
+      this.newLike.user.userId = + this.cookieService.get('userId')
+      this.likesService.CreateLike(this.newLike)
+      .subscribe(
+        (response) => {
+          this.newLike = response
+          // this.likesService.CreateLike(this.newLike).subscribe((response)=> {this.getLikes()})\
+          this.getLikes()
+          this.toggleDislikeComment()
+        }
+      )
+    } else if(this.dislikePost==true) {
+      this.deleteLike()
+    }
+  }
+
+  deleteLike() {
+    console.log("deleting like... This should be populated with the matching like ID: ", this.newLike.likeId, this.newLike);
+    this.likesService.DeleteLike(this.newLike.likeId || 0).subscribe(() => {
+      if(this.likePost == true) {
         this.toggleLikeComment()
+      } else {
+        if (this.dislikePost) {
+          this.toggleDislikeComment()
+        }
       }
-    )
+    })
   }
 }

@@ -3,9 +3,10 @@ import { Injectable } from '@angular/core';
 import { Observable , throwError} from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import {User} from '../interfaces/user';
+import { User } from '../interfaces/user';
 import { Register } from '../interfaces/register';
 import { Login } from '../interfaces/login';
+import UserModel from '../models/user-model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,20 +14,19 @@ import { Login } from '../interfaces/login';
 export class AuthService {
 
   authUrl: string = `${environment.baseUrl}/auth`;
-  currentUser: User;
+  currentUser: UserModel;
 
- // Http Headers
- httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json'
-  })
-}
+  // Http Headers
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
 
   constructor(private http: HttpClient) { }
 
-  login(login: Login): Observable<any> {
-    console.log(login)
-    const res = this.http.post<any>(`${this.authUrl}/login`,JSON.stringify(login), {headers: environment.headers, withCredentials: environment.withCredentials}).pipe(
+  login(login: Login): Observable<User> {
+    const res = this.http.post<User>(`${this.authUrl}/login`, JSON.stringify(login), {headers: environment.headers, withCredentials: environment.withCredentials}).pipe(
       retry(1),
       catchError(this.errorHandl)
     );

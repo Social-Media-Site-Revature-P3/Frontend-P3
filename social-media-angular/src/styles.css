@@ -1,4 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+.background {
+  background-color: white;
+}
+
+.darkMode .background {
+  background-color: #282125;
+}
+
 
 html,
 body {
@@ -10,7 +18,7 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   min-height: 100vh;
-  background: #e2e2e2;
+  background: #ffffff;
   transition: var(--transition-delay);
 }
 
@@ -24,6 +32,10 @@ body.darkMode {
   transition: var(--transition-delay);
 }
 
+.darkMode .user-profile-body {
+  background: #282125;
+}
+
 .app-header {
   justify-content: space-between;
   position: fixed;
@@ -34,31 +46,12 @@ body.darkMode {
   box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
 }
 
-/* DarkMode  */
-/* idk */
-.darkMode .app-header {
-  justify-content: space-between;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 2;
-  box-shadow: 0 3px 5px -1px rgba(23, 218, 5, 0.2), 0 6px 10px 0 rgba(3, 145, 38, 0.2), 0 1px 18px rgba(2, 146, 21, 0.2);
-}
-
 .login-wrapper {
   height: 100%;
 }
 .positronx {
   text-decoration: none;
   color: #ffffff;
-}
-
-/* DarkMode */
-/* idk */
-.darkMode .positronx {    
-  text-decoration: none;
-  color: #09e727;
 }
 
 .box {
@@ -172,7 +165,7 @@ body.darkMode {
   font-size: 30px;
   margin: 0;
 }
-.login-wrapper .mat-card {
+.login-wrapper .mat-card .mat-list-item{
   padding: 40px 70px 50px;
 }
 .login-wrapper .mat-stroked-button {
@@ -215,19 +208,6 @@ body.darkMode {
   background-size: cover;
 }
 
-/* DarkMode  */
-/* idk */
-.darkMode .user-circle {
-  width:10em;
-  height: 10em;
-  border-radius: 7em;
-      
-  border: 1px solid #bd1313;
-  margin-bottom: 1em;
-  background-image: url('./assets/images/favicon.png');
-  background-size: cover;
-}
-
 .user-circle-profile{
   width:10em;
   height: 10em;
@@ -241,6 +221,16 @@ body.darkMode {
 }
 
 /* this style will not chnge the transition time of the user card??? */
+.profilePicture {
+  border-radius: 7em;
+  border: 1px solid #888080;
+  width: 200px;
+  margin-bottom: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
 .user-card {
   width: 10em;
   text-align: center;
@@ -259,7 +249,11 @@ body.darkMode {
 }
 
 .full-width {
-  width: 100%
+  width: 75%
+}
+
+.darkMode .full-width {
+  width: 75%;
 }
 
 .header-image {
@@ -267,15 +261,6 @@ body.darkMode {
   background-size: cover;
 
   border: 1px solid #888080;
-}
-
-/* DarkMode  */
-/* idk */
-.darkMode .header-image {
-  background-image: url('./assets/images/favicon.png');
-  background-size: cover;
-
-  border: 1px solid #c90606;
 }
 
 #post-feed {
@@ -288,6 +273,10 @@ body.darkMode {
 }
 
 .form {
+  margin-bottom: 1em;
+}
+
+.darkMode .form {
   margin-bottom: 1em;
 }
 
@@ -304,7 +293,7 @@ body.darkMode {
   flex: 1 1 auto;
 }
 
-/* background color on the user profile card */
+/* background color on the user profile card on profile page*/
 .darkMode .mat-card.mat-focus-indicator.user-profile-card {
   background: #282125;
   transition: var(--transition-delay);
@@ -373,8 +362,6 @@ body.darkMode {
 }
 
 .user-stats {
-  padding: 1em;
-  margin-left: 1em;
   position: relative;
 }
 
@@ -407,7 +394,6 @@ body.darkMode {
   color: #191919;
   transition: var(--transition-delay);
 }
-/* darkMode for profile text */
 
 .follow-button {
   padding: 1em;
@@ -418,15 +404,124 @@ body.darkMode {
 .mat-button-color {
   background-color: #F26925;
   color: white;
+
   transition: var(--transition-delay);
 }
 
-/* hides file input in post feed page since the button cannot be styled properly */
-.file-input {
-  display: none;
+.mat-card.mat-focus-indicator {
+  background-color: #e2e2e2;
+  transition: var(--transition-delay);
 }
 
 /* /* post outline darkMode  */
 .darkMode .mat-card.mat-focus-indicator {
   background-color: #a5a4ac;
+  transition: var(--transition-delay);
 }
+
+/*search bar styling */
+div.searchbar {
+  transition: var(--transition-delay);
+}
+
+/* changes color around search bar */
+.darkMode div.searchbar {
+  background-color: #F26925;
+  border-color: #6e6e6e3f;
+  transition: var(--transition-delay);
+}
+
+input.search-input {
+  transition: var(--transition-delay);
+}
+
+.darkMode .search-input {
+  background-color: #a5a4ac;
+  transition: var(--transition-delay);
+}
+
+.darkMode .search-icon {
+  background-color: #F26925;
+  transition: var(--transition-delay);
+}
+
+button.search-icon {
+  transition: var(--transition-delay);
+}
+/*end of styling for search bar*/
+
+/* stlye for post on profile page */
+/* styling for text areas */
+.darkMode .profile-textArea {
+  background-color: #a5a4ac;
+  transition: var(--transition-delay);
+}
+
+/* styling for background colors */
+.postTextBox{
+  border: 50px solid rgb(117, 161, 209);
+  border-bottom: rgb(117 161 209);
+  border-radius: 20px;
+  transition: var(--transition-delay);
+}
+
+.darkMode .postTextBox {
+  border: 50px solid #b14b0744;
+  border-bottom: #b14b0744;
+  border-radius: 20px;
+  transition: var(--transition-delay);
+}
+
+.background{
+  background-color: rgb(117, 161, 209);
+  display: block;
+  transition: var(--transition-delay);
+}
+
+.darkMode div.background {
+  background-color: #b14b0744;
+  display: block;
+  transition: var(--transition-delay);
+}
+
+.submitButton{
+  text-align: right;
+  background-color: rgb(117, 161, 209);
+  display: block;
+  transition: var(--transition-delay);
+}
+
+.darkMode .submitButton{
+  text-align: right;
+  background-color: #b14b0700;
+  display: block;
+  transition: var(--transition-delay);
+}
+
+.darkMode .profile-post-textArea {
+  background-color: #a5a4ac;
+  transition: var(--transition-delay);
+}
+/*end of style for post on profile page */
+
+/* removes underline from some text areas */
+/* doesn't really fix anything, just makes more problems atm */
+/* .mat-form-field {
+  margin-bottom: -1.25em;
+}
+
+.darkMode .mat-form-field {
+  margin-bottom: -1.25em;
+  padding-bottom: -10px;
+} */
+
+.mat-card-content {
+  word-wrap: break-word;
+}
+
+/* search bar input */
+.darkMode .input {
+  background-color: #a5a4ac;
+  transition: var(--transition-delay);
+}
+

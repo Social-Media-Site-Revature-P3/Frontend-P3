@@ -1,0 +1,26 @@
+app-search-bar{
+}
+
+.navbar .search-bar {
+  width: 100%;
+}
+
+.navbar {
+  position: absolute;
+  position: fixed;
+  top: 0%;
+  width: 100%;
+  z-index: 1;
+}
+
+.revvi:hover{
+  color: white;
+  cursor: pointer;
+  background-color: rgb(255, 115, 0);
+  margin: 20px;
+}
+.revvi{
+  width: 60px;
+  border-radius: 5px;
+  font-size: 24px;
+}
