@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     // if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
     //   document.body.classList.add("darkMode");
     // }
-    localStorage.setItem("isDark", "0");
+    sessionStorage.setItem("isDark", "0");
   }
 
   onSubmit(e: any): void {

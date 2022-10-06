@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit{
-  isDark = localStorage.getItem("isDark");
+  isDark = sessionStorage.getItem("isDark");
 
   userId:number =0;
   
