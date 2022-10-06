@@ -17,6 +17,7 @@ export class EventButtonComponent implements OnInit {
 
   @Input('userId') userId: number;
   @Input('firstName') firstName: string;
+  @Input('pageUser') pageUserId: number;
 
   constructor(private cookieService: CookieService, private userEventService: UserEventService, private activateRoute: ActivatedRoute, private dialog: MatDialog) { }
 
@@ -45,7 +46,6 @@ export class EventButtonComponent implements OnInit {
   }]
 
   ngOnInit(): void {
-    this.userId = this.activateRoute.snapshot.params['userId'];
   }
 
   myEvents() {
@@ -58,9 +58,12 @@ export class EventButtonComponent implements OnInit {
       dialogConfig.width = "80%";  
       dialogConfig.data = {
         userEvents: this.userEvents, 
-        firstName: this.firstName};
+        firstName: this.firstName,
+        pageUserId: this.pageUserId,
+        userId: this.userId};
       let dialogRef = this.dialog.open(EventListComponent, dialogConfig)  
     })
   }
 
+  
 }

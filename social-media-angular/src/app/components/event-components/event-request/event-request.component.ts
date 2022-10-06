@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Event } from 'src/app/interfaces/event';
@@ -18,7 +18,10 @@ export class EventRequestComponent implements OnInit {
   userId: number;
   eventId: number;
 
+  @Input('event') event: Event
+
   userEvent: UserEvent = {
+    userEventId: undefined,
     user: {
       userId: 0,
     },
@@ -30,20 +33,34 @@ export class EventRequestComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userId = +this.cookieService.get('userId')
-    this.eventId = this.activatedRoute.snapshot.params['eventId']
-    this.userEventService.getByUserId(this.userId).subscribe((events: UserEvent[]) => {
-      console.log(events)
+    this.userEvent.user.userId = +this.cookieService.get('userId')
+    this.userEvent.event.eventId = this.activatedRoute.snapshot.params['eventId']
+    this.getEventByUserId();
+    
+  }
+
+  getEventByUserId()   {
+    this.userEventService.getByUserId(this.userEvent.user.userId).subscribe((events: UserEvent[]) => {
       for(let event of events) {
-        if(event.event.eventId == this.eventId) {
+        if(event.event.eventId == this.userEvent.event.eventId) {
           this.joined = true;
+          this.userEvent = event;
         }
       }
     })
   }
 
   joinEvent() {
-
+    this.userEventService.createUserEvent(this.userEvent).subscribe((event) => {
+      this.joined = true;
+      this.userEvent = event;
+      this.getEventByUserId();
+    })
   }
 
+  leaveEvent() {
+    this.userEventService.deleteByUserEventId(this.userEvent.userEventId!).subscribe(() => {
+      this.joined = false;
+    })
+  }
 }
