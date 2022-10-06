@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -20,7 +20,7 @@ export class EventPageComponent implements OnInit {
 
   constructor(private activatedRouter: ActivatedRoute, private eventService: EventService, private postService: PostService, private userEventService: UserEventService,
               private userService: UserService, private cookieService: CookieService) { }
-  
+
   eventId: number
   userId: number = +this.cookieService.get('userId')
 
@@ -124,11 +124,11 @@ export class EventPageComponent implements OnInit {
     text: new FormControl('', [Validators.required]),
     imageUrl: new FormControl('', [Validators.required])
   });
-  
+
   ngOnInit(): void {
     this.eventId = this.activatedRouter.snapshot.params['eventId']
     this.userId = +this.cookieService.get('userId')
-    
+
     this.eventService.getByEventId(this.eventId).subscribe((event) => {
       this.event = event;
     })
@@ -152,7 +152,7 @@ export class EventPageComponent implements OnInit {
       this.posts.sort((a,b) => {
         return <any>new Date(b.createDateTime!) - <any>new Date(a.createDateTime!)
       })
-      
+
     })
 
     this.userEventService.getByEventId(this.eventId).subscribe(userEvents => {

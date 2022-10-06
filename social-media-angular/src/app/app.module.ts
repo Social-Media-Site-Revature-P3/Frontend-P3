@@ -41,6 +41,9 @@ import { NewEventComponent } from './components/event-components/new-event/new-e
 import { EventMembersComponent } from './components/event-components/event-members/event-members.component';
 import { EventMembersDialogComponent } from './components/event-components/event-members-dialog/event-members-dialog.component';
 import { GroupRequestComponent } from './components/group-components/group-request/group-request.component';
+import { NewGroupComponent } from './components/group-components/new-group/new-group.component';
+import { GroupMembersComponent } from './components/group-components/group-members/group-members.component';
+import { GroupMembersDialogComponent } from './components/group-components/group-members-dialog/group-members-dialog.component';
 
 
 @NgModule({
@@ -79,6 +82,9 @@ import { GroupRequestComponent } from './components/group-components/group-reque
     EventMembersComponent,
     EventMembersDialogComponent,
     GroupRequestComponent,
+    NewGroupComponent,
+    GroupMembersComponent,
+    GroupMembersDialogComponent,
   ],
   entryComponents: [FollowDialogComponent],
   imports: [

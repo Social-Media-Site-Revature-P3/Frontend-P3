@@ -47,7 +47,7 @@
     </div>
 
     <div [ngClass]="['sidebyside', 'follow-button']">
-      <app-group-button [userId]="userId" [firstName]="user.firstName"></app-group-button>
+      <app-group-button [userId]="userId" [firstName]="user.firstName" [pageUser]="pageUserId"></app-group-button>
   </div>
 
     <body class="user-profile-body">
@@ -79,7 +79,7 @@
 
         <div style="margin: auto; "id="post-feed" *ngFor="let subPost of posts">
             <ng-container *ngIf="subPost.event == null">
-               <app-post [post]="subPost"></app-post> 
+               <app-post [post]="subPost"></app-post>
             </ng-container>
         </div>
     </body>

@@ -18,3 +18,18 @@
   background-color: rgb(117, 161, 209);
   display: block;
 }
+
+.form{
+  position: relative;
+  bottom: 20px;
+}
+
+.name{
+  position: relative;
+  bottom: 20px;
+}
+
+.mat-typography h2 {
+  font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+  letter-spacing: normal;
+}
