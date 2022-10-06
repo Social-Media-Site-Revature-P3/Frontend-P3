@@ -35,13 +35,11 @@
         <app-event-members [eventId]="eventId"></app-event-members>
     </div>
    
-
-    <div [ngClass]="['sidebyside', 'follow-button']" >
-        <ng-container *ngIf="userEvent.creator != true">
-            <app-event-request [event]="event"></app-event-request>
-        </ng-container>
-    </div>
-    
+    <ng-container *ngIf="userEvent.user.userId != userId">
+        <div [ngClass]="['sidebyside', 'follow-button']" >
+                <app-event-request [event]="event"></app-event-request>
+        </div>
+    </ng-container>
        
     <body class="user-profile-body">
         <div style="width: 800px; margin: 0 auto;" img class="postTextBox">

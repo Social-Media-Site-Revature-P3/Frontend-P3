@@ -22,7 +22,7 @@ export class EventPageComponent implements OnInit {
               private userService: UserService, private cookieService: CookieService) { }
   
   eventId: number
-  userId: number
+  userId: number = +this.cookieService.get('userId')
 
   event: Event = {
     picture: '',
@@ -139,9 +139,11 @@ export class EventPageComponent implements OnInit {
 
     this.userEventService.getByUserId(this.userId).subscribe(userEvents => {
       for(let userEvent of userEvents) {
-        if(+this.cookieService.get('userId') == userEvent.user.userId) {
+        if(this.userId == userEvent.user.userId) {
           this.currentUserEvent == userEvent;
+          console.log(this.currentUserEvent)
         }
+        console.log(userEvent)
       }
     })
 

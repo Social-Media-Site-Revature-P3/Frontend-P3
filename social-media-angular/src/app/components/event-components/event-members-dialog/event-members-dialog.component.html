@@ -18,7 +18,7 @@
             </ng-container>
 
             <ng-container matColumnDef="follow">
-                <th mat-header-cell *matHeaderCellDef="">Cancel Event</th>
+                <th mat-header-cell *matHeaderCellDef=""></th>
                 <td mat-cell *matCellDef="let userEvent">
                     <ng-container *ngIf="userEvent.user.userId != userId">
                         <app-follow-button [userId]="userEvent.user.userId"></app-follow-button>
