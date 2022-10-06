@@ -37,7 +37,7 @@
     </ng-template>
     
     <div id="post-feed" *ngFor="let post of posts" style="width: 75%;">
-        <ng-container *ngIf="post.event == null">
+        <ng-container *ngIf="post.event == null && post.group == null">
             <app-post [post]="post"></app-post>
         </ng-container>
     </div>

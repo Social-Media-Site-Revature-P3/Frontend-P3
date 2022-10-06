@@ -83,7 +83,7 @@
         </div>
 
         <div style="margin: auto; "id="post-feed" *ngFor="let subPost of posts">
-            <ng-container *ngIf="subPost.event == null">
+            <ng-container *ngIf="subPost.event == null && subPost.group == null">
                <app-post [post]="subPost"></app-post>
             </ng-container>
         </div>
