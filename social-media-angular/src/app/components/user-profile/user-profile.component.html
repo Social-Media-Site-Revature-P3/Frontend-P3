@@ -14,7 +14,7 @@
             <p class="profile-card-text" style="word-wrap: break-word;">
                 {{user.email}}
             </p>
-            
+
         </mat-card>
     </div>
 
@@ -37,21 +37,25 @@
             <app-follow-button [userId]="userId"></app-follow-button>
         </ng-container>
     </div>
-    
+
     <div class="follow-button">
         <button mat-raised-button color="primary" [routerLink]="['/edit-profile']" *ngIf="userId == pageUserId">Edit Profile</button>
     </div>
-    
+
     <div [ngClass]="['sidebyside', 'follow-button']">
         <app-event-button [userId]="userId" [firstName]="user.firstName" [pageUser]="pageUserId"></app-event-button>
     </div>
 
+    <div [ngClass]="['sidebyside', 'follow-button']">
+      <app-group-button [userId]="userId" [firstName]="user.firstName"></app-group-button>
+  </div>
+
     <body class="user-profile-body">
         <div style="width: 800px; margin: 0 auto;" img class="postTextBox" *ngIf="userId == pageUserId">
             <div class="background">
-                <span>
-                    <h2> {{user.firstName}} {{user.lastName}}</h2>
-                </span>
+                <div>
+                    <h2  class = "name"> {{user.firstName}} {{user.lastName}}</h2>
+                </div>
 
                 <form class="form" [formGroup]="postInput">
                     <textarea #input name="postTitleTextBox" placeholder="Add a title to your post" cols="106" rows="2" maxlength="100" formControlName="title"></textarea>
@@ -69,7 +73,7 @@
                     <div class="submitButton">
                         <button mat-raised-button color="button-color" (click)="submitPost()">Submit Your Post</button>
                     </div>
-                </form> 
+                </form>
             </div>
         </div>
 
@@ -78,6 +82,6 @@
                <app-post [post]="subPost"></app-post> 
             </ng-container>
         </div>
-    </body> 
-    
+    </body>
+
 </div>

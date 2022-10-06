@@ -16,5 +16,14 @@
 
 .background{
     background-color: rgb(117, 161, 209);
-    display: block; 
+    display: block;
+}
+.form{
+  position: relative;
+  bottom: 20px;
+}
+
+.name{
+  position: relative;
+  bottom: 20px;
 }

@@ -489,4 +489,5 @@ button.search-icon {
 
 .mat-card-content {
   word-wrap: break-word;
+  margin-top: 1%;
 }
