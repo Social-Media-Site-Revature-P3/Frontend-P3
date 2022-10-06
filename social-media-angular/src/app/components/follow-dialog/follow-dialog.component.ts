@@ -29,9 +29,7 @@ export class FollowDialogComponent implements OnInit {
   // this is where our click buttons and routing 
   
   display(userId: number): void
-  {
-    console.log("DISPLAY UserID: ", userId)
-    
+  {    
     this.onNoClick();
 
     this.router.navigate(['/profile/', userId], { replaceUrl: true })

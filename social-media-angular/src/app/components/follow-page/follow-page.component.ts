@@ -81,7 +81,7 @@ export class FollowPageComponent implements OnInit, OnChanges {
           this.currentUserDisplay = user;
           console.log("user profile", this.currentUserDisplay)
 
-          this.followTitle = this.currentUserDisplay.firstName + "'s Following";
+          this.followTitle = this.currentUserDisplay.firstName + "'s Follows";
           // the people who this user is following 
           // need to be with in the display thingy : followHeader: string = ""; 
           const dialogDisplay = this.dialog.open(FollowDialogComponent, {
