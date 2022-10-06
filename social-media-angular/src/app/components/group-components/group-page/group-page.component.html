@@ -17,34 +17,35 @@
     <div [ngClass]="['sidebyside', 'user-info-container']">
         <div class="user-info-text">{{group.name}}</div>
         <br>
-        <div class="about-group">{{group.about}}
+        <p style="text-decoration: underline;">Group Info</p>
+
+        <div class="user-bio">
+            {{group.about}}
+        </div>
+        <br>
+        <p style="text-decoration: underline;">Our Glorious Leader:</p>
+        <div>
+            {{userGroup.user.firstName}} {{userGroup.user.lastName}}
         </div>
     </div>
     <div style="padding: 1em" [ngClass]="['sidebyside', 'user-stats']">
         <p>{{posts.length}} Posts</p>
     </div>
-
-    <!-- <div style="padding: 1em" [ngClass]="['sidebyside', 'user-stats']">
-        <app-follow-page [userId]="this.user.userId!"></app-follow-page>
-    </div> -->
-
-    <div [ngClass]="['sidebyside', 'follow-button']" >
-        <app-group-request></app-group-request>
+    <div style="padding: 1em" [ngClass]="['sidebyside', 'user-stats']">
+        <app-group-members [groupId]="groupId"></app-group-members>
     </div>
 
-    <!-- <div class="follow-button">
-        <button mat-raised-button color="primary" [routerLink]="['/edit-profile']" *ngIf="userId == pageUserId">Edit Profile</button>
-    </div>
-
-    <div [ngClass]="['sidebyside', 'follow-button']">
-        <app-group-button [userId]="userId" [firstName]="user.firstName"></app-group-button>
-    </div>
+    <ng-container *ngIf="userGroup.user.userId != userId">
+        <div [ngClass]="['sidebyside', 'follow-button']" >
+                <app-group-request [group]="group"></app-group-request>
+        </div>
+    </ng-container>
 
     <body class="user-profile-body">
-        <div style="width: 800px; margin: 0 auto;" img class="postTextBox" *ngIf="userId == pageUserId">
+        <div style="width: 800px; margin: 0 auto;" img class="postTextBox">
             <div class="background">
                 <span>
-                    <h2> {{user.firstName}} {{user.lastName}}</h2>
+                    <h2 class="name"> {{user.firstName}} {{user.lastName}}</h2>
                 </span>
 
                 <form class="form" [formGroup]="postInput">
@@ -68,8 +69,9 @@
         </div>
 
         <div style="margin: auto; "id="post-feed" *ngFor="let subPost of posts">
-            <app-post [post]="subPost"></app-post>
+            <ng-container *ngIf="subPost.group != null">
+                <app-post [post]="subPost"></app-post>
+            </ng-container>
         </div>
     </body>
-
-</div> -->
+</div>

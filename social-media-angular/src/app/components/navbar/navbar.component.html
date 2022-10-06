@@ -1,6 +1,6 @@
 <p class="navbar">
     <mat-toolbar>
-        <span [routerLink]="['/post-feed']" style="cursor: pointer;">Revvi</span> 
+        <div class="revvi" [routerLink]="['/post-feed']">Revvi</div>
         <app-search-bar class="search-bar"></app-search-bar>
         <span class="spacer"></span>
         <button mat-icon-button (click)="reroute(userId)"><mat-icon>account_circle</mat-icon></button>
@@ -15,8 +15,8 @@
             12.42L18.94,9.64L22.28,9.88L20.08,12.42M9.63,18.93L12.4,20.08L9.87,22.27L9.63,18.93Z" />
         </svg>
         </button>
-        
-       
+
+
         <button mat-button (click)="logout();">Logout</button>
     </mat-toolbar>
 </p><br><br><br>

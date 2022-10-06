@@ -45,6 +45,9 @@ import { EventInviteComponent } from './components/event-components/event-invite
 import { EventFollowsComponent } from './components/event-components/event-follows/event-follows.component';
 import { InviteListComponent } from './components/invite-list/invite-list.component';
 import { InviteButtonComponent } from './components/invite-button/invite-button.component';
+import { NewGroupComponent } from './components/group-components/new-group/new-group.component';
+import { GroupMembersComponent } from './components/group-components/group-members/group-members.component';
+import { GroupMembersDialogComponent } from './components/group-components/group-members-dialog/group-members-dialog.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +85,9 @@ import { InviteButtonComponent } from './components/invite-button/invite-button.
     EventMembersComponent,
     EventMembersDialogComponent,
     GroupRequestComponent,
+    NewGroupComponent,
+    GroupMembersComponent,
+    GroupMembersDialogComponent,
     EventInviteComponent,
     EventFollowsComponent,
     InviteListComponent,

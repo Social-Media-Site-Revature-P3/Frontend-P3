@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Group } from 'src/app/interfaces/group';
@@ -11,6 +11,9 @@ import { UserGroupService } from 'src/app/services/user-group.service';
   styleUrls: ['./group-request.component.css']
 })
 export class GroupRequestComponent implements OnInit {
+
+  @Input('group') group: Group
+
   constructor(private cookieService: CookieService, private userGroupService: UserGroupService, private activatedRoute: ActivatedRoute) {}
 
   joined: boolean = false;
@@ -20,28 +23,55 @@ export class GroupRequestComponent implements OnInit {
   userGroup: UserGroup = {
     user: {
       userId: 0,
-    },
-    group: {
-      groupId: 0,
-    },
-    creator: false,
-    admin: false
-  }
+      firstName: '',
+      lastName: '',
+      nickname: '',
+      profilePicture: '',
+      email: '',
+  },
+  group: {
+    groupId: 0,
+    picture: '',
+    name: '',
+    inviteOnly: false,
+    request: false,
+    about: ''
+  },
+  creator: false,
+  admin: false,
+}
+
 
   ngOnInit(): void {
-    this.userId = +this.cookieService.get('userId')
-    this.groupId = this.activatedRoute.snapshot.params['groupId']
-    this.userGroupService.getByUserId(this.userId).subscribe((groups: UserGroup[]) => {
-      console.log(groups)
+    this.userGroup.user.userId = +this.cookieService.get('userId')
+    this.userGroup.group.groupId = this.activatedRoute.snapshot.params['groupId']
+    this.getGroupByUserId();
+
+
+  }
+
+  getGroupByUserId()   {
+    this.userGroupService.getByUserId(this.userGroup.user.userId).subscribe((groups: UserGroup[]) => {
       for(let group of groups) {
-        if(group.group.groupId == this.groupId) {
+        if(group.group.groupId == this.userGroup.group.groupId) {
           this.joined = true;
+          this.userGroup = group;
         }
       }
     })
   }
 
   joinGroup() {
+    this.userGroupService.createUserGroup(this.userGroup).subscribe((group) => {
+      this.joined = true;
+      this.userGroup = group;
+      this.getGroupByUserId();
+    })
+  }
 
+  leaveGroup() {
+    this.userGroupService.deleteByUserGroupId(this.userGroup.userGroupId!).subscribe(() => {
+      this.joined = false;
+    })
   }
 }

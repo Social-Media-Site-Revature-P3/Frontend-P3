@@ -1,6 +1,6 @@
 <!-- Display search bar -->
 <div class="searchbar" clickOutside (clickOutside)="clickOutside()">
-  <button class="search-icon" (click)="searchUser()" [routerLink]="['/search-feed']">Search!</button>
+  <button mat-raised-button class="search-icon" (click)="searchUser()" [routerLink]="['/search-feed']">Search!</button>
   <input name="searchTerm" type="text" class="input"placeholder="Find a Friend!" [(ngModel)]="searchTerm"
     (keyup)="searchUser()" (click)="onClickShowSearch()" />
   <div class="search-result" *ngIf="showSearch" >
@@ -20,4 +20,4 @@
       </ng-container>
     </div>
   </div>
-</div> 
+</div>

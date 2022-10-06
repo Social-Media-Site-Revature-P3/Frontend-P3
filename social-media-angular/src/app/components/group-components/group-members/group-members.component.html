@@ -1,0 +1,6 @@
+<div style="margin-left: 25px;;"[ngClass]="['sidebyside', 'user-stats']">
+  <p>{{userGroups.length}}</p>
+</div>
+<div [ngClass]="['sidebyside', 'user-stats']">
+      <p (click)="displayMembers();" style="cursor: pointer; text-decoration: underline; margin-left: 5px;">Members</p>
+</div>
