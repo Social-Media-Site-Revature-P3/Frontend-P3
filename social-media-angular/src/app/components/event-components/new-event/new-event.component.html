@@ -1,3 +1,4 @@
+<button mat-button mat-icon-button aria-label="Clear" (click)="close()" style="float: right;"></button>
 <h1 style="text-align: center;">New Event!</h1>
 <mat-grid-list cols="1" rowHeight="600px">
     <mat-grid-tile>
@@ -69,13 +70,6 @@
                 <mat-label>Event Photo</mat-label>
                 <input matInput [(ngModel)]="event.picture">
             </mat-form-field>
-
-            <mat-radio-group aria-label="Select an option" [(ngModel)]="invite" >
-                <mat-radio-button value="invite" (click)="inviteOrRequest();">Invite Only</mat-radio-button>
-                <br><br>
-                <mat-radio-button value="request">Request Only</mat-radio-button>
-            </mat-radio-group>
-
             <button mat-raised-button color="primary" style="float: right;" (click)="submit();">Create Event</button>
         </div>
     </mat-grid-tile>

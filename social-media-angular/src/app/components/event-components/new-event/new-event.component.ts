@@ -86,6 +86,10 @@ export class NewEventComponent implements OnInit {
 
   }
 
+  close() {
+    this.dialogRef.close();
+  }
+
 
 
 }
