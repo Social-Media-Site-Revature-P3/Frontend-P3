@@ -7,38 +7,41 @@
       <mat-card-content>
         <mat-form-field class="full-width">
           <input matInput placeholder="Email" formControlName="email">
+          <mat-error *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.hasError('required')">
+            This field is <strong>required</strong>
+          </mat-error >
+          <mat-error *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.hasError('email')">
+            This email is not <strong>valid</strong>
+          </mat-error>
         </mat-form-field>
-        <strong class="error" *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.hasError('required'); else emailError">
-          This field is required
-        </strong>
+        
+        
         <ng-template #emailError>
-          <strong class="error" *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.hasError('email')">
-            This email is not valid
-          </strong>
+          
         </ng-template>
         <mat-form-field class="full-width">
           <input matInput placeholder="Password" type="password" formControlName="password">
+          <mat-error *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.hasError('required')">
+            This field is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.hasError('minLength')">
+            This password is not <strong>val</strong>
+          </mat-error>
         </mat-form-field>
-        <strong class="error" *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.hasError('required'); else passwordError">
-          This field is required
-        </strong>
-        <ng-template #passwordError>
-          <strong class="error" *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.hasError('minLength')">
-            This password is not valid
-          </strong>
-        </ng-template>
+          
         <mat-form-field class="full-width">
           <input matInput placeholder="First Name" formControlName="firstName">
+          <mat-error *ngIf="registerForm.get('firstName')?.touched && registerForm.get('firstName')?.hasError('required')">
+            This field is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
-        <strong class="error" *ngIf="registerForm.get('firstName')?.touched && registerForm.get('firstName')?.hasError('required')">
-          This field is required
-        </strong>
         <mat-form-field class="full-width">
           <input matInput placeholder="Last Name" formControlName="lastName">
+          <mat-error *ngIf="registerForm.get('lastName')?.touched && registerForm.get('lastName')?.hasError('required')">
+            This field is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
-        <strong class="error" *ngIf="registerForm.get('lastName')?.touched && registerForm.get('lastName')?.hasError('required')">
-          This field is required
-        </strong>
+
         <mat-form-field class="full-width">
           <input matInput placeholder="Handle" formControlName="nickname">
         </mat-form-field>
@@ -54,10 +57,10 @@
           </mat-form-field>
         <mat-form-field class="full-width">
           <input matInput placeholder="Security Answer" formControlName="securityAnswer">
+          <mat-error *ngIf="registerForm.get('securityAnswer')?.touched && registerForm.get('securityAnswer')?.hasError('required')">
+            This field is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
-        <strong class="error" *ngIf="registerForm.get('securityAnswer')?.touched && registerForm.get('securityAnswer')?.hasError('required')">
-          This field is required
-        </strong>
       </mat-card-content>
       <button mat-stroked-button color="accent" class="btn-block" type="submit">Register</button>
     </form>

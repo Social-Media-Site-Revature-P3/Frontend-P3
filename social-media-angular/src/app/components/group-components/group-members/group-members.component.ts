@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ import { GroupMembersDialogComponent } from '../group-members-dialog/group-membe
   templateUrl: './group-members.component.html',
   styleUrls: ['./group-members.component.css']
 })
-export class GroupMembersComponent implements OnInit {
+export class GroupMembersComponent implements OnInit, OnChanges {
 
   @Input('groupId') groupId: number;
 
@@ -65,9 +65,14 @@ export class GroupMembersComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnChanges() {
+    this.displayCount();
+  }
+
   displayCount() {
     this.userGroupService.getBygroupId(this.groupId).subscribe(userGroups => {
       this.userGroups = userGroups;
+      console.log(this.userGroups)
       for(let userGroup of userGroups) {
         let i: number = 0;
         if(i < 1) {

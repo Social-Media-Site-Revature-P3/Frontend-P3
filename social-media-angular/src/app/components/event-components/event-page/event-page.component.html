@@ -46,7 +46,7 @@
     </div>
        
     <body class="user-profile-body">
-        <div style="width: 800px; margin: 0 auto;" img class="postTextBox">
+        <div style="width: 800px; margin: 0 auto;" img class="postTextBox" *ngIf="joined == true">
             <div class="background">
                 <span>
                     <h2 class="name"> {{user.firstName}} {{user.lastName}}</h2>

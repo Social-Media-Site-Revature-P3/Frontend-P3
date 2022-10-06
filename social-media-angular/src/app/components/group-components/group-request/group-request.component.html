@@ -1,2 +1,2 @@
-<button mat-raised-button color="primary" *ngIf="joined == false">Join Group</button>
-<button mat-raised-button color="primary" *ngIf="joined == true">Leave Group</button>
+<button mat-raised-button color="primary" (click)="joinGroup();" *ngIf="joined == false">Join Group</button>
+<button mat-raised-button color="primary" (click)="leaveGroup();" *ngIf="joined == true">Leave Group</button>

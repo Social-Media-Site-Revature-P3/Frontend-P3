@@ -23,6 +23,7 @@ export class EventPageComponent implements OnInit {
 
   eventId: number
   userId: number = +this.cookieService.get('userId')
+  joined: boolean = false;
 
   event: Event = {
     picture: '',
@@ -141,6 +142,7 @@ export class EventPageComponent implements OnInit {
       for(let userEvent of userEvents) {
         if(this.userId == userEvent.user.userId) {
           this.currentUserEvent == userEvent;
+          this.joined = true;
           console.log(this.currentUserEvent)
         }
         console.log(userEvent)
