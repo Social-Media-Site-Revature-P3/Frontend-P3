@@ -30,7 +30,24 @@ import { FollowDialogComponent } from './components/follow-dialog/follow-dialog.
 import { FollowButtonComponent } from './components/follow-button/follow-button.component';
 import { PostComponent } from './components/post/post.component';
 import { SearchFeedComponent } from './components/search-feed/search-feed.component';
-
+import { EventButtonComponent } from './components/event-components/event-button/event-button.component';
+import { EventPageComponent } from './components/event-components/event-page/event-page.component';
+import { EventListComponent } from './components/event-components/event-list/event-list.component';
+import { GroupButtonComponent } from './components/group-components/group-button/group-button.component';
+import { GroupPageComponent } from './components/group-components/group-page/group-page.component';
+import { GroupListComponent } from './components/group-components/group-list/group-list.component';
+import { EventRequestComponent } from './components/event-components/event-request/event-request.component';
+import { NewEventComponent } from './components/event-components/new-event/new-event.component';
+import { EventMembersComponent } from './components/event-components/event-members/event-members.component';
+import { EventMembersDialogComponent } from './components/event-components/event-members-dialog/event-members-dialog.component';
+import { GroupRequestComponent } from './components/group-components/group-request/group-request.component';
+import { EventInviteComponent } from './components/event-components/event-invite/event-invite.component';
+import { EventFollowsComponent } from './components/event-components/event-follows/event-follows.component';
+import { InviteListComponent } from './components/invite-list/invite-list.component';
+import { InviteButtonComponent } from './components/invite-button/invite-button.component';
+import { NewGroupComponent } from './components/group-components/new-group/new-group.component';
+import { GroupMembersComponent } from './components/group-components/group-members/group-members.component';
+import { GroupMembersDialogComponent } from './components/group-components/group-members-dialog/group-members-dialog.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +74,24 @@ import { SearchFeedComponent } from './components/search-feed/search-feed.compon
     FollowButtonComponent,
     ClickOutsideDirective,
     SearchFeedComponent,
+    EventButtonComponent,
+    EventPageComponent,
+    EventListComponent,
+    GroupButtonComponent,
+    GroupPageComponent,
+    GroupListComponent,
+    EventRequestComponent,
+    NewEventComponent,
+    EventMembersComponent,
+    EventMembersDialogComponent,
+    GroupRequestComponent,
+    NewGroupComponent,
+    GroupMembersComponent,
+    GroupMembersDialogComponent,
+    EventInviteComponent,
+    EventFollowsComponent,
+    InviteListComponent,
+    InviteButtonComponent,
   ],
   entryComponents: [FollowDialogComponent],
   imports: [

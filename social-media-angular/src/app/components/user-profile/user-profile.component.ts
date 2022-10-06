@@ -102,7 +102,7 @@ export class UserProfileComponent implements OnInit {
       }else {
         this.showForm = false;
       }
-      console.log(userId) 
+      
 
 
       this.service.GetUser(userId).subscribe(data => {
@@ -140,6 +140,8 @@ export class UserProfileComponent implements OnInit {
           userId: +this.cookieService.get('userId')
     }
   }
-    this._postService.postPost(this.createPost).subscribe((res: any)=> {console.log(res)})
+    this._postService.postPost(this.createPost).subscribe((res: any)=> {
+      this.posts = [res, ...this.posts]
+    })
   }
 }

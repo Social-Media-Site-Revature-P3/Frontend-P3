@@ -9,4 +9,10 @@ export interface Post {
     user: {
         userId: number
     }
+    event?: {
+        eventId: number;
+    }
+    group?: {
+        groupId: number;
+    }
 }

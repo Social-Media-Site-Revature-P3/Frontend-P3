@@ -1,0 +1,30 @@
+.profilePicture{
+    width: 10em;
+    height: 10em;
+}
+.postTextBox{
+    border: 50px solid rgb(117, 161, 209);
+    border-bottom: rgb(117 161 209);
+    border-radius: 20px;
+}
+
+.submitButton{
+    text-align: right;
+    background-color: rgb(117, 161, 209);
+    display: block;
+}
+
+.background{
+    background-color: rgb(117, 161, 209);
+    display: block; 
+}
+
+.form{
+    position: relative;
+    bottom: 20px;
+}
+  
+.name{
+    position: relative;
+    bottom: 20px;
+}

@@ -1,0 +1,23 @@
+<h1 style="text-align: center;">New Group!</h1>
+<mat-grid-list cols="1" rowHeight="600px">
+    <mat-grid-tile>
+        <div class="example-container">
+            <mat-form-field appearance="fill" class="width-100">
+                <mat-label>Name of Group</mat-label>
+                <input matInput [(ngModel)]="group.name">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="width-100">
+                <mat-label>Group Info</mat-label>
+                <textarea matInput [(ngModel)]="group.about" rows=8></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="width-100">
+                <mat-label>Group Photo</mat-label>
+                <input matInput [(ngModel)]="group.picture">
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" style="float: right;" (click)="submit();">Create Group</button>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>
