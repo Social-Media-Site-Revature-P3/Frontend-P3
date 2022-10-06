@@ -75,7 +75,4 @@ export class SearchBarComponent implements OnInit, OnChanges {
   hideSearch(): void{
     this.showSearch = false;
   }
-  goToUserProfile(i: number) {
-
-  }
 }

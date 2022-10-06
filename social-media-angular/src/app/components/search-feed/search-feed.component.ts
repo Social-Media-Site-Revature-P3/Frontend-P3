@@ -1,9 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild,Input, } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Input } from '@angular/core';
 
 import { CookieService } from 'ngx-cookie-service';
 import { Name } from 'src/app/interfaces/name';
 import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
+import { EventService } from 'src/app/services/event.service';
 
 @Component({
   selector: 'app-search-feed',
@@ -44,10 +45,13 @@ fullName : Name = {
           this.feedUsers = users
         }
       );
+      // this.eventService.eventList
+      // .subscribe(
+      //   (users: User[]) => {
+      //     this.feedUsers = users
+      //   }
+      // );
   }
 
 
-  goToUserProfile(i: number){
-
-  }
 }
