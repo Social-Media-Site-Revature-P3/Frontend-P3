@@ -1,4 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+.background {
+  background-color: white;
+}
+
+.darkMode .background {
+  background-color: #282125;
+}
+
 
 html,
 body {
@@ -10,7 +18,7 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   min-height: 100vh;
-  background: #e2e2e2;
+  background: #ffffff;
   transition: var(--transition-delay);
 }
 
@@ -443,24 +451,24 @@ button.search-icon {
 /*end of styling for search bar*/
 
 /* stlye for post on profile page */
-.darkMode .ng-untouched.ng-pristine.ng-valid {
+/* styling for text areas */
+.darkMode .profile-textArea {
   background-color: #a5a4ac;
   transition: var(--transition-delay);
 }
 
-.darkMode .ng-untouched.ng-dirty.ng-valid {
-  background-color: #a5a4ac;
-  transition: var(--transition-delay);
-}
-
-.darkMode textarea.ng-valid.ng-dirty.ng-touched {
-  background-color: #a5a4ac;
-  transition: var(--transition-delay);
-}
-
+/* styling for background colors */
 .postTextBox{
   border: 50px solid rgb(117, 161, 209);
-  border-radius: 25px;
+  border-bottom: rgb(117 161 209);
+  border-radius: 20px;
+  transition: var(--transition-delay);
+}
+
+.darkMode .postTextBox {
+  border: 50px solid #b14b0744;
+  border-bottom: #b14b0744;
+  border-radius: 20px;
   transition: var(--transition-delay);
 }
 
@@ -470,23 +478,49 @@ button.search-icon {
   transition: var(--transition-delay);
 }
 
-.darkMode .postTextBox{
-  border: 50px solid #b14b0744;
-  border-radius: 25px;
+.darkMode div.background {
+  background-color: #b14b0744;
+  display: block;
   transition: var(--transition-delay);
 }
 
-.darkMode div.background {
-  background-color: #b14b0744;
+.submitButton{
+  text-align: right;
+  background-color: rgb(117, 161, 209);
+  display: block;
+  transition: var(--transition-delay);
+}
+
+.darkMode .submitButton{
+  text-align: right;
+  background-color: #b14b0700;
+  display: block;
+  transition: var(--transition-delay);
+}
+
+.darkMode .profile-post-textArea {
+  background-color: #a5a4ac;
   transition: var(--transition-delay);
 }
 /*end of style for post on profile page */
 
 /* removes underline from some text areas */
-.darkMode .mat-form-field-subscript-wrapper {
-  display: none;
+/* doesn't really fix anything, just makes more problems atm */
+/* .mat-form-field {
+  margin-bottom: -1.25em;
 }
+
+.darkMode .mat-form-field {
+  margin-bottom: -1.25em;
+  padding-bottom: -10px;
+} */
 
 .mat-card-content {
   word-wrap: break-word;
+}
+
+/* search bar input */
+.darkMode .input {
+  background-color: #a5a4ac;
+  transition: var(--transition-delay);
 }

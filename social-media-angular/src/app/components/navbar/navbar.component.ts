@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { Subscription } from 'rxjs';
+import { ConnectableObservable, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 
@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit{
-  private isDark = false;
+  isDark = sessionStorage.getItem("isDark");
 
   userId:number =0;
   
@@ -20,6 +20,13 @@ export class NavbarComponent implements OnInit{
   ngOnInit(): void {
     this.userId = +this.cookieService.get('userId');
     // this.userId = currentuserId;
+
+    // checking if darkmode is enabled from the start
+    if (sessionStorage.getItem("isDark") == "1") {
+      document.body.classList.add("darkMode");
+    } else {
+      document.body.classList.remove("darkMode");
+    }
   }
 
   ngOnDestroy() {
@@ -31,8 +38,18 @@ export class NavbarComponent implements OnInit{
     this.router.navigate(['login']);
   }
 
+  // swapTheme() {
+  //   document.body.classList.toggle("darkMode");
+  // }
+
   swapTheme() {
-      document.body.classList.toggle("darkMode");
+    if (sessionStorage.getItem("isDark") == "0") {
+      document.body.classList.add("darkMode");
+      sessionStorage.setItem("isDark", "1");
+    } else {
+      document.body.classList.remove("darkMode");
+      sessionStorage.setItem("isDark", "0");
+    }
     }
 
     reroute(id: number):void
