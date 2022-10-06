@@ -10,6 +10,8 @@ import { FollowPageComponent } from './components/follow-page/follow-page.compon
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { SearchFeedComponent } from './components/search-feed/search-feed.component';
+import { EventPageComponent } from './components/event-components/event-page/event-page.component';
+import { GroupPageComponent } from './components/group-components/group-page/group-page.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "/login", pathMatch: "full" },
@@ -22,7 +24,9 @@ const routes: Routes = [
   { path: "edit-profile", component: EditProfileComponent},
   { path: "likes", component: LikesComponent },
   { path: "forgetpassword", component: ChangePasswordComponent},
-  { path: "search-feed", component: SearchFeedComponent}
+  { path: "search-feed", component: SearchFeedComponent},
+  { path: "event-page/:eventId", component: EventPageComponent},
+  { path: "group-page/:groupId", component: GroupPageComponent}
 ];
 
 @NgModule({

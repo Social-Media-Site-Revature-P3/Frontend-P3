@@ -1,0 +1,36 @@
+<button mat-button mat-icon-button aria-label="Clear" (click)="close()" style="float: right;"></button>
+<mat-grid-list cols="2" rowHeight="600px">
+    <mat-grid-tile >
+        <div>
+            <h1>Group Invites</h1>
+            <div *ngFor="let group of data.groupInvites; let i = index">
+                
+                <div>
+                    <h3 class="invite">{{group.groupInviter.firstName}} {{group.groupInviter.lastName}} has invited you to join </h3>
+                    <h3 class="invite" (click)="displayGroup(group.group.groupId)" style="cursor: pointer; color: blue; margin-left: 5px;">{{group.group.name}}!</h3>
+                    <button mat-mini-fab class="invite" (click)="declineGroup(group.groupInviteId, i);" color="primary" style="margin-left: 5px; float: right"><mat-icon>cancel</mat-icon></button>
+                    <button mat-mini-fab class="invite" (click)="acceptGroup(group.newGroupMember.userId, group.group.groupId, group.groupInviteId, i);" color="primary" style="margin-left: 5px; float: right"><mat-icon>check</mat-icon></button>
+                    
+                </div>
+
+            </div>
+        </div>
+
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <div>
+            <h1>Event Invites</h1>
+            <div *ngFor="let event of data.eventInvites; let i = index">
+                
+                <div>
+                    <h3 class="invite">{{event.eventInviter.firstName}} {{event.eventInviter.lastName}} has invited you to join </h3>
+                    <h3 class="invite" (click)="displayEvent(event.event.eventId)" style="cursor: pointer; color: blue; margin-left: 5px;">{{event.event.name}}!</h3>
+                    <button mat-mini-fab class="invite" (click)="declineEvent(event.eventInviteId, i);" color="primary" style="margin-left: 5px; float: right"><mat-icon>cancel</mat-icon></button>
+                    <button mat-mini-fab class="invite" (click)="acceptEvent(event.newEventMember.userId, event.event.eventId, event.eventInviteId, i);" color="primary" style="margin-left: 5px; float: right"><mat-icon>check</mat-icon></button>
+                    
+                </div>
+
+            </div>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>

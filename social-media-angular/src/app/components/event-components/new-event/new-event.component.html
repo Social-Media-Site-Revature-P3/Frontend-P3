@@ -1,0 +1,76 @@
+<button mat-button mat-icon-button aria-label="Clear" (click)="close()" style="float: right;"></button>
+<h1 style="text-align: center;">New Event!</h1>
+<mat-grid-list cols="1" rowHeight="600px">
+    <mat-grid-tile>
+        <div class="example-container">
+            <mat-form-field appearance="fill" class="width-100">
+                <mat-label>Name of Event</mat-label>
+                <input matInput [(ngModel)]="event.name">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" style="width: 20%">
+                <mat-label>Day</mat-label>
+                <mat-select [(value)]="day">
+                    <ng-container *ngFor="let i of countDays">
+                        <mat-option value="{{i}}">{{i}}</mat-option>
+                    </ng-container>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="ml-2" style="width: 20%">
+                <mat-label>Month</mat-label>
+                <mat-select [(value)]="month">
+                    <ng-container *ngFor="let i of countMonths">
+                        <mat-option value="{{i}}">{{i}}</mat-option>
+                    </ng-container>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="ml-2" style="width: 20%">
+                <mat-label>Year</mat-label>
+                <mat-select [(value)]="year">
+                    <ng-container *ngFor="let i of countYears">
+                        <mat-option value="{{i}}">{{i}}</mat-option>
+                    </ng-container>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="ml-2" style="width: 10%">
+                <mat-label>Hour</mat-label>
+                <mat-select [(value)]="hours">
+                    <ng-container *ngFor="let i of countHours">
+                        <mat-option value="{{i}}">{{i}}</mat-option>
+                    </ng-container>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="ml-2" style="width: 10%">
+                <mat-label>Minutes</mat-label>
+                <mat-select [(value)]="minutes">
+                    <ng-container *ngFor="let i of countMinutes">
+                        <mat-option value="{{i}}">{{i}}</mat-option>
+                    </ng-container>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="ml-2" style="width: 10%">
+                <mat-label>AM/PM</mat-label>
+                <mat-select [(value)]="time">
+                    <mat-option value="AM">AM</mat-option>
+                    <mat-option value="AM">PM</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="width-100">
+                <mat-label>Info</mat-label>
+                <textarea matInput [(ngModel)]="event.info" rows=8></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="width-100">
+                <mat-label>Event Photo</mat-label>
+                <input matInput [(ngModel)]="event.picture">
+            </mat-form-field>
+            <button mat-raised-button color="primary" style="float: right;" (click)="submit();">Create Event</button>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>

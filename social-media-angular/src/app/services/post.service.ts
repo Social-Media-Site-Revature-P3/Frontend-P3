@@ -34,6 +34,22 @@ export class PostService {
     )
   }
 
+  getByGroupId(groupId: number): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.postUrl}` + "group/" + groupId, {headers: environment.headers, withCredentials: environment.withCredentials})
+    .pipe(
+      retry(1),
+      catchError(this.errorHandl)
+    )
+  }
+
+  getByEventId(eventId: number): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.postUrl}` + "event/" + eventId, {headers: environment.headers, withCredentials: environment.withCredentials})
+    .pipe(
+      retry(1),
+      catchError(this.errorHandl)
+    )
+  }
+
   getByOriginalPost(userId: number): Observable<Post[]> {
     return this.http.get<Post[]>(`${this.postUrl}` + "post/" + userId, {headers: environment.headers, withCredentials: environment.withCredentials})
     .pipe(

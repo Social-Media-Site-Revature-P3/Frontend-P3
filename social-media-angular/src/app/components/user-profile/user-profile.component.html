@@ -14,7 +14,7 @@
             <p class="profile-card-text" style="word-wrap: break-word;">
                 {{user.email}}
             </p>
-            
+
         </mat-card>
     </div>
 
@@ -29,23 +29,38 @@
     </div>
 
     <div style="padding: 1em" [ngClass]="['sidebyside', 'user-stats']">
-        <app-follow-page [userId]="this.user.userId!"> </app-follow-page>
+        <app-follow-page [userId]="this.user.userId!"></app-follow-page>
     </div>
 
-    <div [ngClass]="['sidebyside', 'follow-button']" *ngIf="userId != pageUserId">
-        <app-follow-button [userId]="userId"></app-follow-button>
+    <div [ngClass]="['sidebyside', 'follow-button']" >
+        <ng-container *ngIf="userId != pageUserId">
+            <app-follow-button [userId]="userId"></app-follow-button>
+        </ng-container>
     </div>
 
     <div class="follow-button">
         <button mat-raised-button color="primary" [routerLink]="['/edit-profile']" *ngIf="userId == pageUserId">Edit Profile</button>
     </div>
 
+    <div [ngClass]="['sidebyside', 'follow-button']">
+        <app-event-button [userId]="userId" [firstName]="user.firstName" [pageUser]="pageUserId"></app-event-button>
+    </div>
+
+    <div [ngClass]="['sidebyside', 'follow-button']">
+        <app-group-button [userId]="userId" [firstName]="user.firstName" [pageUser]="pageUserId"></app-group-button>
+    </div>
+
+    <div [ngClass]="['sidebyside', 'follow-button']" *ngIf="userId == pageUserId">
+        <app-invite-button [userId]="userId" [firstName]="user.firstName"></app-invite-button>
+    </div>
+      
+
     <body class="user-profile-body">
         <div style="width: 800px; margin: 0 auto;" img class="postTextBox" *ngIf="userId == pageUserId">
             <div class="background">
-                <span>
-                    <h2> {{user.firstName}} {{user.lastName}}</h2>
-                </span>
+                <div>
+                    <h2  class = "name"> {{user.firstName}} {{user.lastName}}</h2>
+                </div>
 
                 <form class="form" [formGroup]="postInput">
                     <textarea class="profile-textArea" #input name="postTitleTextBox" placeholder="Add a title to your post" cols="106" rows="2" maxlength="100" formControlName="title"></textarea>
@@ -63,13 +78,15 @@
                     <div class="submitButton">
                         <button mat-raised-button color="button-color" (click)="submitPost()">Submit Your Post</button>
                     </div>
-                </form> 
+                </form>
             </div>
         </div>
 
         <div style="margin: auto; "id="post-feed" *ngFor="let subPost of posts">
-            <app-post [post]="subPost"></app-post>
+            <ng-container *ngIf="subPost.event == null">
+               <app-post [post]="subPost"></app-post>
+            </ng-container>
         </div>
-    </body> 
-    
+    </body>
+
 </div>
